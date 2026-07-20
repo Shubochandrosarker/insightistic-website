@@ -77,8 +77,20 @@ Defaults: `https://app.insightistic.com` — change in **Customize → Insightis
 ## Formistic forms
 
 Form areas degrade gracefully: if Formistic isn't active, a clear message shows
-instead. Map each area to a Formistic form id in **Customize → Forms**. Areas:
-`contact`, `newsletter`, `agency`, `ltd`, `early_access`, `support`.
+instead. Areas: `contact`, `newsletter`, `agency`, `ltd`, `early_access`,
+`support`.
+
+`contact` and `newsletter` always use Formistic's fixed shortcodes — nothing
+to configure. The other four (`agency`, `ltd`, `early_access`, `support`) are
+Formistic builder forms; **as soon as both this theme and Formistic are
+active** (in either order), `inc/formistic-provisioning.php` auto-creates all
+four with real fields/copy and fills in their Customizer slot — an admin
+never has to build them by hand first. It's idempotent (`ensure_form()` in
+Formistic keys off a stored identifier, not the title, so renaming or
+re-running never duplicates a form) and never overwrites a slot an admin has
+already set manually. Override the generated fields/copy via the
+`insightistic_formistic_form_definitions` filter, or just pick a different
+form from the dropdown in **Customize → Forms** afterward.
 
 ```php
 insightistic_formistic_form( 'contact', 'Send us a message' );
