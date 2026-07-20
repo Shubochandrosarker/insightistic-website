@@ -45,20 +45,30 @@ Attributes → Template):
 
 | Page | Template |
 |---|---|
+| Home (front page) | *(automatic — `front-page.php`, 14-section landing)* |
 | Pricing (`/pricing`) | Pricing |
 | Features (`/features`) | Features |
 | Contact (`/contact`) | Contact |
 | About (`/about`) | About |
+| Why Insightistic (`/why-insightistic`) | Why Insightistic |
 | Integrations (`/integrations`) | Integrations |
 | WooCommerce Analytics (`/woocommerce-analytics`) | WooCommerce Analytics |
+| Traffic Analytics (`/traffic-analytics`) | Traffic Analytics |
+| SEO Analytics (`/seo-analytics`) | SEO Analytics |
+| Performance Monitoring (`/performance-monitoring`) | Performance Monitoring |
 | AI Insights (`/ai-insights`) | AI Insights |
 | Reports (`/reports`) | Reports |
+| Security (`/security`) | Security |
 | Agency (`/agency`) | Agency |
 | Lifetime Deal (`/lifetime-deal`) | Lifetime Deal |
+| Changelog (`/changelog`) | Changelog |
+| Blog index | *(automatic — Settings → Reading → Posts page)* |
 | Privacy Policy (`/privacy-policy`) | Privacy Policy |
 | Terms (`/terms`) | Terms |
 
-The blog index is whatever you set under **Settings → Reading → Posts page**.
+20 pages total (Home + 18 templated pages + the blog index, which uses no
+dedicated template of its own). The blog index is whatever you set under
+**Settings → Reading → Posts page**.
 
 ## App routing
 
