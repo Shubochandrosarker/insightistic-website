@@ -23,6 +23,7 @@ $insightistic_modules = array(
 	'/inc/security.php',       // hardening + safe output helpers
 	'/inc/helpers.php',        // app URL, Formistic, pricing data, brand links
 	'/inc/formistic-provisioning.php', // auto-creates the 4 builder forms (spec §16.3)
+	'/inc/seo.php',            // canonical + Open Graph/Twitter meta, resource hints
 	'/inc/template-tags.php',  // reusable output (breadcrumbs, meta, pagination)
 	'/inc/cpt.php',            // optional testimonial CPT
 	'/inc/customizer.php',     // site-owner editable options
