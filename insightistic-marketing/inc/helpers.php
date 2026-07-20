@@ -66,40 +66,129 @@ function insightistic_dashboard_url() {
 
 /* -------------------------------------------------------------------------
  * Formistic integration (contact / newsletter / lead forms)
+ *
+ * Formistic v2.0.5 registers three real shortcodes — not the
+ * `[formistic_form]` this theme used to call, which has never existed:
+ *   - wpistic_contact_form        ready-made contact form, no id needed
+ *   - wpistic_formistic_newsletter  email capture, no id needed
+ *   - wpistic_form id="N"         a custom builder form (formistic_form CPT)
+ * 'contact' and 'newsletter' always use the two fixed shortcodes above.
+ * Every other logical slug is a custom builder form, configured in the
+ * Customizer as a dropdown of real Formistic forms (not free-text) that
+ * resolves to a validated numeric post ID.
  * ---------------------------------------------------------------------- */
 
-/** Is the Formistic plugin active and exposing its shortcode? */
+/** Is the Formistic plugin active at all? */
 function insightistic_formistic_active() {
-	return shortcode_exists( 'formistic_form' ) || function_exists( 'formistic_render_form' );
+	return class_exists( 'Wpistic_Formistic' ) || shortcode_exists( 'wpistic_contact_form' );
 }
 
 /**
- * Render a Formistic form by logical slug, with a safe fallback.
- * Each logical slug (contact, newsletter, agency, ltd, early_access, support)
- * maps to a Formistic form id, overridable in the Customizer.
+ * Resolve a Customizer-configured builder-form slug to a real, safe post ID.
+ * Returns null unless the post exists, is published, and is a formistic_form.
  *
- * @param string $slug  Logical form slug.
+ * @param string $slug Logical form slug (e.g. 'agency', 'ltd').
+ */
+function insightistic_formistic_builder_form_id( $slug ) {
+	$form_id = (int) insightistic_option( 'insightistic_form_' . $slug, 0 );
+
+	if ( $form_id <= 0 ) {
+		return null;
+	}
+	if ( 'formistic_form' !== get_post_type( $form_id ) ) {
+		return null;
+	}
+	if ( 'publish' !== get_post_status( $form_id ) ) {
+		return null;
+	}
+
+	return $form_id;
+}
+
+/**
+ * Render a Formistic form by logical slug, with safe, honest fallbacks.
+ * Never shows visitors a technical error — only current_user_can()
+ * admins see the setup instructions; everyone else sees nothing or a
+ * neutral message, never raw shortcode/plugin diagnostics.
+ *
+ * @param string $slug  Logical form slug: 'contact', 'newsletter', or a
+ *                       Customizer-configured builder-form slug.
  * @param string $title Optional heading rendered above the form.
  */
 function insightistic_formistic_form( $slug, $title = '' ) {
-	$form_id = insightistic_option( 'insightistic_form_' . $slug, $slug );
-
 	echo '<div class="ins-form ins-form--' . esc_attr( $slug ) . '">';
 
 	if ( $title ) {
 		echo '<h3 class="ins-form__title">' . esc_html( $title ) . '</h3>';
 	}
 
-	if ( insightistic_formistic_active() ) {
-		// do_shortcode output is rendered by Formistic, which escapes its own markup.
-		echo do_shortcode( '[formistic_form id="' . esc_attr( $form_id ) . '"]' );
+	if ( ! insightistic_formistic_active() ) {
+		insightistic_formistic_missing_notice(
+			__( 'Formistic is required to display this form. Install and activate the Formistic plugin.', 'insightistic-marketing' )
+		);
+		echo '</div>';
+		return;
+	}
+
+	if ( 'contact' === $slug && shortcode_exists( 'wpistic_contact_form' ) ) {
+		echo do_shortcode( '[wpistic_contact_form]' );
+	} elseif ( 'newsletter' === $slug && shortcode_exists( 'wpistic_formistic_newsletter' ) ) {
+		echo do_shortcode( '[wpistic_formistic_newsletter]' );
+	} elseif ( shortcode_exists( 'wpistic_form' ) ) {
+		$form_id = insightistic_formistic_builder_form_id( $slug );
+		if ( $form_id ) {
+			echo do_shortcode( '[wpistic_form id="' . absint( $form_id ) . '"]' );
+		} else {
+			/* translators: %s: form slug shown only to logged-in admins. */
+			insightistic_formistic_missing_notice(
+				sprintf( __( 'No published Formistic form is set for "%s". Choose one in Appearance → Customize → Forms.', 'insightistic-marketing' ), $slug )
+			);
+		}
 	} else {
-		echo '<p class="ins-form__fallback">';
-		echo esc_html__( 'Formistic is required to display this form. Install and activate the Formistic plugin, then set the form id in Appearance → Customize → Forms.', 'insightistic-marketing' );
-		echo '</p>';
+		insightistic_formistic_missing_notice(
+			__( 'Formistic is active, but the required shortcode is unavailable. Update the Formistic plugin.', 'insightistic-marketing' )
+		);
 	}
 
 	echo '</div>';
+}
+
+/**
+ * Show the technical reason to admins only; visitors get nothing rendered
+ * (the surrounding page copy/CTA still stands, so no dead-looking gap).
+ */
+function insightistic_formistic_missing_notice( $admin_message ) {
+	if ( current_user_can( 'edit_theme_options' ) ) {
+		echo '<p class="ins-form__fallback">' . esc_html( $admin_message ) . '</p>';
+	}
+}
+
+/**
+ * Formistic forms available for the Customizer's builder-form dropdowns.
+ * Cached for the request; invalidated implicitly since Customizer preview
+ * always runs uncached and the admin list only needs to be fresh there.
+ *
+ * @return array<int,string> post ID => title.
+ */
+function insightistic_formistic_available_forms() {
+	if ( ! post_type_exists( 'formistic_form' ) ) {
+		return array();
+	}
+
+	$posts = get_posts( array(
+		'post_type'      => 'formistic_form',
+		'post_status'    => 'publish',
+		'posts_per_page' => 100,
+		'orderby'        => 'title',
+		'order'          => 'ASC',
+	) );
+
+	$choices = array();
+	foreach ( $posts as $post ) {
+		$choices[ $post->ID ] = $post->post_title ? $post->post_title : ( '#' . $post->ID );
+	}
+
+	return $choices;
 }
 
 /* -------------------------------------------------------------------------
