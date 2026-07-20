@@ -33,6 +33,16 @@ class Wpistic_Formistic_Forms {
 	const META_SETTINGS = '_wpistic_formistic_settings';
 
 	/**
+	 * Meta key an integration (theme, other plugin) stamps on a form it
+	 * auto-provisioned, so a later call with the same identifier finds it
+	 * again instead of creating a duplicate. Deliberately generic — this
+	 * class has no knowledge of what "agency inquiry" or "early access
+	 * waitlist" mean; that's the integration's business, not the form
+	 * builder's. See ensure_form().
+	 */
+	const META_PROVISION_KEY = '_wpistic_formistic_provision_key';
+
+	/**
 	 * Whitelist of field types and their human labels.
 	 *
 	 * @return array<string,string>
@@ -501,6 +511,99 @@ class Wpistic_Formistic_Forms {
 			'layout'       => 'one',
 			'width'        => '640',
 		] );
+	}
+
+	/* ==================================================================
+	 * Idempotent provisioning — for integrations (themes, other plugins)
+	 * that want a form to exist by the time a visitor first sees it,
+	 * without an admin having to build it by hand first.
+	 * ================================================================== */
+
+	/**
+	 * Get-or-create a builder form for a given integration-chosen stable
+	 * identifier. Safe to call on every page load / every activation — a
+	 * form already provisioned under $identifier is found and reused, never
+	 * duplicated, even if it's been renamed or its fields edited since.
+	 *
+	 * Deliberately knows nothing about *why* a caller wants "agency-inquiry"
+	 * or "support-request" — the identifier and $definition are entirely the
+	 * caller's vocabulary. That keeps this generic, reusable across any
+	 * integration, not just one theme.
+	 *
+	 * @param string $identifier Stable key, e.g. 'insightistic-marketing:agency'.
+	 *                           Prefix with a namespace to avoid collisions
+	 *                           between integrations.
+	 * @param array  $definition {
+	 *     @type string $title    Form title (post_title).
+	 *     @type array  $fields   Field rows — same shape save() writes: each
+	 *                            [ 'key', 'label', 'type', 'required', 'placeholder', 'options' ].
+	 *                            'key'/'type' are optional per-row (defaulted/slugged).
+	 *     @type array  $settings Partial settings — merged over get_settings()'s
+	 *                            defaults, same keys save() accepts.
+	 * }
+	 * @return int Post ID of the existing or newly created form. 0 on failure
+	 *             (e.g. empty identifier, insert error).
+	 */
+	public static function ensure_form( $identifier, array $definition ) {
+		$identifier = sanitize_key( $identifier );
+		if ( '' === $identifier ) {
+			return 0;
+		}
+
+		$existing = get_posts( [
+			'post_type'      => self::POST_TYPE,
+			'post_status'    => [ 'publish', 'draft', 'pending', 'private' ],
+			'posts_per_page' => 1,
+			'meta_key'       => self::META_PROVISION_KEY,
+			'meta_value'     => $identifier,
+			'fields'         => 'ids',
+		] );
+		if ( ! empty( $existing ) ) {
+			return (int) $existing[0];
+		}
+
+		$post_id = wp_insert_post( [
+			'post_type'   => self::POST_TYPE,
+			'post_status' => 'publish',
+			'post_title'  => isset( $definition['title'] ) ? sanitize_text_field( $definition['title'] ) : __( 'Untitled form', 'formistic' ),
+		], true );
+
+		if ( is_wp_error( $post_id ) || ! $post_id ) {
+			return 0;
+		}
+
+		update_post_meta( $post_id, self::META_PROVISION_KEY, $identifier );
+
+		$fields = [];
+		foreach ( (array) ( $definition['fields'] ?? [] ) as $row ) {
+			$label = isset( $row['label'] ) ? sanitize_text_field( $row['label'] ) : '';
+			if ( '' === trim( $label ) ) {
+				continue;
+			}
+			$types = array_keys( self::field_types() );
+			$type  = isset( $row['type'] ) && in_array( $row['type'], $types, true ) ? $row['type'] : 'text';
+
+			$key = (string) ( $row['key'] ?? '' );
+			if ( ! preg_match( '/^[a-z0-9_]+$/', $key ) ) {
+				$slug = sanitize_title_with_dashes( $label );
+				$key  = '' !== $slug ? str_replace( '-', '_', $slug ) : 'field';
+			}
+
+			$fields[] = [
+				'key'         => $key,
+				'label'       => $label,
+				'type'        => $type,
+				'required'    => ! empty( $row['required'] ),
+				'placeholder' => isset( $row['placeholder'] ) ? sanitize_text_field( $row['placeholder'] ) : '',
+				'options'     => isset( $row['options'] ) ? sanitize_textarea_field( $row['options'] ) : '',
+			];
+		}
+		update_post_meta( $post_id, self::META_FIELDS, wp_slash( wp_json_encode( $fields ) ) );
+
+		$settings = wp_parse_args( (array) ( $definition['settings'] ?? [] ), self::get_settings( 0 ) );
+		update_post_meta( $post_id, self::META_SETTINGS, wp_slash( wp_json_encode( $settings ) ) );
+
+		return (int) $post_id;
 	}
 
 	/**
