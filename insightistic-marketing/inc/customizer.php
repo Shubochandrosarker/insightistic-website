@@ -69,24 +69,33 @@ add_action(
 		}
 
 		// --- Formistic form ids --------------------------------------------
+		// 'contact' and 'newsletter' always use Formistic's built-in
+		// [wpistic_contact_form] / [wpistic_formistic_newsletter] shortcodes —
+		// no configuration needed, so they're not exposed here. Every other
+		// slug is a custom Formistic builder form; the dropdown lists real,
+		// published forms so an invalid/unpublished id can never be saved.
 		$wp_customize->add_section( 'insightistic_forms', array(
 			'title'       => __( 'Forms (Formistic)', 'insightistic-marketing' ),
 			'panel'       => $panel,
-			'description' => __( 'Map each form area to a Formistic form id.', 'insightistic-marketing' ),
+			'description' => __( 'Choose which Formistic builder form each area uses. Build the forms first under Formistic → Forms.', 'insightistic-marketing' ),
 		) );
 
-		foreach ( array( 'contact', 'newsletter', 'agency', 'ltd', 'early_access', 'support' ) as $slug ) {
+		$available_forms = function_exists( 'insightistic_formistic_available_forms' ) ? insightistic_formistic_available_forms() : array();
+		$form_choices     = array( 0 => __( '— Select a form —', 'insightistic-marketing' ) ) + $available_forms;
+
+		foreach ( array( 'agency', 'ltd', 'early_access', 'support' ) as $slug ) {
 			$id = 'insightistic_form_' . $slug;
 			$wp_customize->add_setting( $id, array(
-				'default'           => $slug,
-				'sanitize_callback' => 'sanitize_text_field',
+				'default'           => 0,
+				'sanitize_callback' => 'absint',
 				'transport'         => 'refresh',
 			) );
 			$wp_customize->add_control( $id, array(
 				/* translators: %s: form slug. */
-				'label'   => sprintf( __( '%s form id', 'insightistic-marketing' ), ucfirst( str_replace( '_', ' ', $slug ) ) ),
+				'label'   => sprintf( __( '%s form', 'insightistic-marketing' ), ucfirst( str_replace( '_', ' ', $slug ) ) ),
 				'section' => 'insightistic_forms',
-				'type'    => 'text',
+				'type'    => 'select',
+				'choices' => $form_choices,
 			) );
 		}
 
