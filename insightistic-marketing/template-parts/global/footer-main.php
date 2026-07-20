@@ -52,6 +52,9 @@ $ins_socials = array(
 						<ul>
 							<li><a href="<?php echo esc_url( home_url( '/features' ) ); ?>"><?php esc_html_e( 'Features', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/pricing' ) ); ?>"><?php esc_html_e( 'Pricing', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/traffic-analytics' ) ); ?>"><?php esc_html_e( 'Traffic analytics', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/seo-analytics' ) ); ?>"><?php esc_html_e( 'SEO analytics', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/performance-monitoring' ) ); ?>"><?php esc_html_e( 'Performance monitoring', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/integrations' ) ); ?>"><?php esc_html_e( 'Integrations', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/agency' ) ); ?>"><?php esc_html_e( 'For agencies', 'insightistic-marketing' ); ?></a></li>
 						</ul>
@@ -60,6 +63,9 @@ $ins_socials = array(
 						<h3><?php esc_html_e( 'Company', 'insightistic-marketing' ); ?></h3>
 						<ul>
 							<li><a href="<?php echo esc_url( home_url( '/about' ) ); ?>"><?php esc_html_e( 'About', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/why-insightistic' ) ); ?>"><?php esc_html_e( 'Why Insightistic', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/security' ) ); ?>"><?php esc_html_e( 'Security', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/changelog' ) ); ?>"><?php esc_html_e( 'Changelog', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/blog' ) ); ?>"><?php esc_html_e( 'Blog', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/contact' ) ); ?>"><?php esc_html_e( 'Contact', 'insightistic-marketing' ); ?></a></li>
 						</ul>
