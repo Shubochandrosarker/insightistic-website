@@ -196,10 +196,131 @@ function insightistic_formistic_available_forms() {
  * ---------------------------------------------------------------------- */
 
 /**
- * Pricing plans. Prices are display strings so they can be edited freely.
+ * Pricing plans — the single source of truth is now the app's own plan
+ * registry (Admin\PlanController / LicenseService::FEATURES in
+ * insightistic-api), published read-only at GET {api}/api/public/plans.
+ * This fetches and caches that manifest, mapping it into the display shape
+ * pricing-card.php expects. If the API is unreachable (network error,
+ * non-2xx, empty payload) this falls back to a static snapshot rather than
+ * breaking the pricing page — the fallback is a snapshot, not a second
+ * source of truth, and should be refreshed whenever plans actually change.
  */
 function insightistic_pricing_plans() {
-	$plans = array(
+	$plans = insightistic_fetch_pricing_plans_from_api();
+
+	if ( empty( $plans ) ) {
+		$plans = insightistic_pricing_plans_fallback();
+	}
+
+	return apply_filters( 'insightistic_pricing_plans', $plans );
+}
+
+/** @return array|null Mapped plans, or null if the API call failed/returned nothing usable. */
+function insightistic_fetch_pricing_plans_from_api() {
+	$cache_key = 'insightistic_public_plans_v1';
+	$cached    = get_transient( $cache_key );
+	if ( false !== $cached ) {
+		return $cached ?: null; // cached null-equivalent (empty array) still counts as "known failure" until it expires.
+	}
+
+	$response = wp_remote_get(
+		insightistic_api_url() . '/api/public/plans',
+		array(
+			'timeout' => 3,
+			'headers' => array( 'Accept' => 'application/json' ),
+		)
+	);
+
+	if ( is_wp_error( $response ) || 200 !== wp_remote_retrieve_response_code( $response ) ) {
+		set_transient( $cache_key, array(), 5 * MINUTE_IN_SECONDS );
+		return null;
+	}
+
+	$body = json_decode( wp_remote_retrieve_body( $response ), true );
+	if ( empty( $body['plans'] ) || ! is_array( $body['plans'] ) ) {
+		set_transient( $cache_key, array(), 5 * MINUTE_IN_SECONDS );
+		return null;
+	}
+
+	$mapped = array();
+	foreach ( $body['plans'] as $api_plan ) {
+		$mapped[] = insightistic_map_api_plan( $api_plan );
+	}
+
+	set_transient( $cache_key, $mapped, 5 * MINUTE_IN_SECONDS );
+	return $mapped;
+}
+
+/** Map one {api}/api/public/plans row into the shape pricing-card.php renders. */
+function insightistic_map_api_plan( $api_plan ) {
+	$slug = isset( $api_plan['slug'] ) ? (string) $api_plan['slug'] : '';
+
+	return array(
+		'slug'     => $slug,
+		'name'     => isset( $api_plan['name'] ) ? (string) $api_plan['name'] : ucfirst( $slug ),
+		'tagline'  => insightistic_plan_tagline( $slug ),
+		'monthly'  => insightistic_format_plan_price( $api_plan['price_monthly'] ?? 0 ),
+		'yearly'   => insightistic_format_plan_price( $api_plan['price_yearly'] ?? 0 ),
+		'features' => array_map( 'insightistic_plan_feature_label', (array) ( $api_plan['features'] ?? array() ) ),
+		'featured' => ! empty( $api_plan['is_featured'] ),
+	);
+}
+
+/** Cents (int) -> whole-dollar display string, matching the theme's existing "$19" style. */
+function insightistic_format_plan_price( $cents ) {
+	return '$' . number_format_i18n( round( ( (int) $cents ) / 100 ) );
+}
+
+/**
+ * Marketing taglines are copy, not entitlements — they stay theme-owned even
+ * though price/limits/features now come from the API. Unknown slugs (a new
+ * plan added in Admin that this theme hasn't been told about yet) get a
+ * generic tagline rather than a blank one.
+ */
+function insightistic_plan_tagline( $slug ) {
+	$taglines = apply_filters(
+		'insightistic_plan_taglines',
+		array(
+			'starter' => 'For small WooCommerce stores finding their footing.',
+			'pro'     => 'For growing WooCommerce businesses that want answers.',
+			'agency'  => 'For agencies managing multiple client stores.',
+		)
+	);
+
+	return $taglines[ $slug ] ?? 'Everything you need to understand your business.';
+}
+
+/** Feature slug (LicenseService::FEATURES) -> human-readable bullet text. */
+function insightistic_plan_feature_label( $slug ) {
+	$labels = apply_filters(
+		'insightistic_plan_feature_labels',
+		array(
+			'basic_analytics'       => 'Revenue & order analytics',
+			'traffic_analytics'     => 'Traffic analytics',
+			'seo_analytics'         => 'SEO analytics',
+			'performance_tracking'  => 'Site performance tracking',
+			'woocommerce_analytics' => 'Full WooCommerce analytics',
+			'engagement_analytics'  => 'Engagement analytics',
+			'ai_insights'           => 'AI business insights',
+			'ai_copilot'            => 'AI copilot',
+			'advanced_reports'      => 'Branded PDF reports',
+			'scheduled_reports'     => 'Scheduled report delivery',
+			'alerts'                => 'Automated alerts',
+			'data_export'           => 'CSV data export',
+			'multi_site'            => 'Multiple connected stores',
+			'team_access'           => 'Team roles & access',
+			'agency_white_label'    => 'White-label dashboard & domain',
+			'custom_domain'         => 'Custom domain',
+			'api_access'            => 'API access',
+		)
+	);
+
+	return $labels[ $slug ] ?? ucwords( str_replace( '_', ' ', $slug ) );
+}
+
+/** Static snapshot used only when the API is unreachable — see insightistic_pricing_plans(). */
+function insightistic_pricing_plans_fallback() {
+	return array(
 		array(
 			'slug'      => 'starter',
 			'name'      => 'Starter',
@@ -228,8 +349,6 @@ function insightistic_pricing_plans() {
 			'featured'  => false,
 		),
 	);
-
-	return apply_filters( 'insightistic_pricing_plans', $plans );
 }
 
 /** Feature cards shown on the homepage + features page. */

@@ -1,7 +1,11 @@
 # Insightistic Marketing — WordPress Theme
 
-A premium, mobile-first **dark SaaS** marketing theme for **Insightistic** —
-AI Business Analytics for WordPress & WooCommerce. It powers the public
+A premium, mobile-first **light SaaS** marketing theme for **Insightistic** —
+AI Business Analytics for WordPress & WooCommerce. The page chrome is light
+by default (green/mint brand accent), matching `insightistic-app`'s default
+theme; embedded product-shot cards (dashboard preview, report card) keep a
+deliberate dark glass-card treatment as an accent, not a theme flip — see the
+`:root` token comments in `assets/css/theme.css`. It powers the public
 marketing website at `insightistic.com` only. Accounts, billing and the
 dashboard live in the separate SaaS app (`app.insightistic.com`) and API
 (`api.insightistic.com`); **no dashboard logic lives in this theme.**
@@ -89,8 +93,15 @@ Consent line to use under forms:
 - **Testimonials**: add entries under the **Testimonials** menu (or rely on the
   built-in defaults). Use the page-attributes *Order* to sort; add a role in
   the body via custom field `_ins_role` if desired.
-- **Pricing**: edit the `insightistic_pricing_plans` array (filterable) or the
-  `inc/helpers.php` defaults.
+- **Pricing**: `insightistic_pricing_plans()` fetches the live plan manifest
+  from `GET {API URL}/api/public/plans` (cached 5 minutes) and falls back to
+  a static snapshot (`insightistic_pricing_plans_fallback()` in
+  `inc/helpers.php`) if the API is unreachable. To change actual prices/
+  limits/features, edit plans in the app's Super Admin → Plans screen — this
+  theme's fallback array is a snapshot, not a second source of truth, and
+  should be updated to match whenever plans change. Taglines and feature
+  bullet copy stay theme-owned (`insightistic_plan_tagline()` /
+  `insightistic_plan_feature_label()`, both filterable).
 - **FAQ / Features**: edit `insightistic_faqs()` / `insightistic_features()` in
   `inc/helpers.php`, or hook the `insightistic_faqs` / `insightistic_features`
   filters from a small mu-plugin.
