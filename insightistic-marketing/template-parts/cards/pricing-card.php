@@ -27,7 +27,8 @@ $featured = ! empty( $plan['featured'] );
 	<p class="ins-plan__price">
 		<span class="ins-plan__amount"
 			data-monthly="<?php echo esc_attr( $plan['monthly'] ); ?>"
-			data-yearly="<?php echo esc_attr( $plan['yearly'] ); ?>"><?php echo esc_html( $plan['monthly'] ); ?></span>
+			data-yearly="<?php echo esc_attr( $plan['yearly'] ); ?>"
+			aria-live="polite"><?php echo esc_html( $plan['monthly'] ); ?></span>
 		<span class="ins-plan__per"><?php esc_html_e( '/mo', 'insightistic-marketing' ); ?></span>
 	</p>
 

@@ -18,9 +18,12 @@
 			}
 		} );
 		document.querySelectorAll( '.ins-plan__per' ).forEach( function ( el ) {
-			el.textContent = 'yearly' === period ? '/mo billed yearly' : '/mo';
+			el.textContent = 'yearly' === period ? '/yr billed annually' : '/mo';
 		} );
 	}
+
+	// Keep the first paint and browser back/forward state deterministic.
+	apply( 'monthly' );
 
 	toggles.forEach( function ( toggle ) {
 		toggle.addEventListener( 'click', function ( e ) {

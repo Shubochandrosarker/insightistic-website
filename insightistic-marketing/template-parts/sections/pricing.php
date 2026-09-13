@@ -20,7 +20,7 @@ $plans = insightistic_pricing_plans();
 
 			<div class="ins-pricing-toggle" data-period="monthly" role="group" aria-label="<?php esc_attr_e( 'Billing period', 'insightistic-marketing' ); ?>">
 				<button type="button" class="is-active" data-period="monthly" aria-pressed="true"><?php esc_html_e( 'Monthly', 'insightistic-marketing' ); ?></button>
-				<button type="button" data-period="yearly" aria-pressed="false"><?php esc_html_e( 'Yearly', 'insightistic-marketing' ); ?> <span class="ins-save"><?php esc_html_e( 'save 20%', 'insightistic-marketing' ); ?></span></button>
+				<button type="button" data-period="yearly" aria-pressed="false"><?php esc_html_e( 'Annual', 'insightistic-marketing' ); ?> <span class="ins-save"><?php esc_html_e( '2 months free', 'insightistic-marketing' ); ?></span></button>
 			</div>
 		</div>
 

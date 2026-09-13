@@ -88,7 +88,7 @@ $ins_socials = array(
 
 		<div class="ins-footer__bottom">
 			<p class="ins-footer__copy">
-				&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> · <?php esc_html_e( 'by Wordpressistic', 'insightistic-marketing' ); ?>
+				&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> · <?php esc_html_e( 'by WordPressistic', 'insightistic-marketing' ); ?>
 			</p>
 			<p class="ins-footer__entity">WordPressistic LLC · 1209 MOUNTAIN ROAD PL NE, STE N · Albuquerque, NM 87110 · Entity ID 0008120099</p>
 
