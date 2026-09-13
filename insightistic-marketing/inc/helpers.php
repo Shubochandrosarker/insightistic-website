@@ -217,7 +217,9 @@ function insightistic_pricing_plans() {
 
 /** @return array|null Mapped plans, or null if the API call failed/returned nothing usable. */
 function insightistic_fetch_pricing_plans_from_api() {
-	$cache_key = 'insightistic_public_plans_v1';
+	// Bump the key whenever the mapping/display contract changes so stale
+	// values cannot survive a theme deployment.
+	$cache_key = 'insightistic_public_plans_v2';
 	$cached    = get_transient( $cache_key );
 	if ( false !== $cached ) {
 		return $cached ?: null; // cached null-equivalent (empty array) still counts as "known failure" until it expires.
