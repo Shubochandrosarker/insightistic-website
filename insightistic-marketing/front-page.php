@@ -26,6 +26,7 @@ get_header();
 	get_template_part( 'template-parts/global/cta-band' );            // 11 — agency / white-label
 	get_template_part( 'template-parts/sections/testimonials' );      // social proof
 	get_template_part( 'template-parts/sections/faq' );               // 12
+	get_template_part( 'template-parts/global/ecosystem-band' );     // authority silo
 	get_template_part( 'template-parts/sections/final-cta' );         // 13
 	?>
 </main>

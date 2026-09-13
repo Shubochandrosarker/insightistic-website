@@ -115,6 +115,17 @@ add_action(
 			'type'    => 'text',
 		) );
 
+		$wp_customize->add_setting( 'insightistic_legal_updated_date', array(
+			'default'           => 'September 13, 2026',
+			'sanitize_callback' => 'sanitize_text_field',
+		) );
+		$wp_customize->add_control( 'insightistic_legal_updated_date', array(
+			'label'       => __( 'Legal documents last-updated label', 'insightistic-marketing' ),
+			'description' => __( 'Use the date approved for the currently published legal copy.', 'insightistic-marketing' ),
+			'section'     => 'insightistic_footer',
+			'type'        => 'text',
+		) );
+
 		foreach ( array( 'twitter' => 'X / Twitter', 'linkedin' => 'LinkedIn', 'youtube' => 'YouTube', 'github' => 'GitHub' ) as $slug => $label ) {
 			$id = 'insightistic_social_' . $slug;
 			$wp_customize->add_setting( $id, array(

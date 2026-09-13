@@ -59,6 +59,15 @@ function insightistic_icon( $name, $size = 22 ) {
 	);
 }
 
+/** Current queried title, including templates rendered before the loop. */
+function insightistic_current_title() {
+	$object = get_queried_object();
+	if ( $object instanceof WP_Post && $object->post_title ) {
+		return $object->post_title;
+	}
+	return get_the_title();
+}
+
 /**
  * Schema-ready breadcrumb trail.
  */
@@ -75,9 +84,9 @@ function insightistic_breadcrumbs() {
 		if ( ! empty( $cats ) ) {
 			echo ' <span aria-hidden="true">/</span> <a href="' . esc_url( get_category_link( $cats[0]->term_id ) ) . '">' . esc_html( $cats[0]->name ) . '</a>';
 		}
-		echo ' <span aria-hidden="true">/</span> <span aria-current="page">' . esc_html( get_the_title() ) . '</span>';
+		echo ' <span aria-hidden="true">/</span> <span aria-current="page">' . esc_html( insightistic_current_title() ) . '</span>';
 	} elseif ( is_page() ) {
-		echo ' <span aria-hidden="true">/</span> <span aria-current="page">' . esc_html( get_the_title() ) . '</span>';
+		echo ' <span aria-hidden="true">/</span> <span aria-current="page">' . esc_html( insightistic_current_title() ) . '</span>';
 	} elseif ( is_category() || is_archive() ) {
 		echo ' <span aria-hidden="true">/</span> <span aria-current="page">' . esc_html( wp_strip_all_tags( get_the_archive_title() ) ) . '</span>';
 	} elseif ( is_search() ) {
@@ -90,6 +99,7 @@ function insightistic_breadcrumbs() {
 /** Post byline (date + author + category) for blog templates. */
 function insightistic_post_meta() {
 	echo '<div class="ins-post-meta">';
+	$author = insightistic_editorial_author();
 	printf(
 		'<time class="ins-post-date" datetime="%1$s">%2$s</time>',
 		esc_attr( get_the_date( DATE_W3C ) ),
@@ -100,6 +110,7 @@ function insightistic_post_meta() {
 	if ( $cats ) {
 		echo ' <span aria-hidden="true">·</span> <span class="ins-post-cats">' . wp_kses_post( $cats ) . '</span>';
 	}
+	echo '<span class="ins-post-editorial">' . esc_html__( 'Editorial owner: ', 'insightistic-marketing' ) . esc_html( $author['name'] ) . ' · ' . esc_html( $author['title'] ) . '</span>';
 	echo '</div>';
 }
 

@@ -38,10 +38,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 			} else {
 				echo '<ul class="ins-menu">';
 				$fallback = array(
-					'/features'  => __( 'Features', 'insightistic-marketing' ),
-					'/pricing'   => __( 'Pricing', 'insightistic-marketing' ),
-					'/agency'    => __( 'Agency', 'insightistic-marketing' ),
-					'/blog'      => __( 'Blog', 'insightistic-marketing' ),
+					'/features'      => __( 'Features', 'insightistic-marketing' ),
+					'/pricing'       => __( 'Pricing', 'insightistic-marketing' ),
+					'/knowledgebase' => __( 'Learn', 'insightistic-marketing' ),
+					'/agency'        => __( 'For agencies', 'insightistic-marketing' ),
+					'/about'         => __( 'About', 'insightistic-marketing' ),
 				);
 				foreach ( $fallback as $path => $label ) {
 					printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( $path ) ), esc_html( $label ) );
@@ -80,6 +81,12 @@ if ( ! defined( 'ABSPATH' ) ) {
 						'fallback_cb'    => false,
 					)
 				);
+			} else {
+				echo '<ul class="ins-mobile__menu">';
+				foreach ( array( '/features' => __( 'Features', 'insightistic-marketing' ), '/pricing' => __( 'Pricing', 'insightistic-marketing' ), '/knowledgebase' => __( 'Knowledgebase', 'insightistic-marketing' ), '/agency' => __( 'For agencies', 'insightistic-marketing' ), '/contact' => __( 'Contact', 'insightistic-marketing' ) ) as $path => $label ) {
+					printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( $path ) ), esc_html( $label ) );
+				}
+				echo '</ul>';
 			}
 			?>
 		</nav>

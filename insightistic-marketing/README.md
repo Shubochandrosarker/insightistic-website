@@ -149,3 +149,51 @@ Consent line to use under forms:
 - [ ] Verify CTAs open `app.insightistic.com/login` and `/register?plan=...`.
 
 See `Appearance → Insightistic` for a live summary of URLs and integration status.
+
+## Discovery, SEO and agent browsing
+
+- The theme emits canonical URLs, descriptions, Open Graph/Twitter fallbacks,
+  robots directives and one connected JSON-LD graph when no SEO plugin owns
+  those outputs. The graph covers Organization, WebSite, Product/
+  SoftwareApplication, WebPage/CollectionPage, BreadcrumbList, BlogPosting and
+  visible FAQ content.
+- Dynamic discovery endpoints are generated from published WordPress content:
+  `/sitemap.xml`, `/sitemap-pages.xml`, `/sitemap-posts.xml`,
+  `/sitemap-taxonomies.xml`, `/llms.txt` and `/llms-full.txt`.
+- `/robots.txt` remains WordPress’s standard endpoint but advertises the
+  branded sitemap and keeps admin/search paths out of the crawl. Rewrite rules
+  flush on theme activation; flush permalinks once after deployment if a new
+  endpoint returns 404.
+- `llms.txt` is a concise product/entity map. `llms-full.txt` adds current
+  published page summaries and recent editorial routes. Both are generated at
+  request time so editors do not maintain duplicated route lists.
+- External ecosystem links are conservative by default. Add additional live,
+  approved product roots through the `insightistic_ecosystem_links` filter after
+  verifying each destination; the directory avoids invented or broken links.
+
+## Legal and entity configuration
+
+The legal templates use the public entity details supplied for WordPressistic
+LLC: 1209 MOUNTAIN ROAD PL NE, STE N, Albuquerque, NM 87110, US; Entity ID
+0008120099; Reference 3277100; `hello@wordpressistic.com`. Review the legal
+copy with qualified counsel before publication for a specific jurisdiction,
+especially for privacy, data-processing, refund and accessibility obligations.
+
+Create these additional WordPress pages and assign their matching template:
+
+- `/knowledgebase` → Knowledgebase
+- `/ecosystem` → Ecosystem
+- `/sitemap` → HTML Sitemap
+- `/cookies` → Cookie Policy
+- `/data-processing` → Data Processing Information
+- `/accessibility` → Accessibility Statement
+- `/refunds` → Refund & Cancellation Policy
+- `/acceptable-use` → Acceptable Use Policy
+- `/subprocessors` → Subprocessors
+- `/legal-notices` → Legal Notices
+
+On theme activation, the theme provisions these pages idempotently and assigns
+their templates when they are missing. Existing pages and non-default
+templates are preserved. If a site was already active before this module was
+installed, activate the theme once or assign the templates manually from the
+page editor.

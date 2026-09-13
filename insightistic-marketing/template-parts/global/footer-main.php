@@ -28,6 +28,7 @@ $ins_socials = array(
 				<p class="ins-footer__tagline">
 					<?php echo esc_html( insightistic_option( 'insightistic_footer_tagline', __( 'AI business analytics for WordPress & WooCommerce.', 'insightistic-marketing' ) ) ); ?>
 				</p>
+				<p><a class="ins-link" href="https://wordpressistic.com/" target="_blank" rel="noopener"><?php esc_html_e( 'Part of the WordPressistic ecosystem', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></p>
 
 				<div class="ins-footer__newsletter">
 					<h3><?php esc_html_e( 'Get product updates', 'insightistic-marketing' ); ?></h3>
@@ -67,6 +68,9 @@ $ins_socials = array(
 							<li><a href="<?php echo esc_url( home_url( '/security' ) ); ?>"><?php esc_html_e( 'Security', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/changelog' ) ); ?>"><?php esc_html_e( 'Changelog', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/blog' ) ); ?>"><?php esc_html_e( 'Blog', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/knowledgebase' ) ); ?>"><?php esc_html_e( 'Knowledgebase', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/ecosystem' ) ); ?>"><?php esc_html_e( 'Ecosystem', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/sitemap' ) ); ?>"><?php esc_html_e( 'Sitemap', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/contact' ) ); ?>"><?php esc_html_e( 'Contact', 'insightistic-marketing' ); ?></a></li>
 						</ul>
 					</div>
@@ -86,6 +90,7 @@ $ins_socials = array(
 			<p class="ins-footer__copy">
 				&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> · <?php esc_html_e( 'by Wordpressistic', 'insightistic-marketing' ); ?>
 			</p>
+			<p class="ins-footer__entity">WordPressistic LLC · 1209 MOUNTAIN ROAD PL NE, STE N · Albuquerque, NM 87110 · Entity ID 0008120099</p>
 
 			<?php
 			if ( has_nav_menu( 'legal' ) ) {
@@ -102,6 +107,9 @@ $ins_socials = array(
 				echo '<ul class="ins-footer__legal">';
 				printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( '/privacy-policy' ) ), esc_html__( 'Privacy', 'insightistic-marketing' ) );
 				printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( '/terms' ) ), esc_html__( 'Terms', 'insightistic-marketing' ) );
+				printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( '/cookies' ) ), esc_html__( 'Cookies', 'insightistic-marketing' ) );
+				printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( '/data-processing' ) ), esc_html__( 'Data processing', 'insightistic-marketing' ) );
+				printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( '/legal-notices' ) ), esc_html__( 'Legal notices', 'insightistic-marketing' ) );
 				echo '</ul>';
 			}
 			?>

@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'INSIGHTISTIC_VERSION', '1.0.0' );
+define( 'INSIGHTISTIC_VERSION', '1.1.0' );
 define( 'INSIGHTISTIC_DIR', get_template_directory() );
 define( 'INSIGHTISTIC_URI', get_template_directory_uri() );
 
@@ -22,6 +22,10 @@ $insightistic_modules = array(
 	'/inc/setup.php',          // theme supports, menus, image sizes
 	'/inc/security.php',       // hardening + safe output helpers
 	'/inc/helpers.php',        // app URL, Formistic, pricing data, brand links
+	'/inc/site-data.php',      // legal entity, knowledgebase and ecosystem data
+	'/inc/legal.php',          // reusable legal document renderer
+	'/inc/discovery.php',      // XML/text discovery endpoints and robots policy
+	'/inc/page-provisioning.php', // idempotent public page/template setup
 	'/inc/formistic-provisioning.php', // auto-creates the 4 builder forms (spec §16.3)
 	'/inc/seo.php',            // canonical + Open Graph/Twitter meta, resource hints
 	'/inc/template-tags.php',  // reusable output (breadcrumbs, meta, pagination)

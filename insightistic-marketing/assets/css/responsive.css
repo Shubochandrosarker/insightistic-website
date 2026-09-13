@@ -22,6 +22,8 @@
 	.ins-footer__bottom { flex-direction: row; align-items: center; justify-content: space-between; }
 	.ins-ctaband__card { grid-template-columns: 1.6fr 1fr; align-items: center; }
 	.ins-ctaband__actions { justify-content: flex-end; }
+	.ins-ecosystem-band__inner { grid-template-columns: 1.5fr 1fr; }
+	.ins-ecosystem-band__links { justify-content: flex-end; }
 }
 
 /* ---- ≥ 1024px : desktop header + side-by-side splits ------------------ */
