@@ -119,21 +119,21 @@ function insightistic_output_seo_meta() {
 		$image = $src ? $src[0] : '';
 	}
 
-	printf( '<link rel="canonical" href="%s">\n', esc_url( $url ) );
-	printf( '<meta name="description" content="%s">\n', esc_attr( $desc ) );
-	printf( '<meta property="og:type" content="%s">\n', is_singular( 'post' ) ? 'article' : 'website' );
+	printf( "<link rel=\"canonical\" href=\"%s\">\n", esc_url( $url ) );
+	printf( "<meta name=\"description\" content=\"%s\">\n", esc_attr( $desc ) );
+	printf( "<meta property=\"og:type\" content=\"%s\">\n", is_singular( 'post' ) ? 'article' : 'website' );
 	echo '<meta property="og:site_name" content="Insightistic">' . "\n";
-	printf( '<meta property="og:title" content="%s">\n', esc_attr( $title ) );
-	printf( '<meta property="og:description" content="%s">\n', esc_attr( $desc ) );
-	printf( '<meta property="og:url" content="%s">\n', esc_url( $url ) );
+	printf( "<meta property=\"og:title\" content=\"%s\">\n", esc_attr( $title ) );
+	printf( "<meta property=\"og:description\" content=\"%s\">\n", esc_attr( $desc ) );
+	printf( "<meta property=\"og:url\" content=\"%s\">\n", esc_url( $url ) );
 	if ( $image ) {
-		printf( '<meta property="og:image" content="%s">\n', esc_url( $image ) );
+		printf( "<meta property=\"og:image\" content=\"%s\">\n", esc_url( $image ) );
 	}
-	printf( '<meta name="twitter:card" content="%s">\n', $image ? 'summary_large_image' : 'summary' );
-	printf( '<meta name="twitter:title" content="%s">\n', esc_attr( $title ) );
-	printf( '<meta name="twitter:description" content="%s">\n', esc_attr( $desc ) );
+	printf( "<meta name=\"twitter:card\" content=\"%s\">\n", $image ? 'summary_large_image' : 'summary' );
+	printf( "<meta name=\"twitter:title\" content=\"%s\">\n", esc_attr( $title ) );
+	printf( "<meta name=\"twitter:description\" content=\"%s\">\n", esc_attr( $desc ) );
 	if ( $image ) {
-		printf( '<meta name="twitter:image" content="%s">\n', esc_url( $image ) );
+		printf( "<meta name=\"twitter:image\" content=\"%s\">\n", esc_url( $image ) );
 	}
 }
 add_action( 'wp_head', 'insightistic_output_seo_meta', 1 );
@@ -142,6 +142,7 @@ add_action( 'wp_head', 'insightistic_output_seo_meta', 1 );
 function insightistic_output_discovery_links() {
 	echo '<link rel="sitemap" type="application/xml" href="' . esc_url( home_url( '/sitemap.xml' ) ) . '">' . "\n";
 	echo '<link rel="alternate" type="text/plain" href="' . esc_url( home_url( '/llms.txt' ) ) . '" title="Insightistic machine-readable overview">' . "\n";
+	echo '<link rel="alternate" type="text/plain" href="' . esc_url( home_url( '/llms-full.txt' ) ) . '" title="Insightistic full machine-readable overview">' . "\n";
 }
 add_action( 'wp_head', 'insightistic_output_discovery_links', 2 );
 

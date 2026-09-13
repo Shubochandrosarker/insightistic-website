@@ -12,6 +12,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
+define( 'INSIGHTISTIC_DISCOVERY_REWRITE_VERSION', '2' );
+
 function insightistic_register_discovery_routes() {
 	add_rewrite_rule( '^sitemap\.xml$', 'index.php?insightistic_discovery=sitemap', 'top' );
 	add_rewrite_rule( '^sitemap-(pages|posts|taxonomies)\.xml$', 'index.php?insightistic_discovery=$matches[1]', 'top' );
@@ -19,6 +21,21 @@ function insightistic_register_discovery_routes() {
 	add_rewrite_rule( '^llms-full\.txt$', 'index.php?insightistic_discovery=llms-full', 'top' );
 }
 add_action( 'init', 'insightistic_register_discovery_routes', 20 );
+
+/**
+ * Flush once after deployment as well as after a theme switch.
+ * Theme files can be updated without activating the theme, so relying only on
+ * after_switch_theme leaves new public routes returning a WordPress 404.
+ */
+function insightistic_maybe_flush_discovery_rewrites() {
+	if ( INSIGHTISTIC_DISCOVERY_REWRITE_VERSION === get_option( 'insightistic_discovery_rewrite_version' ) ) {
+		return;
+	}
+
+	flush_rewrite_rules( false );
+	update_option( 'insightistic_discovery_rewrite_version', INSIGHTISTIC_DISCOVERY_REWRITE_VERSION, false );
+}
+add_action( 'init', 'insightistic_maybe_flush_discovery_rewrites', 99 );
 
 add_filter(
 	'query_vars',
@@ -32,7 +49,8 @@ add_action(
 	'after_switch_theme',
 	function () {
 		insightistic_register_discovery_routes();
-		flush_rewrite_rules();
+		flush_rewrite_rules( false );
+		update_option( 'insightistic_discovery_rewrite_version', INSIGHTISTIC_DISCOVERY_REWRITE_VERSION, false );
 	}
 );
 
@@ -57,15 +75,23 @@ function insightistic_discovery_public_pages() {
 }
 
 function insightistic_discovery_emit_xml_header() {
-	nocache_headers();
+	status_header( 200 );
+	header( 'Cache-Control: public, max-age=300, s-maxage=300' );
 	header( 'Content-Type: application/xml; charset=' . get_bloginfo( 'charset' ) );
 	echo '<?xml version="1.0" encoding="' . esc_attr( get_bloginfo( 'charset' ) ) . '"?>';
 }
 
 function insightistic_discovery_emit_url( $url, $modified = '' ) {
-	echo '<url><loc>' . esc_url( $url ) . '</loc>';
+	if ( ! $url || is_wp_error( $url ) ) {
+		return;
+	}
+
+	echo '<url><loc>' . insightistic_xml_text( $url ) . '</loc>';
 	if ( $modified ) {
-		echo '<lastmod>' . esc_html( gmdate( 'c', is_numeric( $modified ) ? (int) $modified : strtotime( $modified ) ) ) . '</lastmod>';
+		$timestamp = is_numeric( $modified ) ? (int) $modified : strtotime( $modified );
+		if ( $timestamp ) {
+			echo '<lastmod>' . insightistic_xml_text( gmdate( 'c', $timestamp ) ) . '</lastmod>';
+		}
 	}
 	echo '</url>';
 }
@@ -74,7 +100,7 @@ function insightistic_emit_sitemap_index() {
 	insightistic_discovery_emit_xml_header();
 	echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
 	foreach ( array( 'pages', 'posts', 'taxonomies' ) as $type ) {
-		echo '<sitemap><loc>' . esc_url( insightistic_discovery_url( 'sitemap-' . $type . '.xml' ) ) . '</loc></sitemap>';
+		echo '<sitemap><loc>' . insightistic_xml_text( insightistic_discovery_url( 'sitemap-' . $type . '.xml' ) ) . '</loc></sitemap>';
 	}
 	echo '</sitemapindex>';
 }
@@ -86,19 +112,13 @@ function insightistic_emit_pages_sitemap() {
 	foreach ( insightistic_discovery_public_pages() as $page ) {
 		insightistic_discovery_emit_url( get_permalink( $page ), get_post_modified_time( 'c', true, $page ) );
 	}
-	foreach ( array( 'knowledgebase', 'ecosystem', 'sitemap' ) as $slug ) {
-		$url = get_page_by_path( $slug );
-		if ( $url && 'publish' === $url->post_status ) {
-			insightistic_discovery_emit_url( get_permalink( $url ), get_post_modified_time( 'c', true, $url ) );
-		}
-	}
 	echo '</urlset>';
 }
 
 function insightistic_emit_posts_sitemap() {
 	insightistic_discovery_emit_xml_header();
 	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-	$posts = get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => 500, 'orderby' => 'modified', 'order' => 'DESC' ) );
+	$posts = get_posts( array( 'post_type' => 'post', 'post_status' => 'publish', 'posts_per_page' => 500, 'orderby' => 'modified', 'order' => 'DESC', 'no_found_rows' => true ) );
 	foreach ( $posts as $post ) {
 		insightistic_discovery_emit_url( get_permalink( $post ), get_post_modified_time( 'c', true, $post ) );
 	}
@@ -108,8 +128,16 @@ function insightistic_emit_posts_sitemap() {
 function insightistic_emit_taxonomies_sitemap() {
 	insightistic_discovery_emit_xml_header();
 	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-	foreach ( array( 'category', 'post_tag' ) as $taxonomy ) {
-		foreach ( get_terms( array( 'taxonomy' => $taxonomy, 'hide_empty' => true ) ) as $term ) {
+	$taxonomies = get_taxonomies( array( 'public' => true ), 'objects' );
+	foreach ( $taxonomies as $taxonomy ) {
+		if ( empty( $taxonomy->rewrite ) ) {
+			continue;
+		}
+		$terms = get_terms( array( 'taxonomy' => $taxonomy->name, 'hide_empty' => true ) );
+		if ( is_wp_error( $terms ) ) {
+			continue;
+		}
+		foreach ( $terms as $term ) {
 			if ( ! is_wp_error( $term ) ) {
 				insightistic_discovery_emit_url( get_term_link( $term ), '' );
 			}
@@ -123,7 +151,9 @@ function insightistic_discovery_site_summary() {
 }
 
 function insightistic_emit_llms( $full = false ) {
-	nocache_headers();
+	status_header( 200 );
+	header( 'Cache-Control: public, max-age=300, s-maxage=300' );
+	header( 'X-Robots-Tag: noindex, nofollow' );
 	header( 'Content-Type: text/plain; charset=' . get_bloginfo( 'charset' ) );
 	$details = insightistic_business_details();
 	$author  = insightistic_editorial_author();
@@ -154,6 +184,10 @@ function insightistic_emit_llms( $full = false ) {
 		'Security'      => home_url( '/security/' ),
 		'Contact'       => home_url( '/contact/' ),
 		'Sitemap'       => insightistic_discovery_url( 'sitemap.xml' ),
+		'Pages sitemap' => insightistic_discovery_url( 'sitemap-pages.xml' ),
+		'Posts sitemap' => insightistic_discovery_url( 'sitemap-posts.xml' ),
+		'Taxonomy sitemap' => insightistic_discovery_url( 'sitemap-taxonomies.xml' ),
+		'Full machine-readable overview' => insightistic_discovery_url( 'llms-full.txt' ),
 	);
 	foreach ( $routes as $label => $url ) {
 		echo "- {$label}: {$url}\n";
@@ -191,6 +225,24 @@ function insightistic_emit_llms( $full = false ) {
 
 function insightistic_discovery_template_redirect() {
 	$endpoint = get_query_var( 'insightistic_discovery' );
+	if ( ! $endpoint ) {
+		$path      = trim( (string) wp_parse_url( wp_unslash( $_SERVER['REQUEST_URI'] ?? '' ), PHP_URL_PATH ), '/' );
+		$home_path = trim( (string) wp_parse_url( home_url( '/' ), PHP_URL_PATH ), '/' );
+		if ( $home_path && 0 === strpos( $path, $home_path . '/' ) ) {
+			$path = substr( $path, strlen( $home_path ) + 1 );
+		}
+		$direct_routes = array(
+			'sitemap.xml'             => 'sitemap',
+			'sitemap-pages.xml'       => 'pages',
+			'sitemap-posts.xml'       => 'posts',
+			'sitemap-taxonomies.xml' => 'taxonomies',
+			'llms.txt'                => 'llms',
+			'llms-full.txt'           => 'llms-full',
+		);
+		if ( isset( $direct_routes[ $path ] ) ) {
+			$endpoint = $direct_routes[ $path ];
+		}
+	}
 	if ( ! $endpoint ) {
 		return;
 	}
@@ -232,10 +284,17 @@ add_filter(
 			'User-agent: *',
 			'Allow: /',
 			'Disallow: /wp-admin/',
+			'Allow: /wp-admin/admin-ajax.php',
 			'Disallow: /wp-login.php',
+			'Disallow: /wp-json/',
+			'Disallow: /xmlrpc.php',
+			'Disallow: /wp-content/cache/',
 			'Disallow: /?s=',
 			'Disallow: /*?s=',
 			'Sitemap: ' . insightistic_discovery_url( 'sitemap.xml' ),
+			'Sitemap: ' . insightistic_discovery_url( 'sitemap-pages.xml' ),
+			'Sitemap: ' . insightistic_discovery_url( 'sitemap-posts.xml' ),
+			'Sitemap: ' . insightistic_discovery_url( 'sitemap-taxonomies.xml' ),
 		);
 		return implode( "\n", $lines ) . "\n";
 	},
