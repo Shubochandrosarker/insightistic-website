@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'INSIGHTISTIC_VERSION', '1.3.1' );
+define( 'INSIGHTISTIC_VERSION', '1.4.1' );
 define( 'INSIGHTISTIC_DIR', get_template_directory() );
 define( 'INSIGHTISTIC_URI', get_template_directory_uri() );
 
@@ -66,4 +66,23 @@ add_action(
 			);
 		}
 	}
+);
+
+
+/**
+ * Use the dedicated integrations template even when an older install still
+ * has the page assigned to WordPress's default page template.
+ */
+add_filter(
+	'template_include',
+	function ( $template ) {
+		if ( is_page( 'integrations' ) ) {
+			$integrations_template = INSIGHTISTIC_DIR . '/page-templates/template-integrations.php';
+			if ( is_readable( $integrations_template ) ) {
+				return $integrations_template;
+			}
+		}
+		return $template;
+	},
+	99
 );
