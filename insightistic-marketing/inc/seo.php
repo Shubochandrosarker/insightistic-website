@@ -33,7 +33,7 @@ function insightistic_seo_page_defaults() {
 		'performance-monitoring' => array( 'WordPress performance monitoring | Insightistic', 'Monitor performance signals across WordPress and WooCommerce and give your team a repeatable way to investigate changes.' ),
 		'ai-insights'            => array( 'Explainable AI business insights | Insightistic', 'Turn changes in WordPress and WooCommerce data into plain-language explanations and reviewable next actions.' ),
 		'reports'                => array( 'Branded analytics reports for agencies | Insightistic', 'Create scheduled, client-ready analytics reports with your brand, the right metrics and practical recommendations.' ),
-		'integrations'           => array( 'WordPress analytics integrations | Insightistic', 'Connect WordPress, WooCommerce, GA4 and Search Console through a clear, authenticated data workflow.' ),
+		'integrations'           => array( 'WordPress & WooCommerce integrations | Insightistic', 'Connect WordPress, WooCommerce, billing, reports and AI context through a clear, authenticated analytics workflow.' ),
 		'knowledgebase'          => array( 'Insightistic Knowledgebase | WordPress analytics guides', 'Practical guides for WooCommerce analytics, traffic, SEO, performance, AI insights, reporting and privacy-safe connections.' ),
 		'about'                  => array( 'About Insightistic | Built by WordPressistic', 'Learn how Insightistic helps WordPress and WooCommerce operators replace scattered reporting with a clearer operating view.' ),
 		'contact'                => array( 'Contact Insightistic | Product and support questions', 'Contact the Insightistic team about analytics, agency workflows, integrations, security and product access.' ),
