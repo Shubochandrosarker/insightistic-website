@@ -22,8 +22,7 @@ $ins_socials = array(
 		<div class="ins-footer__top">
 			<div class="ins-footer__brand">
 				<a class="ins-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<span class="ins-logo__dot" aria-hidden="true"></span>
-					<span class="ins-logo__text"><?php bloginfo( 'name' ); ?></span>
+					<img class="ins-logo__image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo.svg' ); ?>" alt="<?php esc_attr_e( 'Insightistic', 'insightistic-marketing' ); ?>" width="184" height="36">
 				</a>
 				<p class="ins-footer__tagline">
 					<?php echo esc_html( insightistic_option( 'insightistic_footer_tagline', __( 'AI business analytics for WordPress & WooCommerce.', 'insightistic-marketing' ) ) ); ?>
@@ -53,6 +52,7 @@ $ins_socials = array(
 						<ul>
 							<li><a href="<?php echo esc_url( home_url( '/features' ) ); ?>"><?php esc_html_e( 'Features', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/pricing' ) ); ?>"><?php esc_html_e( 'Pricing', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/ltd' ) ); ?>"><?php esc_html_e( 'Founder LTD', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/traffic-analytics' ) ); ?>"><?php esc_html_e( 'Traffic analytics', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/seo-analytics' ) ); ?>"><?php esc_html_e( 'SEO analytics', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/performance-monitoring' ) ); ?>"><?php esc_html_e( 'Performance monitoring', 'insightistic-marketing' ); ?></a></li>
