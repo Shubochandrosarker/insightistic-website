@@ -52,7 +52,7 @@ $ins_socials = array(
 						<ul>
 							<li><a href="<?php echo esc_url( home_url( '/features' ) ); ?>"><?php esc_html_e( 'Features', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/pricing' ) ); ?>"><?php esc_html_e( 'Pricing', 'insightistic-marketing' ); ?></a></li>
-							<li><a href="<?php echo esc_url( home_url( '/ltd' ) ); ?>"><?php esc_html_e( 'Founder LTD', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/ltd' ) ); ?>"><?php esc_html_e( 'Angel LTD', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/traffic-analytics' ) ); ?>"><?php esc_html_e( 'Traffic analytics', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/seo-analytics' ) ); ?>"><?php esc_html_e( 'SEO analytics', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/performance-monitoring' ) ); ?>"><?php esc_html_e( 'Performance monitoring', 'insightistic-marketing' ); ?></a></li>
