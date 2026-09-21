@@ -27,7 +27,7 @@ function insightistic_seo_page_defaults() {
 		''                       => array( 'AI business analytics for WordPress & WooCommerce | Insightistic', 'Understand revenue, products, customers, traffic, SEO and store health from one clear dashboard with explainable AI insights.' ),
 		'features'               => array( 'Insightistic features | WordPress & WooCommerce analytics', 'Explore revenue analytics, WooCommerce intelligence, AI business insights, reports, site health monitoring and agency workflows.' ),
 		'pricing'                => array( 'Insightistic pricing | AI analytics for WordPress stores', 'Compare Insightistic plans for WordPress and WooCommerce stores, growing teams and agencies. Start with the current trial and billing options.' ),
-		'ltd'                    => array( 'Insightistic Founder Lifetime Deal | AI analytics for WordPress', 'Founder lifetime access to Insightistic analytics for WordPress and WooCommerce. Compare one-time tiers for stores, operators and agencies.' ),
+		'ltd'                    => array( 'Insightistic Angel Lifetime Deal | AI analytics for WordPress', 'One-time Angel lifetime access to Insightistic analytics for WordPress and WooCommerce for the first 100 members. Compare one-time tiers for stores, operators and agencies.' ),
 		'ai-agents'             => array( 'Insightistic AI Agents & Source Guide', 'Canonical product facts, Angel member offer terms and citation-ready sources for search engines, answer engines, journalists and partners.' ),
 		'woocommerce-analytics'  => array( 'WooCommerce analytics that explains the numbers | Insightistic', 'Track revenue, orders, AOV, refunds, products and customers in a focused WooCommerce analytics workspace.' ),
 		'traffic-analytics'      => array( 'Traffic analytics for WordPress & WooCommerce | Insightistic', 'Connect traffic and engagement signals with store outcomes so WordPress teams can see which channels deserve attention.' ),
@@ -259,9 +259,9 @@ function insightistic_schema_graph() {
 	if ( is_page( 'ltd' ) ) {
 		$ltd_url = get_permalink();
 		$tiers   = array(
-			array( 'name' => 'Angel Tier 1', 'price' => '79' ),
-			array( 'name' => 'Angel Tier 2', 'price' => '149' ),
-			array( 'name' => 'Angel Tier 3', 'price' => '249' ),
+			array( 'name' => 'Angel Solo', 'price' => '79' ),
+			array( 'name' => 'Angel Studio', 'price' => '149' ),
+			array( 'name' => 'Angel Agency', 'price' => '249' ),
 		);
 		$offers = array();
 		foreach ( $tiers as $tier ) {
@@ -288,6 +288,7 @@ function insightistic_schema_graph() {
 			array( 'q' => 'What does lifetime mean here?', 'a' => 'Lifetime means access to the purchased tier and its included feature family, with the published recurring allowances, for as long as Insightistic operates.' ),
 			array( 'q' => 'Can I use this for client sites?', 'a' => 'Yes. Choose the Angel tier whose published site and team allowances cover the portfolio you manage.' ),
 			array( 'q' => 'Can I start with the free trial instead?', 'a' => 'Yes. Standard SaaS plans include a 7-day free trial with no card required to start.' ),
+			array( 'q' => 'How does the 30-day guarantee work?', 'a' => 'Angel members can request a 100% refund within 30 calendar days of purchase, no questions asked, subject to the published refund policy and payment-provider records.' ),
 		);
 		$nodes[] = array(
 			'@type'      => 'FAQPage',
