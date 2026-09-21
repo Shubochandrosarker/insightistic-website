@@ -256,6 +256,55 @@ function insightistic_schema_graph() {
 		array( '@type' => array( 'SoftwareApplication', 'Product' ), '@id' => home_url( '/#product' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'url' => home_url( '/' ), 'applicationCategory' => 'BusinessApplication', 'operatingSystem' => 'Web', 'publisher' => array( '@id' => $brand ), 'isPartOf' => array( '@id' => home_url( '/#website' ) ) ),
 	);
 
+	if ( is_page( 'ltd' ) ) {
+		$ltd_url = get_permalink();
+		$tiers   = array(
+			array( 'name' => 'Angel Tier 1', 'price' => '79' ),
+			array( 'name' => 'Angel Tier 2', 'price' => '149' ),
+			array( 'name' => 'Angel Tier 3', 'price' => '249' ),
+		);
+		$offers = array();
+		foreach ( $tiers as $tier ) {
+			$offers[] = array(
+				'@type'         => 'Offer',
+				'name'          => $tier['name'],
+				'price'         => $tier['price'],
+				'priceCurrency' => 'USD',
+				'availability'  => 'https://schema.org/LimitedAvailability',
+				'url'           => $ltd_url,
+			);
+		}
+		$nodes[] = array(
+			'@type'       => 'Product',
+			'@id'         => $ltd_url . '#angel-lifetime-deal',
+			'name'        => 'Insightistic Angel Lifetime Deal',
+			'description' => 'Limited-time, one-time lifetime access for the first 100 Angel members, with published monthly allowances.',
+			'url'         => $ltd_url,
+			'image'       => get_template_directory_uri() . '/assets/images/logo-dark.svg',
+			'brand'       => array( '@type' => 'Brand', 'name' => 'Insightistic' ),
+			'offers'      => $offers,
+		);
+		$ltd_questions = array(
+			array( 'q' => 'What does lifetime mean here?', 'a' => 'Lifetime means access to the purchased tier and its included feature family, with the published recurring allowances, for as long as Insightistic operates.' ),
+			array( 'q' => 'Can I use this for client sites?', 'a' => 'Yes. Choose the Angel tier whose published site and team allowances cover the portfolio you manage.' ),
+			array( 'q' => 'Can I start with the free trial instead?', 'a' => 'Yes. Standard SaaS plans include a 7-day free trial with no card required to start.' ),
+		);
+		$nodes[] = array(
+			'@type'      => 'FAQPage',
+			'@id'        => $ltd_url . '#faq',
+			'mainEntity' => array_map(
+				static function ( $faq ) {
+					return array(
+						'@type'          => 'Question',
+						'name'           => $faq['q'],
+						'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $faq['a'] ),
+					);
+				},
+				$ltd_questions
+			),
+		);
+	}
+
 	if ( is_singular( 'post' ) ) {
 		$nodes[] = array( '@type' => 'BlogPosting', '@id' => get_permalink() . '#article', 'headline' => get_the_title(), 'description' => insightistic_seo_description(), 'url' => get_permalink(), 'datePublished' => get_the_date( DATE_W3C ), 'dateModified' => get_the_modified_date( DATE_W3C ), 'author' => array( '@type' => 'Person', 'name' => $author['name'], 'jobTitle' => $author['title'], 'url' => $author['url'] ), 'publisher' => array( '@id' => $brand ), 'mainEntityOfPage' => array( '@id' => get_permalink() ), 'isPartOf' => array( '@id' => home_url( '/#website' ) ), 'inLanguage' => get_bloginfo( 'language' ) );
 	} elseif ( ! is_404() && ! is_search() && ! is_feed() ) {
