@@ -195,7 +195,7 @@ function insightistic_machine_readable_payload( $full = false ) {
 			)
 		);
 	}
-	return implode( "\\n", $lines ) . "\\n";
+	return implode( "\n", $lines ) . "\n";
 }
 
 function insightistic_output_machine_readable_source() {
@@ -216,7 +216,7 @@ function insightistic_allow_oai_searchbot( $output, $public ) {
 	if ( ! $public || false !== strpos( $output, 'User-agent: OAI-SearchBot' ) ) {
 		return $output;
 	}
-	return rtrim( $output ) . "\\n\\nUser-agent: OAI-SearchBot\\nAllow: /\\n";
+	return rtrim( $output ) . "\n\nUser-agent: OAI-SearchBot\nAllow: /\n";
 }
 add_filter( 'robots_txt', 'insightistic_allow_oai_searchbot', 10, 2 );
 
