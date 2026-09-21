@@ -44,7 +44,7 @@ get_header();
 				<p class="ins-lead"><?php esc_html_e( 'Insightistic brings revenue, customers, products, traffic, SEO, performance and explainable AI into one clean operating view — built for store owners and the agencies who support them.', 'insightistic-marketing' ); ?></p>
 				<div class="ins-hero__actions ins-ltd-hero__actions">
 					<a class="ins-btn ins-btn--brand ins-btn--lg" href="<?php echo esc_url( add_query_arg( 'plan', 'founder_tier_2', insightistic_register_url() ) ); ?>"><?php esc_html_e( 'Join the first 100 Angel members', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 17 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
-					<a class="ins-btn ins-btn--ghost ins-btn--lg" href="#tiers"><?php esc_html_e( 'Compare founder tiers', 'insightistic-marketing' ); ?></a>
+					<a class="ins-btn ins-btn--ghost ins-btn--lg" href="#tiers"><?php esc_html_e( 'Compare Angel tiers', 'insightistic-marketing' ); ?></a>
 				</div>
 				<ul class="ins-ltd-proof" aria-label="<?php esc_attr_e( 'Angel member access highlights', 'insightistic-marketing' ); ?>">
 					<li><strong><?php esc_html_e( 'One-time', 'insightistic-marketing' ); ?></strong><span><?php esc_html_e( 'payment', 'insightistic-marketing' ); ?></span></li>
@@ -157,7 +157,7 @@ get_header();
 				<div class="ins-ltd-guarantee" id="guarantee"><strong><?php esc_html_e( '30-day, 100% money-back guarantee', 'insightistic-marketing' ); ?></strong><span><?php esc_html_e( 'Use the product. Connect your store. Review the workflow. If it is not a fit, contact us within 30 calendar days of purchase for a full refund — no questions asked, subject to the published deal terms.', 'insightistic-marketing' ); ?></span><a href="<?php echo esc_url( home_url( '/refunds' ) ); ?>"><?php esc_html_e( 'Read the refund policy', 'insightistic-marketing' ); ?></a></div>
 			<div class="ins-ltd-leadbox">
 				<h3><?php esc_html_e( 'Prefer a quick fit check?', 'insightistic-marketing' ); ?></h3>
-				<p><?php esc_html_e( 'Tell us what you manage and we’ll help you map it to the right founder tier.', 'insightistic-marketing' ); ?></p>
+				<p><?php esc_html_e( 'Tell us what you manage and we’ll help you map it to the right Angel tier.', 'insightistic-marketing' ); ?></p>
 				<?php insightistic_formistic_form( 'ltd' ); ?>
 				<p class="ins-consent"><?php esc_html_e( 'By submitting this form, you agree to our', 'insightistic-marketing' ); ?> <a href="<?php echo esc_url( home_url( '/privacy-policy' ) ); ?>"><?php esc_html_e( 'Privacy Policy', 'insightistic-marketing' ); ?></a>.</p>
 			</div>
