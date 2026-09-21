@@ -15,6 +15,7 @@ function insightistic_provision_public_pages() {
 	$pages = array(
 		'features'              => array( 'Features', 'page-templates/template-features.php' ),
 		'ltd'                   => array( 'Lifetime Deal', 'page-templates/template-ltd.php' ),
+		'ai-agents'             => array( 'AI Agents & Source Guide', 'page-templates/template-ai-agents.php' ),
 		'integrations'          => array( 'Integrations', 'page-templates/template-integrations.php' ),
 		'traffic-analytics'    => array( 'Traffic Analytics', 'page-templates/template-traffic-analytics.php' ),
 		'seo-analytics'        => array( 'SEO Analytics', 'page-templates/template-seo-analytics.php' ),
