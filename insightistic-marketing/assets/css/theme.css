@@ -559,3 +559,16 @@ p { margin: 0 0 1rem; }
 	.ins-ltd-dashboard__metrics > div { display: grid; grid-template-columns: 1fr auto auto; gap: .5rem; align-items: baseline; }
 	.ins-ltd-dashboard__metrics span { overflow: visible; }
 }
+
+/* ---- AI agent source guide --------------------------------------------- */
+.ins-source-page__updated { color: var(--fg-muted); font-size: .82rem; }
+.ins-source-facts { display: grid; grid-template-columns: 1fr; gap: .35rem 1.25rem; margin: 1.5rem 0 2rem; padding: 1.25rem; border: 1px solid var(--line); border-radius: var(--radius); background: var(--panel-2); }
+.ins-source-facts dt { color: var(--fg); font-weight: 700; }
+.ins-source-facts dd { margin: 0 0 .65rem; color: var(--fg-muted); }
+.ins-source-page h2 { margin-top: 2.5rem; }
+.ins-source-page li { margin-bottom: .6rem; }
+.ins-source-page__contact { margin-top: 2.5rem; padding-top: 1.25rem; border-top: 1px solid var(--line); }
+@media (min-width: 760px) {
+	.ins-source-facts { grid-template-columns: minmax(150px, .35fr) minmax(0, 1fr); }
+	.ins-source-facts dd { margin-bottom: 0; }
+}
