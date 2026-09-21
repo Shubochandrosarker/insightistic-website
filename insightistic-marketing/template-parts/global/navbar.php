@@ -17,8 +17,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				<?php the_custom_logo(); ?>
 			<?php else : ?>
 				<a class="ins-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<span class="ins-logo__dot" aria-hidden="true"></span>
-					<span class="ins-logo__text"><?php bloginfo( 'name' ); ?></span>
+					<img class="ins-logo__image" src="<?php echo esc_url( get_template_directory_uri() . '/assets/images/logo-dark.svg' ); ?>" alt="<?php esc_attr_e( 'Insightistic', 'insightistic-marketing' ); ?>" width="184" height="36">
 				</a>
 			<?php endif; ?>
 		</div>
@@ -39,6 +38,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				echo '<ul class="ins-menu">';
 				$fallback = array(
 					'/features'      => __( 'Features', 'insightistic-marketing' ),
+						'/ltd'           => __( 'Founder LTD', 'insightistic-marketing' ),
 					'/pricing'       => __( 'Pricing', 'insightistic-marketing' ),
 					'/knowledgebase' => __( 'Learn', 'insightistic-marketing' ),
 					'/agency'        => __( 'For agencies', 'insightistic-marketing' ),
@@ -83,7 +83,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 				);
 			} else {
 				echo '<ul class="ins-mobile__menu">';
-				foreach ( array( '/features' => __( 'Features', 'insightistic-marketing' ), '/pricing' => __( 'Pricing', 'insightistic-marketing' ), '/knowledgebase' => __( 'Knowledgebase', 'insightistic-marketing' ), '/agency' => __( 'For agencies', 'insightistic-marketing' ), '/contact' => __( 'Contact', 'insightistic-marketing' ) ) as $path => $label ) {
+				foreach ( array( '/features' => __( 'Features', 'insightistic-marketing' ), '/pricing' => __( 'Pricing', 'insightistic-marketing' ), '/ltd' => __( 'Founder LTD', 'insightistic-marketing' ), '/knowledgebase' => __( 'Knowledgebase', 'insightistic-marketing' ), '/agency' => __( 'For agencies', 'insightistic-marketing' ), '/contact' => __( 'Contact', 'insightistic-marketing' ) ) as $path => $label ) {
 					printf( '<li><a href="%s">%s</a></li>', esc_url( home_url( $path ) ), esc_html( $label ) );
 				}
 				echo '</ul>';
