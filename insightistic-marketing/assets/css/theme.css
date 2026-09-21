@@ -572,3 +572,21 @@ p { margin: 0 0 1rem; }
 	.ins-source-facts { grid-template-columns: minmax(150px, .35fr) minmax(0, 1fr); }
 	.ins-source-facts dd { margin-bottom: 0; }
 }
+
+
+/* Angel LTD: comparison and trust surface */
+.ins-ltd-compare-wrap{overflow-x:auto;border:1px solid rgba(19,44,86,.12);border-radius:22px;background:#fff;box-shadow:0 16px 44px rgba(19,44,86,.08)}
+.ins-ltd-compare{width:100%;min-width:920px;border-collapse:collapse;text-align:left;font-size:.92rem}
+.ins-ltd-compare th,.ins-ltd-compare td{padding:1rem 1.1rem;border-bottom:1px solid rgba(19,44,86,.1);vertical-align:top}
+.ins-ltd-compare thead th{background:#f6f9ff;color:#17396d;font-size:.75rem;letter-spacing:.08em;text-transform:uppercase}
+.ins-ltd-compare tbody th{width:17%;color:#122b54;font-size:.95rem}
+.ins-ltd-compare tbody td{color:#526580;line-height:1.55}
+.ins-ltd-compare tbody tr:last-child th,.ins-ltd-compare tbody tr:last-child td{border-bottom:0}
+.ins-ltd-compare__featured{background:linear-gradient(90deg,rgba(22,217,193,.12),rgba(31,103,242,.06))}
+.ins-ltd-compare__featured th{color:#0d56bd!important}
+.ins-ltd-compare a{color:#1552b8;text-decoration:underline;text-underline-offset:3px}
+.ins-ltd-guarantee{display:grid;gap:.35rem;margin:1.5rem 0;padding:1rem 1.1rem;border:1px solid rgba(22,217,193,.5);border-radius:16px;background:rgba(22,217,193,.1);color:#dcecff}
+.ins-ltd-guarantee strong{font-size:1rem;color:#fff}
+.ins-ltd-guarantee span{color:#c9d8ec;line-height:1.55}
+.ins-ltd-guarantee a{width:max-content;color:#7deadd;text-decoration:underline;text-underline-offset:3px}
+@media (max-width:700px){.ins-ltd-compare-wrap{margin-inline:-1rem;border-radius:0}.ins-ltd-compare{font-size:.82rem}.ins-ltd-compare th,.ins-ltd-compare td{padding:.8rem}.ins-ltd-guarantee a{width:auto}}
