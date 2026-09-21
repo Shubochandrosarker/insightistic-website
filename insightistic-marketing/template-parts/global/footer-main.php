@@ -66,6 +66,7 @@ $ins_socials = array(
 							<li><a href="<?php echo esc_url( home_url( '/about' ) ); ?>"><?php esc_html_e( 'About', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/why-insightistic' ) ); ?>"><?php esc_html_e( 'Why Insightistic', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/security' ) ); ?>"><?php esc_html_e( 'Security', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( home_url( '/ai-agents' ) ); ?>"><?php esc_html_e( 'AI agents & source guide', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/changelog' ) ); ?>"><?php esc_html_e( 'Changelog', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/blog' ) ); ?>"><?php esc_html_e( 'Blog', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( home_url( '/knowledgebase' ) ); ?>"><?php esc_html_e( 'Knowledgebase', 'insightistic-marketing' ); ?></a></li>
