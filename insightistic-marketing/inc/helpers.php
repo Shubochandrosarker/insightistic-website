@@ -332,7 +332,7 @@ function insightistic_pricing_plans_fallback() {
 			'tagline'   => 'For small WooCommerce stores finding their footing.',
 			'monthly'   => '$9',
 			'yearly'    => '$90',
-			'features'  => array( '1 connected store', 'Revenue & order analytics', 'Weekly AI summary', 'Email reports', '14-day free trial' ),
+			'features'  => array( '1 connected store', 'Revenue & order analytics', 'Weekly AI summary', 'Email reports', '7-day free trial' ),
 			'featured'  => false,
 		),
 		array(
@@ -380,7 +380,7 @@ function insightistic_faqs() {
 		array( 'q' => 'How does a store connect?', 'a' => 'Already running the free Insightistic WordPress plugin? Create an account, paste the license key into Insightistic → License on your site, and it syncs automatically — no separate install. Not running that plugin? Add a site in the dashboard, copy the connector token, install the standalone Insightistic connector plugin, paste the API URL and token, connect, and run the first sync.' ),
 		array( 'q' => 'Is my data secure?', 'a' => 'Yes. Every sync uses signed, secure communication and only sends the business analytics data needed. It does not collect or store customer payment card details.' ),
 		array( 'q' => 'Can agencies use Insightistic?', 'a' => 'Yes. Agencies can manage multiple client stores, generate branded reports, monitor performance and provide client-facing dashboards with white-label options.' ),
-		array( 'q' => 'Do you offer a free trial?', 'a' => 'Yes — every plan starts with a 14-day free trial, no credit card required. Start at app.insightistic.com/register.' ),
+		array( 'q' => 'Do you offer a free trial?', 'a' => 'Yes — every plan starts with a 7-day free trial, no credit card required. Start at app.insightistic.com/register.' ),
 	);
 
 	return apply_filters( 'insightistic_faqs', $faqs );
