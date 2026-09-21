@@ -43,7 +43,7 @@ get_header();
 				<h1><?php esc_html_e( 'Join the first 100 Angel members building a clearer way to run WordPress businesses.', 'insightistic-marketing' ); ?></h1>
 				<p class="ins-lead"><?php esc_html_e( 'Insightistic brings revenue, customers, products, traffic, SEO, performance and explainable AI into one clean operating view — built for store owners and the agencies who support them.', 'insightistic-marketing' ); ?></p>
 				<div class="ins-hero__actions ins-ltd-hero__actions">
-					<a class="ins-btn ins-btn--brand ins-btn--lg" href="<?php echo esc_url( add_query_arg( 'plan', 'founder_tier_2', insightistic_register_url() ) ); ?>"><?php esc_html_e( 'Get Angel member access', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 17 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+					<a class="ins-btn ins-btn--brand ins-btn--lg" href="<?php echo esc_url( add_query_arg( 'plan', 'founder_tier_2', insightistic_register_url() ) ); ?>"><?php esc_html_e( 'Join the first 100 Angel members', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 17 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 					<a class="ins-btn ins-btn--ghost ins-btn--lg" href="#tiers"><?php esc_html_e( 'Compare founder tiers', 'insightistic-marketing' ); ?></a>
 				</div>
 				<ul class="ins-ltd-proof" aria-label="<?php esc_attr_e( 'Angel member access highlights', 'insightistic-marketing' ); ?>">
@@ -104,7 +104,7 @@ get_header();
 			<div class="ins-section__head">
 				<p class="ins-eyebrow"><?php esc_html_e( 'Angel member access', 'insightistic-marketing' ); ?></p>
 				<h2><?php esc_html_e( 'Choose the Angel tier that fits your portfolio today.', 'insightistic-marketing' ); ?></h2>
-				<p class="ins-lead"><?php esc_html_e( 'One-time founder pricing with the published monthly allowances below. Lifetime means access to the purchased tier’s included feature family for as long as Insightistic operates.', 'insightistic-marketing' ); ?></p>
+				<p class="ins-lead"><?php esc_html_e( 'One-time Angel pricing with the published monthly allowances below. Lifetime means access to the purchased tier’s included feature family for as long as Insightistic operates.', 'insightistic-marketing' ); ?></p>
 			</div>
 			<div class="ins-ltd-tiers">
 				<?php foreach ( $tiers as $index => $tier ) : ?>
@@ -127,7 +127,7 @@ get_header();
 				<p class="ins-eyebrow"><?php esc_html_e( 'Built for the people doing the work', 'insightistic-marketing' ); ?></p>
 				<h2><?php esc_html_e( 'Give your next decision more context — and your clients more confidence.', 'insightistic-marketing' ); ?></h2>
 				<p><?php esc_html_e( 'Start with the founder tier that fits your portfolio. If you need a fit check first, send your details and the team will help you choose the right path.', 'insightistic-marketing' ); ?></p>
-				<a class="ins-btn ins-btn--brand ins-btn--lg" href="<?php echo esc_url( add_query_arg( 'plan', 'founder_tier_2', insightistic_register_url() ) ); ?>"><?php esc_html_e( 'Start with Angel member access', 'insightistic-marketing' ); ?></a>
+				<a class="ins-btn ins-btn--brand ins-btn--lg" href="<?php echo esc_url( add_query_arg( 'plan', 'founder_tier_2', insightistic_register_url() ) ); ?>"><?php esc_html_e( 'Join the first 100 Angel members', 'insightistic-marketing' ); ?></a>
 			</div>
 			<div class="ins-ltd-leadbox">
 				<h3><?php esc_html_e( 'Prefer a quick fit check?', 'insightistic-marketing' ); ?></h3>
