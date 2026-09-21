@@ -14,6 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 function insightistic_provision_public_pages() {
 	$pages = array(
 		'features'              => array( 'Features', 'page-templates/template-features.php' ),
+		'ltd'                   => array( 'Lifetime Deal', 'page-templates/template-ltd.php' ),
 		'integrations'          => array( 'Integrations', 'page-templates/template-integrations.php' ),
 		'traffic-analytics'    => array( 'Traffic Analytics', 'page-templates/template-traffic-analytics.php' ),
 		'seo-analytics'        => array( 'SEO Analytics', 'page-templates/template-seo-analytics.php' ),
@@ -75,7 +76,7 @@ add_action(
  * template assignments without overwriting page content.
  */
 function insightistic_maybe_provision_public_pages() {
-	$version = '2026-09-14-integrations-footer';
+	$version = '2026-09-21-ltd-logo-refresh';
 
 	if ( $version === get_option( 'insightistic_public_pages_version' ) ) {
 		return;
