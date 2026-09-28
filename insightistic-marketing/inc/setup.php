@@ -52,7 +52,7 @@ function insightistic_marketing_default_site_icon() {
 		return;
 	}
 
-	$icon_url = INSIGHTISTIC_URI . '/assets/images/insightistic-icon.png';
+	$icon_url = insightistic_asset_url( 'assets/images/insightistic-icon.png' );
 	printf( '<link rel="icon" href="%s" type="image/png" sizes="512x512">' . "\n", esc_url( $icon_url ) );
 	printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $icon_url ) );
 }

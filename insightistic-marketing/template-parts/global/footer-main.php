@@ -24,7 +24,7 @@ $ins_business = insightistic_business_details();
 			<div class="ins-footer__brand ins-reveal">
 				<span class="ins-footer__eyebrow"><?php esc_html_e( 'Insightistic analytics', 'insightistic-marketing' ); ?></span>
 				<a class="ins-logo ins-logo--inverse" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<img class="ins-logo__icon" src="<?php echo esc_url( INSIGHTISTIC_URI . '/assets/images/insightistic-icon.png' ); ?>" alt="" aria-hidden="true" />
+					<img class="ins-logo__icon" src="<?php echo esc_url( insightistic_asset_url( 'assets/images/insightistic-icon.png' ) ); ?>" alt="" aria-hidden="true" />
 					<span class="ins-logo__wordmark"><?php echo esc_html( get_bloginfo( 'name' ) ); ?></span>
 				</a>
 				<p class="ins-footer__tagline">

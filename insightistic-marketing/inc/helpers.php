@@ -36,6 +36,28 @@ function insightistic_api_url() {
 }
 
 /**
+ * Theme asset URL with a file-based cache buster.
+ *
+ * @param string $relative_path Path relative to the theme root.
+ * @return string
+ */
+function insightistic_asset_url( $relative_path ) {
+	$relative_path = ltrim( (string) $relative_path, '/' );
+	$url           = INSIGHTISTIC_URI . '/' . $relative_path;
+	$file          = INSIGHTISTIC_DIR . '/' . $relative_path;
+	$version       = defined( 'INSIGHTISTIC_MARKETING_VERSION' ) ? INSIGHTISTIC_MARKETING_VERSION : '1';
+
+	if ( is_readable( $file ) ) {
+		$mtime = filemtime( $file );
+		if ( $mtime ) {
+			$version = (string) $mtime;
+		}
+	}
+
+	return add_query_arg( 'v', $version, $url );
+}
+
+/**
  * Safely join the app base with a path. Always run through esc_url() on output.
  *
  * @param string $path e.g. '/login' or '/register?plan=pro'.

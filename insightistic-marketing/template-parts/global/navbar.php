@@ -14,7 +14,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 		<div class="ins-header__brand">
 			<a class="ins-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-				<img class="ins-logo__image" src="<?php echo esc_url( INSIGHTISTIC_URI . '/assets/images/insightistic-wordmark.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
+				<img class="ins-logo__image" src="<?php echo esc_url( insightistic_asset_url( 'assets/images/insightistic-wordmark.png' ) ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
 			</a>
 		</div>
 
