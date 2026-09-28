@@ -30,8 +30,8 @@ $subtitle = insightistic_option( 'insightistic_hero_subtitle', __( 'Understand r
 		</div>
 
 		<ul class="ins-hero__stats" aria-label="<?php esc_attr_e( 'Highlights', 'insightistic-marketing' ); ?>">
-			<li><strong>3 min</strong><span><?php esc_html_e( 'to connect', 'insightistic-marketing' ); ?></span></li>
-			<li><strong>14 days</strong><span><?php esc_html_e( 'free trial', 'insightistic-marketing' ); ?></span></li>
+			<li><strong data-count="3 min">3 min</strong><span><?php esc_html_e( 'to connect', 'insightistic-marketing' ); ?></span></li>
+			<li><strong data-count="14 days">14 days</strong><span><?php esc_html_e( 'free trial', 'insightistic-marketing' ); ?></span></li>
 			<li><strong>White-label</strong><span><?php esc_html_e( 'for agencies', 'insightistic-marketing' ); ?></span></li>
 		</ul>
 

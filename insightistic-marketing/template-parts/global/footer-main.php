@@ -15,19 +15,21 @@ $ins_socials = array(
 	'youtube'  => 'YouTube',
 	'github'   => 'GitHub',
 );
+$ins_business = insightistic_business_details();
 ?>
 <footer class="ins-footer" role="contentinfo">
 	<div class="ins-container">
 
 		<div class="ins-footer__top">
-			<div class="ins-footer__brand">
+			<div class="ins-footer__brand ins-reveal">
+				<span class="ins-footer__eyebrow"><?php esc_html_e( 'Insightistic analytics', 'insightistic-marketing' ); ?></span>
 				<a class="ins-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<span class="ins-logo__dot" aria-hidden="true"></span>
-					<span class="ins-logo__text"><?php bloginfo( 'name' ); ?></span>
+					<img class="ins-logo__image" src="<?php echo esc_url( INSIGHTISTIC_URI . '/assets/images/insightistic-logo.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
 				</a>
 				<p class="ins-footer__tagline">
 					<?php echo esc_html( insightistic_option( 'insightistic_footer_tagline', __( 'AI business analytics for WordPress & WooCommerce.', 'insightistic-marketing' ) ) ); ?>
 				</p>
+				<p class="ins-footer__parent"><span class="ins-footer__parent-label"><?php esc_html_e( 'A product of', 'insightistic-marketing' ); ?></span><strong>WordPressistic LLC</strong><span><?php esc_html_e( 'under the WPISTIC EcoSystem', 'insightistic-marketing' ); ?></span></p>
 				<p><a class="ins-link" href="https://wordpressistic.com/" target="_blank" rel="noopener"><?php esc_html_e( 'Part of the WordPressistic ecosystem', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a></p>
 
 				<div class="ins-footer__newsletter">
@@ -38,17 +40,17 @@ $ins_socials = array(
 
 			<div class="ins-footer__cols">
 				<?php if ( is_active_sidebar( 'footer-1' ) ) : ?>
-					<div class="ins-footer__col"><?php dynamic_sidebar( 'footer-1' ); ?></div>
+					<div class="ins-footer__col ins-reveal"><?php dynamic_sidebar( 'footer-1' ); ?></div>
 				<?php endif; ?>
 				<?php if ( is_active_sidebar( 'footer-2' ) ) : ?>
-					<div class="ins-footer__col"><?php dynamic_sidebar( 'footer-2' ); ?></div>
+					<div class="ins-footer__col ins-reveal"><?php dynamic_sidebar( 'footer-2' ); ?></div>
 				<?php endif; ?>
 				<?php if ( is_active_sidebar( 'footer-3' ) ) : ?>
-					<div class="ins-footer__col"><?php dynamic_sidebar( 'footer-3' ); ?></div>
+					<div class="ins-footer__col ins-reveal"><?php dynamic_sidebar( 'footer-3' ); ?></div>
 				<?php endif; ?>
 
 				<?php if ( ! is_active_sidebar( 'footer-1' ) && ! is_active_sidebar( 'footer-2' ) && ! is_active_sidebar( 'footer-3' ) ) : ?>
-					<div class="ins-footer__col">
+					<div class="ins-footer__col ins-reveal">
 						<h3><?php esc_html_e( 'Product', 'insightistic-marketing' ); ?></h3>
 						<ul>
 							<li><a href="<?php echo esc_url( home_url( '/features' ) ); ?>"><?php esc_html_e( 'Features', 'insightistic-marketing' ); ?></a></li>
@@ -60,7 +62,7 @@ $ins_socials = array(
 							<li><a href="<?php echo esc_url( home_url( '/agency' ) ); ?>"><?php esc_html_e( 'For agencies', 'insightistic-marketing' ); ?></a></li>
 						</ul>
 					</div>
-					<div class="ins-footer__col">
+					<div class="ins-footer__col ins-reveal">
 						<h3><?php esc_html_e( 'Company', 'insightistic-marketing' ); ?></h3>
 						<ul>
 							<li><a href="<?php echo esc_url( home_url( '/about' ) ); ?>"><?php esc_html_e( 'About', 'insightistic-marketing' ); ?></a></li>
@@ -74,7 +76,7 @@ $ins_socials = array(
 							<li><a href="<?php echo esc_url( home_url( '/contact' ) ); ?>"><?php esc_html_e( 'Contact', 'insightistic-marketing' ); ?></a></li>
 						</ul>
 					</div>
-					<div class="ins-footer__col">
+					<div class="ins-footer__col ins-reveal">
 						<h3><?php esc_html_e( 'App', 'insightistic-marketing' ); ?></h3>
 						<ul>
 							<li><a href="<?php echo esc_url( insightistic_login_url() ); ?>"><?php esc_html_e( 'Sign in', 'insightistic-marketing' ); ?></a></li>
@@ -86,11 +88,11 @@ $ins_socials = array(
 			</div>
 		</div>
 
-		<div class="ins-footer__bottom">
+		<div class="ins-footer__bottom ins-reveal">
 			<p class="ins-footer__copy">
 				&copy; <?php echo esc_html( gmdate( 'Y' ) ); ?> <?php bloginfo( 'name' ); ?> · <?php esc_html_e( 'by WordPressistic', 'insightistic-marketing' ); ?>
 			</p>
-			<p class="ins-footer__entity">WordPressistic LLC · 1209 MOUNTAIN ROAD PL NE, STE N · Albuquerque, NM 87110 · Entity ID 0008120099</p>
+			<address class="ins-footer__entity"><strong><?php echo esc_html( $ins_business['legal_name'] ); ?></strong><br><?php echo esc_html( $ins_business['address'] ); ?><br><?php echo esc_html( $ins_business['city'] . ', ' . $ins_business['state'] . ' ' . $ins_business['postal_code'] . ( 'US' === $ins_business['country'] ? ', USA' : ', ' . $ins_business['country'] ) ); ?></address>
 
 			<?php
 			if ( has_nav_menu( 'legal' ) ) {

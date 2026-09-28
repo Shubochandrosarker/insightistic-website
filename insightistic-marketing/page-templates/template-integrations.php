@@ -25,7 +25,7 @@ $integrations = array(
 	array(
 		'icon'  => 'bar-chart',
 		'type'  => __( 'Account billing', 'insightistic-marketing' ),
-		'title' => __( 'Stripe billing', 'insightistic-marketing' ),
+		'title' => __( 'Paddle billing', 'insightistic-marketing' ),
 		'text'  => __( 'Keep your Insightistic plan and subscription context aligned with the account and reporting workflow.', 'insightistic-marketing' ),
 	),
 	array(

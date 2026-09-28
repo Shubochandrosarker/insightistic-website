@@ -56,6 +56,7 @@ function insightistic_legal_document( $slug ) {
 /** Render the shared legal layout used by every legal page template. */
 function insightistic_render_legal_page( $slug, $fallback_title, $eyebrow = 'Legal & trust' ) {
 	$title = insightistic_current_title() ? insightistic_current_title() : $fallback_title;
+	$details = insightistic_business_details();
 	?>
 	<section class="ins-section ins-legal-hero">
 		<div class="ins-container ins-narrow">
@@ -63,6 +64,10 @@ function insightistic_render_legal_page( $slug, $fallback_title, $eyebrow = 'Leg
 			<p class="ins-eyebrow"><?php echo esc_html( $eyebrow ); ?></p>
 			<h1 class="ins-page-title"><?php echo esc_html( $title ); ?></h1>
 			<p class="ins-legal__updated"><?php esc_html_e( 'Last updated:', 'insightistic-marketing' ); ?> <?php echo esc_html( insightistic_legal_updated_date() ); ?></p>
+			<div class="ins-legal__identity" aria-label="<?php esc_attr_e( 'Legal entity', 'insightistic-marketing' ); ?>">
+				<span class="ins-logo__dot" aria-hidden="true"></span>
+				<div><strong><?php echo esc_html( $details['brand'] ); ?></strong><span><?php esc_html_e( 'A product of WordPressistic LLC under the WPISTIC EcoSystem', 'insightistic-marketing' ); ?></span><address><?php echo esc_html( $details['address'] ); ?><br><?php echo esc_html( $details['city'] . ', ' . $details['state'] . ' ' . $details['postal_code'] . ( 'US' === $details['country'] ? ', USA' : ', ' . $details['country'] ) ); ?></address></div>
+			</div>
 		</div>
 	</section>
 	<section class="ins-section ins-legal-content">

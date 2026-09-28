@@ -29,15 +29,15 @@ $metrics = insightistic_preview_metrics();
 				<div class="ins-preview__lower">
 					<figure class="ins-preview__chart" aria-hidden="true">
 						<figcaption><?php esc_html_e( 'Revenue · last 30 days', 'insightistic-marketing' ); ?></figcaption>
-						<svg viewBox="0 0 600 200" preserveAspectRatio="none" role="presentation">
+						<svg viewBox="0 0 600 200" preserveAspectRatio="none" role="presentation" class="ins-preview__graph">
 							<defs>
 								<linearGradient id="insArea" x1="0" y1="0" x2="0" y2="1">
 									<stop offset="0%" stop-color="#00C04B" stop-opacity="0.35"/>
 									<stop offset="100%" stop-color="#00C04B" stop-opacity="0"/>
 								</linearGradient>
 							</defs>
-							<path d="M0,165 C40,160 70,150 110,150 150,150 170,130 210,128 250,126 270,110 310,100 350,90 380,78 420,60 460,45 490,40 540,26 570,20 590,16 600,12 L600,200 L0,200 Z" fill="url(#insArea)"/>
-							<path d="M0,165 C40,160 70,150 110,150 150,150 170,130 210,128 250,126 270,110 310,100 350,90 380,78 420,60 460,45 490,40 540,26 570,20 590,16 600,12" fill="none" stroke="#00C04B" stroke-width="2.5"/>
+							<path class="ins-preview__graph-area" d="M0,165 C40,160 70,150 110,150 150,150 170,130 210,128 250,126 270,110 310,100 350,90 380,78 420,60 460,45 490,40 540,26 570,20 590,16 600,12 L600,200 L0,200 Z" fill="url(#insArea)"/>
+							<path class="ins-preview__graph-line" d="M0,165 C40,160 70,150 110,150 150,150 170,130 210,128 250,126 270,110 310,100 350,90 380,78 420,60 460,45 490,40 540,26 570,20 590,16 600,12" fill="none" stroke="#00C04B" stroke-width="2.5"/>
 						</svg>
 					</figure>
 					<div class="ins-preview__insight">

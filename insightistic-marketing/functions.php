@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Keep the marketing theme's cache-busting version separate from the
 // Insightistic Connector plugin's global version constant.
-define( 'INSIGHTISTIC_MARKETING_VERSION', '1.4.7' );
+define( 'INSIGHTISTIC_MARKETING_VERSION', '1.4.8' );
 define( 'INSIGHTISTIC_DIR', get_template_directory() );
 define( 'INSIGHTISTIC_URI', get_template_directory_uri() );
 

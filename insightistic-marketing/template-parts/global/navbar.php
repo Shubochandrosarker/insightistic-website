@@ -13,14 +13,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="ins-container ins-header__inner">
 
 		<div class="ins-header__brand">
-			<?php if ( has_custom_logo() ) : ?>
-				<?php the_custom_logo(); ?>
-			<?php else : ?>
-				<a class="ins-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
-					<span class="ins-logo__dot" aria-hidden="true"></span>
-					<span class="ins-logo__text"><?php bloginfo( 'name' ); ?></span>
-				</a>
-			<?php endif; ?>
+			<a class="ins-logo" href="<?php echo esc_url( home_url( '/' ) ); ?>" rel="home">
+				<img class="ins-logo__image" src="<?php echo esc_url( INSIGHTISTIC_URI . '/assets/images/insightistic-logo.png' ); ?>" alt="<?php echo esc_attr( get_bloginfo( 'name' ) ); ?>" />
+			</a>
 		</div>
 
 		<nav class="ins-nav" aria-label="<?php esc_attr_e( 'Primary', 'insightistic-marketing' ); ?>">
@@ -95,4 +90,5 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a class="ins-btn ins-btn--brand" href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Start free trial', 'insightistic-marketing' ); ?></a>
 		</div>
 	</div>
+	<button class="ins-mobile__backdrop" type="button" aria-label="<?php esc_attr_e( 'Close menu', 'insightistic-marketing' ); ?>" hidden></button>
 </header>
