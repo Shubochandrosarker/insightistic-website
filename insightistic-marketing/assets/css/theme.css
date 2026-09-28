@@ -983,3 +983,38 @@ body.ins-menu-open { overflow: hidden; }
 .ins-footer .ins-footer__cols {
 	grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
 }
+
+/* The legacy style-only footer widget still injects the former dark-footer
+   palette. Keep its navy footer background, but restore readable ink on the
+   light brand and navigation cards. */
+body.insx-theme .ins-footer .ins-footer__brand *,
+body.insx-theme .ins-footer .ins-footer__col * {
+	color: var(--fg) !important;
+}
+body.insx-theme .ins-footer .ins-footer__brand a {
+	color: var(--brand-ink) !important;
+}
+body.insx-theme .ins-footer .ins-footer__brand input[type="email"] {
+	color: var(--fg) !important;
+}
+body.insx-theme .ins-footer .ins-footer__brand input[type="email"]::placeholder {
+	color: var(--fg-muted) !important;
+	opacity: 1;
+}
+body.insx-theme .ins-footer .ins-footer__brand button[type="submit"],
+body.insx-theme .ins-footer .ins-footer__brand input[type="submit"] {
+	color: #fff !important;
+}
+body.insx-theme .ins-footer .ins-footer__col h2,
+body.insx-theme .ins-footer .ins-footer__col h3,
+body.insx-theme .ins-footer .ins-footer__col .widgettitle,
+body.insx-theme .ins-footer .ins-footer__col .widget-title {
+	color: var(--brand-ink) !important;
+}
+body.insx-theme .ins-footer .ins-footer__col a {
+	color: var(--fg-muted) !important;
+}
+body.insx-theme .ins-footer .ins-footer__col a:hover,
+body.insx-theme .ins-footer .ins-footer__col a:focus-visible {
+	color: var(--brand-ink) !important;
+}
