@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Keep the marketing theme's cache-busting version separate from the
 // Insightistic Connector plugin's global version constant.
-define( 'INSIGHTISTIC_MARKETING_VERSION', '1.5.1' );
+define( 'INSIGHTISTIC_MARKETING_VERSION', '1.5.4' );
 define( 'INSIGHTISTIC_DIR', get_template_directory() );
 define( 'INSIGHTISTIC_URI', get_template_directory_uri() );
 
@@ -72,18 +72,27 @@ add_action(
 
 
 /**
- * Use the dedicated integrations template even when an older install still
- * has the page assigned to WordPress's default page template.
+ * Use dedicated route templates even when an older install still has pages
+ * assigned to WordPress's default page template.
  */
 add_filter(
 	'template_include',
 	function ( $template ) {
-		if ( is_page( 'integrations' ) ) {
-			$integrations_template = INSIGHTISTIC_DIR . '/page-templates/template-integrations.php';
-			if ( is_readable( $integrations_template ) ) {
-				return $integrations_template;
+		$forced_templates = array(
+			'integrations'  => 'page-templates/template-integrations.php',
+			'ltd'           => 'page-templates/template-lifetime-deal.php',
+			'lifetime-deal' => 'page-templates/template-lifetime-deal.php',
+		);
+
+		foreach ( $forced_templates as $slug => $relative_template ) {
+			if ( is_page( $slug ) ) {
+				$route_template = INSIGHTISTIC_DIR . '/' . $relative_template;
+				if ( is_readable( $route_template ) ) {
+					return $route_template;
+				}
 			}
 		}
+
 		return $template;
 	},
 	99

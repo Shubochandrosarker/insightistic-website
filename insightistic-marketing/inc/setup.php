@@ -46,6 +46,18 @@ add_action(
 	}
 );
 
+/** Use the product mark as a fallback site icon when WordPress has none configured. */
+function insightistic_marketing_default_site_icon() {
+	if ( get_option( 'site_icon' ) ) {
+		return;
+	}
+
+	$icon_url = INSIGHTISTIC_URI . '/assets/images/insightistic-icon.png';
+	printf( '<link rel="icon" href="%s" type="image/png" sizes="512x512">' . "\n", esc_url( $icon_url ) );
+	printf( '<link rel="apple-touch-icon" href="%s">' . "\n", esc_url( $icon_url ) );
+}
+add_action( 'wp_head', 'insightistic_marketing_default_site_icon', 1 );
+
 // Content width for embeds/oEmbeds.
 add_action(
 	'after_setup_theme',
