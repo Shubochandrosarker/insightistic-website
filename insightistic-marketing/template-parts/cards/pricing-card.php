@@ -15,8 +15,9 @@ if ( empty( $plan ) ) {
 	return;
 }
 $featured = ! empty( $plan['featured'] );
+$plan_slug = isset( $plan['slug'] ) ? sanitize_key( (string) $plan['slug'] ) : '';
 ?>
-<article class="ins-plan<?php echo $featured ? ' ins-plan--featured' : ''; ?>">
+<article class="ins-plan<?php echo $featured ? ' ins-plan--featured' : ''; ?><?php echo 'agency_pro' === $plan_slug ? ' ins-plan--agency-pro' : ''; ?>">
 	<?php if ( $featured ) : ?>
 		<span class="ins-plan__badge"><?php esc_html_e( 'Most popular', 'insightistic-marketing' ); ?></span>
 	<?php endif; ?>

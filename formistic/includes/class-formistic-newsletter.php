@@ -27,7 +27,7 @@ class Wpistic_Formistic_Newsletter {
 	/** AJAX action used by the public form. */
 	const ACTION = 'wpistic_formistic_newsletter_subscribe';
 
-	/** Nonce action used for both public subscribe + admin export/unsubscribe. */
+	/** Nonce action used for admin export/unsubscribe. */
 	const NONCE = 'wpistic_formistic_newsletter';
 
 	/** Per-IP throttle window (seconds). */
@@ -140,9 +140,10 @@ class Wpistic_Formistic_Newsletter {
 		register_rest_route( 'formistic/v1', '/newsletter', [
 			'methods'             => 'POST',
 			'callback'            => [ __CLASS__, 'rest_subscribe' ],
-			// Public endpoint: gated by the wp REST nonce (X-WP-Nonce header
-			// or _wpnonce param) plus per-IP throttle in process().
-			'permission_callback' => [ __CLASS__, 'rest_permission' ],
+			// This only adds a subscriber; it grants no privileged capability.
+			// Public WordPress nonces expire in cached HTML and can block genuine
+			// sign-ups. The handler relies on input validation and throttling.
+			'permission_callback' => '__return_true',
 			'args'                => [
 				'email'  => [ 'type' => 'string', 'required' => true ],
 				'source' => [ 'type' => 'string', 'required' => false ],
@@ -151,36 +152,32 @@ class Wpistic_Formistic_Newsletter {
 	}
 
 	/**
-	 * Require a valid wp_rest nonce. Returning true for logged-out users is
-	 * fine — wp_verify_nonce checks the token regardless of auth state.
-	 */
-	public static function rest_permission( $request ) {
-		$nonce = $request->get_header( 'X-WP-Nonce' ) ?: $request->get_param( '_wpnonce' );
-		if ( ! $nonce || ! wp_verify_nonce( (string) $nonce, 'wp_rest' ) ) {
-			return new WP_Error( 'rest_forbidden', __( 'Invalid nonce.', 'formistic' ), [ 'status' => 403 ] );
-		}
-		return true;
-	}
-
-	/**
 	 * REST adapter — same logic as the AJAX handler, just different transport.
 	 */
 	public static function rest_subscribe( $request ) {
 		$result = self::process( (string) $request->get_param( 'email' ), (string) $request->get_param( 'source' ) );
-		$status = ( 'ok' === $result['status'] ) ? 200 : ( 'duplicate' === $result['status'] ? 200 : 400 );
+		if ( in_array( $result['status'], [ 'ok', 'duplicate' ], true ) ) {
+			$status = 200;
+		} elseif ( 'throttled' === $result['status'] ) {
+			$status = 429;
+		} elseif ( 'error' === $result['status'] ) {
+			$status = 500;
+		} else {
+			$status = 422;
+		}
 		return new WP_REST_Response( $result, $status );
 	}
 
 	/**
-	 * AJAX handler. Form POSTs with `email`, `source`, `_wpnonce`.
+	 * Public AJAX handler. Form POSTs with `email` and `source`.
 	 */
 	public static function handle_subscribe() {
-		check_ajax_referer( self::NONCE, '_wpnonce' );
 		$email  = isset( $_POST['email'] )  ? sanitize_text_field( wp_unslash( $_POST['email'] ) )  : '';
 		$source = isset( $_POST['source'] ) ? sanitize_text_field( wp_unslash( $_POST['source'] ) ) : 'footer';
 		$result = self::process( $email, $source );
-		if ( 'invalid' === $result['status'] || 'throttled' === $result['status'] ) {
-			wp_send_json_error( $result, 400 );
+		if ( ! in_array( $result['status'], [ 'ok', 'duplicate' ], true ) ) {
+			$status = 'error' === $result['status'] ? 500 : ( 'throttled' === $result['status'] ? 429 : 422 );
+			wp_send_json_error( $result, $status );
 		}
 		wp_send_json_success( $result );
 	}
@@ -200,7 +197,20 @@ class Wpistic_Formistic_Newsletter {
 			];
 		}
 
-		// Per-IP throttle — stops a single visitor from flooding the form.
+		global $wpdb;
+		$table = self::table();
+
+		// An active duplicate is idempotent and should receive the useful
+		// confirmation even when the visitor has submitted recently.
+		$existing = $wpdb->get_row( $wpdb->prepare( "SELECT id, status FROM {$table} WHERE email = %s", $email ) );
+		if ( $existing && 'active' === $existing->status ) {
+			return [
+				'status'  => 'duplicate',
+				'message' => __( "You're already subscribed — thanks!", 'formistic' ),
+			];
+		}
+
+		// Per-visitor throttle — use Cloudflare's client IP, not its shared edge.
 		$ip  = self::client_ip();
 		$key = 'wpistic_formistic_nl_' . md5( $ip );
 		if ( get_transient( $key ) ) {
@@ -211,19 +221,9 @@ class Wpistic_Formistic_Newsletter {
 		}
 		set_transient( $key, 1, self::THROTTLE );
 
-		global $wpdb;
-		$table = self::table();
-
 		// Re-activate a previously unsubscribed email instead of erroring.
-		$existing = $wpdb->get_row( $wpdb->prepare( "SELECT id, status FROM {$table} WHERE email = %s", $email ) );
 		if ( $existing ) {
-			if ( 'active' === $existing->status ) {
-				return [
-					'status'  => 'duplicate',
-					'message' => __( "You're already subscribed — thanks!", 'formistic' ),
-				];
-			}
-			$wpdb->update(
+			$updated = $wpdb->update(
 				$table,
 				[
 					'status'          => 'active',
@@ -236,9 +236,15 @@ class Wpistic_Formistic_Newsletter {
 				],
 				[ 'id' => (int) $existing->id ]
 			);
+			if ( false === $updated ) {
+				return [
+					'status'  => 'error',
+					'message' => __( 'We could not save your signup. Please try again shortly.', 'formistic' ),
+				];
+			}
 			do_action( 'wpistic_formistic_newsletter_resubscribed', $email, $source );
 		} else {
-			$wpdb->insert( $table, [
+			$inserted = $wpdb->insert( $table, [
 				'email'      => $email,
 				'source'     => $source,
 				'source_url' => self::source_url(),
@@ -247,6 +253,12 @@ class Wpistic_Formistic_Newsletter {
 				'status'     => 'active',
 				'consent_at' => current_time( 'mysql' ),
 			] );
+			if ( false === $inserted ) {
+				return [
+					'status'  => 'error',
+					'message' => __( 'We could not save your signup. Please try again shortly.', 'formistic' ),
+				];
+			}
 			do_action( 'wpistic_formistic_newsletter_subscribed', $email, $source, (int) $wpdb->insert_id );
 		}
 
@@ -257,8 +269,12 @@ class Wpistic_Formistic_Newsletter {
 	}
 
 	private static function client_ip() {
+		$cf_ip = isset( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ? sanitize_text_field( wp_unslash( $_SERVER['HTTP_CF_CONNECTING_IP'] ) ) : '';
+		if ( $cf_ip && filter_var( $cf_ip, FILTER_VALIDATE_IP ) ) {
+			return substr( $cf_ip, 0, 64 );
+		}
 		$ip = isset( $_SERVER['REMOTE_ADDR'] ) ? sanitize_text_field( wp_unslash( $_SERVER['REMOTE_ADDR'] ) ) : '';
-		return substr( $ip, 0, 64 );
+		return filter_var( $ip, FILTER_VALIDATE_IP ) ? substr( $ip, 0, 64 ) : 'unknown';
 	}
 
 	private static function user_agent() {
@@ -285,7 +301,7 @@ class Wpistic_Formistic_Newsletter {
 		);
 		wp_localize_script( 'wpistic-formistic-newsletter', 'Wpistic_Formistic_NL', [
 			'ajaxUrl' => admin_url( 'admin-ajax.php' ),
-			'nonce'   => wp_create_nonce( self::NONCE ),
+			'restUrl' => rest_url( 'formistic/v1/newsletter' ),
 			'i18n'    => [
 				'sending' => __( 'Subscribing…', 'formistic' ),
 				'ok'      => __( "You're on the list. Watch your inbox.", 'formistic' ),

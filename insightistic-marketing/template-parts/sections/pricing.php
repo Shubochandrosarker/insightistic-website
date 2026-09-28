@@ -32,6 +32,18 @@ $plans = insightistic_pricing_plans();
 			?>
 		</div>
 
+		<aside class="ins-pricing-plugin" aria-labelledby="ins-pricing-plugin-title">
+			<div class="ins-pricing-plugin__copy">
+				<p class="ins-eyebrow"><?php esc_html_e( 'Free WordPress plugin', 'insightistic-marketing' ); ?></p>
+				<h3 id="ins-pricing-plugin-title"><?php esc_html_e( 'Start with Insightistic on your site', 'insightistic-marketing' ); ?></h3>
+				<p><?php esc_html_e( 'Install the free plugin to use its WordPress features. Connect a free Insightistic account when you are ready to sync site data and use cloud features.', 'insightistic-marketing' ); ?></p>
+			</div>
+			<div class="ins-pricing-plugin__actions">
+				<a class="ins-btn ins-btn--brand" href="https://github.com/Wordpressistic/insightistic/releases/latest"><?php esc_html_e( 'Get the free plugin', 'insightistic-marketing' ); ?></a>
+				<a class="ins-link" href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Create a free account', 'insightistic-marketing' ); ?></a>
+			</div>
+		</aside>
+
 		<p class="ins-center ins-pricing__foot">
 			<a class="ins-link" href="<?php echo esc_url( home_url( '/pricing' ) ); ?>"><?php esc_html_e( 'Compare all plan features', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 		</p>

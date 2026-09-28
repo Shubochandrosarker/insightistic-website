@@ -18,7 +18,7 @@ add_action(
 	function () {
 		// Keep asset URLs fresh even if a host retains an older functions.php in
 		// opcode cache for a short period after a file-manager deployment.
-		$ver = defined( 'INSIGHTISTIC_MARKETING_VERSION' ) ? INSIGHTISTIC_MARKETING_VERSION : '1.4.3';
+		$ver = defined( 'INSIGHTISTIC_MARKETING_VERSION' ) ? INSIGHTISTIC_MARKETING_VERSION : '1.4.7';
 		$css = INSIGHTISTIC_URI . '/assets/css';
 		$js  = INSIGHTISTIC_URI . '/assets/js';
 
@@ -33,6 +33,7 @@ add_action(
 		// Pricing toggle only where it's needed.
 		if ( is_front_page() || is_page_template( 'page-templates/template-pricing.php' ) || is_page( 'pricing' ) ) {
 			wp_enqueue_script( 'insightistic-pricing-toggle', $js . '/pricing-toggle.js', array(), $ver, true );
+			wp_enqueue_style( 'insightistic-pricing-layout', $css . '/pricing-layout.css', array( 'insightistic-responsive' ), $ver );
 		}
 
 		if ( is_singular() && comments_open() && get_option( 'thread_comments' ) ) {

@@ -256,6 +256,7 @@ function insightistic_fetch_pricing_plans_from_api() {
 /** Map one {api}/api/public/plans row into the shape pricing-card.php renders. */
 function insightistic_map_api_plan( $api_plan ) {
 	$slug = isset( $api_plan['slug'] ) ? (string) $api_plan['slug'] : '';
+	$features = array_map( 'insightistic_plan_feature_label', (array) ( $api_plan['features'] ?? array() ) );
 
 	return array(
 		'slug'     => $slug,
@@ -263,7 +264,7 @@ function insightistic_map_api_plan( $api_plan ) {
 		'tagline'  => insightistic_plan_tagline( $slug ),
 		'monthly'  => insightistic_format_plan_price( $api_plan['price_monthly'] ?? 0 ),
 		'yearly'   => insightistic_format_plan_price( $api_plan['price_yearly'] ?? 0 ),
-		'features' => array_map( 'insightistic_plan_feature_label', (array) ( $api_plan['features'] ?? array() ) ),
+		'features' => array_values( array_unique( $features ) ),
 		'featured' => ! empty( $api_plan['is_featured'] ),
 	);
 }
@@ -285,8 +286,8 @@ function insightistic_plan_tagline( $slug ) {
 		array(
 			'starter' => 'For small WooCommerce stores finding their footing.',
 			'growth'  => 'For growing WooCommerce businesses that want answers.',
-			'pro'     => 'For growing WooCommerce businesses that want answers.',
 			'agency'  => 'For agencies managing multiple client stores.',
+			'agency_pro' => 'For established agencies that need more room to scale.',
 		)
 	);
 
@@ -330,27 +331,35 @@ function insightistic_pricing_plans_fallback() {
 			'slug'      => 'starter',
 			'name'      => 'Starter',
 			'tagline'   => 'For small WooCommerce stores finding their footing.',
-			'monthly'   => '$9',
-			'yearly'    => '$90',
-			'features'  => array( '1 connected store', 'Revenue & order analytics', 'Weekly AI summary', 'Email reports', '14-day free trial' ),
+			'monthly'   => '$29',
+			'yearly'    => '$290',
+			'features'  => array( '3 connected sites', 'Revenue & order analytics', 'AI visibility basics', 'Email reports', '14-day free trial' ),
 			'featured'  => false,
 		),
 		array(
 			'slug'      => 'growth',
 			'name'      => 'Growth',
 			'tagline'   => 'For growing WooCommerce businesses that want answers.',
-			'monthly'   => '$29',
-			'yearly'    => '$290',
-			'features'  => array( 'Up to 3 stores', 'Full AI business insights', 'Branded PDF reports', 'Product & customer intelligence', 'Priority support' ),
+			'monthly'   => '$69',
+			'yearly'    => '$690',
+			'features'  => array( '10 connected sites', 'Full AI business insights', 'Branded PDF reports', 'Product & customer intelligence', '14-day free trial' ),
 			'featured'  => true,
 		),
 		array(
 			'slug'      => 'agency',
 			'name'      => 'Agency',
 			'tagline'   => 'For agencies managing multiple client stores.',
-			'monthly'   => '$199',
-			'yearly'    => '$1,990',
-			'features'  => array( 'Unlimited stores', 'White-label dashboard & domain', 'Client viewer access', 'Team roles', 'All Pro features' ),
+			'monthly'   => '$149',
+			'yearly'    => '$1,490',
+			'features'  => array( '30 connected sites', 'White-label dashboard & domain', 'Client viewer access', 'Team roles', '14-day free trial' ),
+		),
+		array(
+			'slug'      => 'agency_pro',
+			'name'      => 'Agency Pro',
+			'tagline'   => 'For established agencies that need more room to scale.',
+			'monthly'   => '$299',
+			'yearly'    => '$2,990',
+			'features'  => array( '100 connected sites', 'Custom domain', 'Team roles & access', 'White-label reports', '14-day free trial' ),
 			'featured'  => false,
 		),
 	);

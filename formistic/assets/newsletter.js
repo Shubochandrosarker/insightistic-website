@@ -41,16 +41,58 @@
 
 			var body = new FormData();
 			body.append( 'action', 'wpistic_formistic_newsletter_subscribe' );
-			body.append( '_wpnonce', Wpistic_Formistic_NL.nonce );
 			body.append( 'email', email );
 			body.append( 'source', form.getAttribute( 'data-source' ) || 'shortcode' );
 
-			fetch( Wpistic_Formistic_NL.ajaxUrl, {
+			function parseJsonResponse( response ) {
+				return response.text().then( function ( text ) {
+					try {
+						return JSON.parse( text );
+					} catch ( error ) {
+						throw new Error( 'Newsletter endpoint returned an invalid response.' );
+					}
+				} );
+			}
+
+			function submitAjax() {
+				return fetch( Wpistic_Formistic_NL.ajaxUrl, {
 				method: 'POST',
 				credentials: 'same-origin',
 				body: body
 			} )
-				.then( function ( r ) { return r.json(); } )
+					.then( parseJsonResponse );
+			}
+
+			function submitRest() {
+				if ( ! Wpistic_Formistic_NL.restUrl ) {
+					return Promise.reject( new Error( 'Newsletter fallback is unavailable.' ) );
+				}
+				return fetch( Wpistic_Formistic_NL.restUrl, {
+					method: 'POST',
+					credentials: 'same-origin',
+					headers: {
+						'Accept': 'application/json',
+						'Content-Type': 'application/json'
+					},
+					body: JSON.stringify( {
+						email: email,
+						source: form.getAttribute( 'data-source' ) || 'shortcode'
+					} )
+				} )
+					.then( parseJsonResponse )
+					.then( function ( result ) {
+						if ( ! result || ! result.status ) {
+							throw new Error( 'Newsletter fallback returned an invalid response.' );
+						}
+						return {
+							success: result.status === 'ok' || result.status === 'duplicate',
+							data: result
+						};
+					} );
+			}
+
+			submitAjax()
+				.catch( submitRest )
 				.then( function ( res ) {
 					var data = res && res.data ? res.data : {};
 					var ok   = !! ( res && res.success );

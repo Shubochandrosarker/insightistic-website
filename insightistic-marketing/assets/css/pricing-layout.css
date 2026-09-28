@@ -1,0 +1,35 @@
+/* Keep Agency Pro as a full-width, landscape card on desktop pricing grids. */
+@media (min-width: 820px) {
+	.ins-grid--pricing > .ins-plan--agency-pro {
+		grid-column: 1 / -1;
+		width: 100%;
+		min-width: 0;
+		display: grid;
+		grid-template-columns: minmax(13rem, 0.85fr) minmax(0, 2fr) minmax(12rem, 0.75fr);
+		grid-template-rows: auto auto 1fr;
+		align-items: center;
+		column-gap: clamp(1.25rem, 4vw, 3.5rem);
+		padding: clamp(1.5rem, 3vw, 2.25rem);
+		border-color: var(--brand);
+		background: linear-gradient(112deg, rgba(108, 92, 231, 0.09), rgba(0, 192, 75, 0.09)), var(--panel);
+		box-shadow: 0 24px 55px -36px rgba(0, 192, 75, 0.65), 0 1px 0 rgba(255, 255, 255, 0.85) inset;
+	}
+
+	.ins-plan--agency-pro .ins-plan__name { grid-column: 1; grid-row: 1; margin: 0; }
+	.ins-plan--agency-pro .ins-plan__tagline { grid-column: 1; grid-row: 2; min-height: 0; margin: 0.35rem 0 0; }
+	.ins-plan--agency-pro .ins-plan__price { grid-column: 1; grid-row: 3; margin: 0.7rem 0 0; }
+	.ins-plan--agency-pro .ins-plan__features {
+		grid-column: 2;
+		grid-row: 1 / 4;
+		grid-template-columns: repeat(2, minmax(0, 1fr));
+		align-self: center;
+		margin: 0;
+		column-gap: 1.25rem;
+	}
+	.ins-plan--agency-pro > .ins-btn { grid-column: 3; grid-row: 1 / 4; align-self: center; margin: 0; }
+	.ins-plan--agency-pro .ins-plan__badge { top: -0.75rem; left: clamp(1.25rem, 3vw, 2rem); }
+}
+
+@media (max-width: 819px) {
+	.ins-plan--agency-pro { border-color: var(--brand); background: linear-gradient(135deg, rgba(108, 92, 231, 0.07), rgba(0, 192, 75, 0.07)), var(--panel); }
+}

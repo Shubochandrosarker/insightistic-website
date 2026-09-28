@@ -4,7 +4,7 @@ Tags: contact form, form builder, wordpress, submissions, inbox, ai, spam protec
 Requires at least: 6.2
 Tested up to: 6.9
 Requires PHP: 7.4
-Stable tag: 2.0.5
+Stable tag: 2.0.7
 License: GPL-2.0+
 License URI: https://www.gnu.org/licenses/gpl-2.0.html
 
@@ -105,6 +105,15 @@ This plugin can connect to third-party services when enabled by the site adminis
 * Terms/Privacy: Depends on selected provider.
 
 == Changelog ==
+
+= 2.0.7 =
+* Fix: public newsletter submissions no longer depend on cached WordPress nonces, which could expire before visitors submitted the form.
+* Fix: use Cloudflare's client IP header for newsletter throttling so one edge IP does not throttle every visitor.
+* Fix: repeat sign-ups for an active address return the duplicate confirmation before the per-IP throttle.
+
+= 2.0.6 =
+* Fix: newsletter signup falls back to the nonce-protected REST endpoint when the admin-ajax response is unavailable or invalid.
+* Fix: newsletter database write failures now return an explicit error instead of reporting a false success.
 
 = 2.0.5 =
 * Fix: the Inbox action buttons (View, Reply, Delete, notes, bulk actions) did nothing on sites where a JavaScript optimizer / deferral plugin broke the external admin script. The admin script is now printed inline (after its localized data), so the dashboard controls always work.
