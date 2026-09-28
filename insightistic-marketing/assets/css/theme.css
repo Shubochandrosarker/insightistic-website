@@ -978,3 +978,8 @@ body.ins-menu-open { overflow: hidden; }
 	.ins-preview__graph-line { stroke-dashoffset: 0 !important; }
 	.ins-preview__graph-area { opacity: 1 !important; }
 }
+
+/* Collapse unused footer widget tracks when a CSS/JS-only widget is hidden. */
+.ins-footer .ins-footer__cols {
+	grid-template-columns: repeat(auto-fit, minmax(min(100%, 13rem), 1fr));
+}

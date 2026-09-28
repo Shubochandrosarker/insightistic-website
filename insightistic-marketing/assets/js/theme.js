@@ -60,6 +60,21 @@
 		window.addEventListener( 'scroll', onScroll, { passive: true } );
 	}
 
+	/* ---- Hide footer widgets that only inject sitewide CSS or JS -------- */
+	var footerColumns = document.querySelectorAll( '.ins-footer__col' );
+	Array.prototype.forEach.call( footerColumns, function ( column ) {
+		var hasReadableContent = ( column.innerText || '' ).replace( /\u00a0/g, ' ' ).trim().length > 0;
+		var visualElements = column.querySelectorAll( 'img[src], svg, video, audio, iframe, object, embed, canvas, button, input, select, textarea, [role="img"]' );
+		var hasVisibleElement = Array.prototype.some.call( visualElements, function ( element ) {
+			var style = window.getComputedStyle( element );
+			return element.getClientRects().length > 0 && 'hidden' !== style.visibility && 'none' !== style.display;
+		} );
+
+		// Preserve style/script widgets that power the site, but do not leave their
+		// otherwise empty widget wrapper visible as a blank footer card.
+		if ( ! hasReadableContent && ! hasVisibleElement ) { column.hidden = true; }
+	} );
+
 	/* ---- Reveal sections as they enter the viewport ------------------- */
 	var revealTargets = document.querySelectorAll( '.ins-section__head, .ins-feature, .ins-insightcard, .ins-reportcard, .ins-plan, .ins-step, .ins-testimonial, .ins-split__text, .ins-split__visual, .ins-browser, .ins-ctaband__card, .ins-ecosystem-band__inner, .ins-legal__identity' );
 	if ( revealTargets.length ) {

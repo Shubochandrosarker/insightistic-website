@@ -18,7 +18,7 @@ add_action(
 	function () {
 		// Keep asset URLs fresh even if a host retains an older functions.php in
 		// opcode cache for a short period after a file-manager deployment.
-		$ver = defined( 'INSIGHTISTIC_MARKETING_VERSION' ) ? INSIGHTISTIC_MARKETING_VERSION : '1.4.8';
+		$ver = defined( 'INSIGHTISTIC_MARKETING_VERSION' ) ? INSIGHTISTIC_MARKETING_VERSION : '1.4.9';
 		$css = INSIGHTISTIC_URI . '/assets/css';
 		$js  = INSIGHTISTIC_URI . '/assets/js';
 
