@@ -8,10 +8,12 @@
 
 **Production deployment:** Installed and activated on `www.insightistic.com`
 as the versioned theme `insightistic-marketing-live-20261015` on 2026-10-15.
-The logged-in WordPress render and a cache-busting anonymous render load the
-new `1.6.0` assets. The default anonymous edge response still serves the
-previous `2.0.2` object from Hostinger/edge cache and needs a provider-level
-purge before the rollout is fully visible to every visitor.
+The logged-in WordPress render and a cache-busting anonymous render loaded the
+new `1.6.0` assets. A Cloudflare zone-wide purge was then completed
+successfully, but the default anonymous response still served the previous
+`2.0.2` object from Hostinger HCDN (`x-hcdn-cache-status: HIT`, `Age: 119052`)
+when rechecked. The provider-level Hostinger cache therefore remains the
+remaining rollout boundary.
 
 ## Delivered
 
@@ -61,7 +63,25 @@ fallback until the deployed API publishes the complete contract.
 | Local application contract comparison | PASS | Website mapping matches the inspected controller field names, limits and catalog sections. |
 | WordPress render at 320/375/390/768/1024/1440/1920 | NEEDS VALIDATION | The active production render was verified at the standard desktop browser viewport; the full viewport matrix still needs browser/device QA. |
 | Formistic submission and connector sync | NEEDS VALIDATION | Both integrations were preserved and not modified, but require a reachable WordPress staging site for browser and round-trip proof. |
-| Live marketing deployment | PARTIAL / CACHE PURGE BLOCKED | Theme install and activation passed. LiteSpeed purge passed, but the default anonymous Hostinger/edge cache remains stale; the available Cloudflare token has `zone:read` without cache-purge permission. |
+| Live marketing deployment | PARTIAL / HOST CACHE STALE | Theme install, activation, LiteSpeed purge and Cloudflare purge passed. The default anonymous Hostinger HCDN response still serves the previous `2.0.2` object, so provider-level Hostinger cache invalidation remains required. |
+
+## Live issue audit — 2026-10-15
+
+- WordPress `/wp-admin/`, `/wp-login.php`, `/wp-json/` and Bridgistic admin
+  requests returned HTTP `429 Too Many Requests` from the Hostinger/Cloudflare
+  edge during the later tab audit (`platform: hostinger`, `cf-cache-status:
+  DYNAMIC`). Edge displayed `ERR_BLOCKED_BY_CLIENT` after the same failures.
+  The rendered Bridgistic Dashboard and AI / MCP Connections pages loaded before
+  the rate limit; no WordPress “critical error” or PHP fatal screen was
+  observed. This is a provider/IP rate-limit problem, not evidence of a
+  Bridgistic PHP fatal.
+- The working hosted MCP endpoint is `https://mcp.bridgistic.app/mcp`.
+  Unauthenticated `401` is expected and its OAuth discovery documents return
+  `200`. `dashboard.bridgistic.app` has no DNS response, `app.bridgistic.app`
+  returns `404`, and `bridgistic.app/mcp` is not the hosted MCP endpoint.
+- A progressive-enhancement fallback was added in commit `d6682c2` so
+  marketing content stays visible if the deferred reveal script is blocked or
+  fails; normal reveal animation remains enabled when JavaScript is available.
 
 ## Files intentionally preserved
 
