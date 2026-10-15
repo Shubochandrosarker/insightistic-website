@@ -81,7 +81,7 @@ $ins_business = insightistic_business_details();
 						<h3><?php esc_html_e( 'App', 'insightistic-marketing' ); ?></h3>
 						<ul>
 							<li><a href="<?php echo esc_url( insightistic_login_url() ); ?>"><?php esc_html_e( 'Sign in', 'insightistic-marketing' ); ?></a></li>
-							<li><a href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Start free trial', 'insightistic-marketing' ); ?></a></li>
+							<li><a href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Start free', 'insightistic-marketing' ); ?></a></li>
 							<li><a href="<?php echo esc_url( insightistic_dashboard_url() ); ?>"><?php esc_html_e( 'Dashboard', 'insightistic-marketing' ); ?></a></li>
 						</ul>
 					</div>

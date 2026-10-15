@@ -19,7 +19,7 @@ $steps = array(
 	<div class="ins-container">
 		<div class="ins-section__head">
 			<p class="ins-eyebrow"><?php esc_html_e( 'Getting connected', 'insightistic-marketing' ); ?></p>
-			<h2 id="ins-connector-title"><?php esc_html_e( 'Connect in 3 minutes, securely', 'insightistic-marketing' ); ?></h2>
+			<h2 id="ins-connector-title"><?php esc_html_e( 'Connect your site securely, then read the signal', 'insightistic-marketing' ); ?></h2>
 			<p class="ins-lead ins-center"><?php esc_html_e( 'Every sync runs over a signed connection — no customer card data ever leaves WordPress. Don\'t run the Insightistic plugin on this site? A standalone connector plugin covers that case too.', 'insightistic-marketing' ); ?></p>
 		</div>
 		<ol class="ins-steps">

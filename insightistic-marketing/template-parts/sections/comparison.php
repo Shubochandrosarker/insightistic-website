@@ -23,7 +23,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</ul>
 		</div>
 		<div class="ins-split__visual">
-			<p class="ins-eyebrow ins-eyebrow--violet"><?php esc_html_e( 'With Insightistic', 'insightistic-marketing' ); ?></p>
+			<p class="ins-eyebrow ins-eyebrow--accent"><?php esc_html_e( 'With Insightistic', 'insightistic-marketing' ); ?></p>
 			<ul class="ins-checklist">
 				<li><?php echo insightistic_icon( 'check', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e( 'Commerce, traffic, SEO and performance in one dashboard', 'insightistic-marketing' ); ?></li>
 				<li><?php echo insightistic_icon( 'check', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><?php esc_html_e( 'Automatic alerts the moment a metric moves outside the normal range', 'insightistic-marketing' ); ?></li>

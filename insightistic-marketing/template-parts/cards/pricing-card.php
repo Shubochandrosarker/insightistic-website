@@ -32,6 +32,15 @@ $plan_slug = isset( $plan['slug'] ) ? sanitize_key( (string) $plan['slug'] ) : '
 			aria-live="polite"><?php echo esc_html( $plan['monthly'] ); ?></span>
 		<span class="ins-plan__per"><?php esc_html_e( '/mo', 'insightistic-marketing' ); ?></span>
 	</p>
+	<p class="ins-plan__billing-note"><?php esc_html_e( 'USD · billed per account', 'insightistic-marketing' ); ?></p>
+
+	<?php if ( ! empty( $plan['limits'] ) ) : ?>
+		<ul class="ins-plan__limits" aria-label="<?php esc_attr_e( 'Monthly allowances', 'insightistic-marketing' ); ?>">
+			<li><strong><?php echo esc_html( number_format_i18n( (int) $plan['limits']['sites'] ) ); ?></strong><span><?php esc_html_e( 'site(s)', 'insightistic-marketing' ); ?></span></li>
+			<li><strong><?php echo esc_html( number_format_i18n( (int) $plan['limits']['team_seats'] ) ); ?></strong><span><?php esc_html_e( 'team seat(s)', 'insightistic-marketing' ); ?></span></li>
+			<li><strong><?php echo esc_html( number_format_i18n( (int) $plan['limits']['ai_credits'] ) ); ?></strong><span><?php esc_html_e( 'AI credits/mo', 'insightistic-marketing' ); ?></span></li>
+		</ul>
+	<?php endif; ?>
 
 	<ul class="ins-plan__features">
 		<?php foreach ( (array) $plan['features'] as $feature ) : ?>
@@ -40,6 +49,6 @@ $plan_slug = isset( $plan['slug'] ) ? sanitize_key( (string) $plan['slug'] ) : '
 	</ul>
 
 	<a class="ins-btn ins-btn--brand ins-btn--block" href="<?php echo esc_url( insightistic_register_url( $plan['slug'] ) ); ?>">
-		<?php esc_html_e( 'Start free trial', 'insightistic-marketing' ); ?>
+		<?php esc_html_e( 'Choose plan', 'insightistic-marketing' ); ?>
 	</a>
 </article>

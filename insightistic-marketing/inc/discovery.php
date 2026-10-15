@@ -147,7 +147,7 @@ function insightistic_emit_taxonomies_sitemap() {
 }
 
 function insightistic_discovery_site_summary() {
-	return 'Insightistic is an AI business analytics platform for WordPress and WooCommerce businesses. It brings revenue, orders, products, customers, traffic, SEO, performance, reports and explainable AI insights into one workspace. Insightistic is a product of WordPressistic LLC.';
+	return 'Insightistic is an AI business intelligence platform for WordPress and WooCommerce businesses. It brings commerce analytics, traffic, SEO, performance, reports, agency workflows and explainable AI insights into one workspace. Insightistic is a product of WordPressistic LLC.';
 }
 
 function insightistic_emit_llms( $full = false ) {
@@ -172,6 +172,15 @@ function insightistic_emit_llms( $full = false ) {
 	foreach ( insightistic_knowledgebase_topics() as $topic ) {
 		echo '- [' . $topic['title'] . '](' . $topic['url'] . '): ' . $topic['description'] . "\n";
 	}
+
+	$catalog = insightistic_public_catalog();
+	echo "\n## Current commercial reference\n\n";
+	echo '- Free Connected: $0, one connected site, 10 basic AI insights per month and 1,000 monthly AI credits.' . "\n";
+	foreach ( (array) ( $catalog['plans'] ?? array() ) as $plan ) {
+		echo '- ' . $plan['name'] . ': ' . $plan['monthly'] . '/month or ' . $plan['yearly'] . ' billed annually; ' . (int) $plan['limits']['sites'] . ' site(s), ' . (int) $plan['limits']['team_seats'] . ' team seat(s), and ' . number_format_i18n( (int) $plan['limits']['ai_credits'] ) . ' monthly AI credits.' . "\n";
+	}
+	echo '- Insight Credit packs: 5,000 for $15, 20,000 for $49, and 50,000 for $99.' . "\n";
+	echo '- Founding Angel: three one-time tiers are documented on the lifetime page; availability is confirmed by the application campaign state, not by this file.' . "\n";
 
 	echo "\n## Primary routes\n\n";
 	$routes = array(

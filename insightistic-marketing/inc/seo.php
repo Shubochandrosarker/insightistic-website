@@ -24,9 +24,9 @@ function insightistic_seo_plugin_active() {
 
 function insightistic_seo_page_defaults() {
 	return array(
-		''                       => array( 'AI business analytics for WordPress & WooCommerce | Insightistic', 'Understand revenue, products, customers, traffic, SEO and store health from one clear dashboard with explainable AI insights.' ),
+		''                       => array( 'Insightistic | AI business intelligence for WordPress & WooCommerce', 'Connect WordPress and WooCommerce analytics, SEO, performance and explainable AI insights in one workspace built for clearer business decisions.' ),
 		'features'               => array( 'Insightistic features | WordPress & WooCommerce analytics', 'Explore revenue analytics, WooCommerce intelligence, AI business insights, reports, site health monitoring and agency workflows.' ),
-		'pricing'                => array( 'Insightistic pricing | AI analytics for WordPress stores', 'Compare Insightistic plans for WordPress and WooCommerce stores, growing teams and agencies. Start with the current trial and billing options.' ),
+		'pricing'                => array( 'Insightistic pricing | WordPress & WooCommerce business intelligence', 'Compare Free Connected, paid subscriptions, monthly resources and Insight Credit packs for WordPress and WooCommerce teams.' ),
 		'woocommerce-analytics'  => array( 'WooCommerce analytics that explains the numbers | Insightistic', 'Track revenue, orders, AOV, refunds, products and customers in a focused WooCommerce analytics workspace.' ),
 		'traffic-analytics'      => array( 'Traffic analytics for WordPress & WooCommerce | Insightistic', 'Connect traffic and engagement signals with store outcomes so WordPress teams can see which channels deserve attention.' ),
 		'seo-analytics'          => array( 'SEO analytics for WordPress & WooCommerce | Insightistic', 'Bring search visibility, landing-page and commerce context together for clearer SEO reporting and decisions.' ),
@@ -161,6 +161,7 @@ add_filter(
 function insightistic_schema_graph() {
 	$details = insightistic_business_details();
 	$author  = insightistic_editorial_author();
+	$catalog = insightistic_public_catalog();
 	$brand   = home_url( '/#organization' );
 	$same_as = array();
 	foreach ( insightistic_ecosystem_links() as $ecosystem_link ) {
@@ -175,10 +176,17 @@ function insightistic_schema_graph() {
 		}
 	}
 	$same_as = array_values( array_unique( $same_as ) );
+	$offers = array();
+	foreach ( (array) ( $catalog['plans'] ?? array() ) as $plan ) {
+		$price = preg_replace( '/[^0-9.]/', '', (string) ( $plan['monthly'] ?? '' ) );
+		if ( '' !== $price ) {
+			$offers[] = array( '@type' => 'Offer', 'name' => $plan['name'], 'price' => $price, 'priceCurrency' => 'USD', 'url' => home_url( '/pricing/' ), 'availability' => 'https://schema.org/InStock' );
+		}
+	}
 	$nodes   = array(
 		array( '@type' => 'Organization', '@id' => $brand, 'name' => 'WordPressistic LLC', 'legalName' => 'WordPressistic LLC', 'url' => 'https://wordpressistic.com/', 'email' => $details['email'], 'address' => array( '@type' => 'PostalAddress', 'streetAddress' => $details['address'], 'addressLocality' => $details['city'], 'addressRegion' => $details['state'], 'postalCode' => $details['postal_code'], 'addressCountry' => $details['country'] ), 'identifier' => array( '@type' => 'PropertyValue', 'propertyID' => 'Entity ID', 'value' => $details['entity_id'] ), 'sameAs' => $same_as, 'brand' => array( '@type' => 'Brand', 'name' => 'Insightistic', 'url' => home_url( '/' ) ) ),
 		array( '@type' => 'WebSite', '@id' => home_url( '/#website' ), 'url' => home_url( '/' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'publisher' => array( '@id' => $brand ), 'inLanguage' => get_bloginfo( 'language' ) ),
-		array( '@type' => array( 'SoftwareApplication', 'Product' ), '@id' => home_url( '/#product' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'url' => home_url( '/' ), 'applicationCategory' => 'BusinessApplication', 'operatingSystem' => 'Web', 'publisher' => array( '@id' => $brand ), 'isPartOf' => array( '@id' => home_url( '/#website' ) ) ),
+		array( '@type' => array( 'SoftwareApplication', 'Product' ), '@id' => home_url( '/#product' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'url' => home_url( '/' ), 'applicationCategory' => 'BusinessApplication', 'operatingSystem' => 'Web', 'publisher' => array( '@id' => $brand ), 'isPartOf' => array( '@id' => home_url( '/#website' ) ), 'offers' => $offers ),
 	);
 
 	if ( is_singular( 'post' ) ) {

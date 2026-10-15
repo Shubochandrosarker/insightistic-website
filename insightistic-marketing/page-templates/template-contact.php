@@ -35,7 +35,7 @@ get_header();
 						<h3><?php esc_html_e( 'Already a customer?', 'insightistic-marketing' ); ?></h3>
 						<p><?php esc_html_e( 'Sign in to your dashboard or open a support request from inside the app.', 'insightistic-marketing' ); ?></p>
 						<a class="ins-btn ins-btn--ghost ins-btn--block" href="<?php echo esc_url( insightistic_login_url() ); ?>"><?php esc_html_e( 'Sign in', 'insightistic-marketing' ); ?></a>
-						<a class="ins-btn ins-btn--brand ins-btn--block" href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Start free trial', 'insightistic-marketing' ); ?></a>
+						<a class="ins-btn ins-btn--brand ins-btn--block" href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Start free', 'insightistic-marketing' ); ?></a>
 					</div>
 				</aside>
 			</div>

@@ -37,6 +37,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					}
 					?>
 				</div>
+				<p class="ins-visual-caption"><?php esc_html_e( 'Illustrative dashboard preview — sample values are shown for context.', 'insightistic-marketing' ); ?></p>
 			</div>
 		</div>
 	</div>

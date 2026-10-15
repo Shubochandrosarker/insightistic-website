@@ -38,7 +38,7 @@ $integrations = array(
 		'icon'  => 'sparkles',
 		'type'  => __( 'Decision support', 'insightistic-marketing' ),
 		'title' => __( 'AI insights', 'insightistic-marketing' ),
-		'text'  => __( 'Use OpenAI-compatible providers or the built-in rule-based fallback to turn metrics into understandable next steps.', 'insightistic-marketing' ),
+			'text'  => __( 'Use the configured AI provider or the built-in rule-based fallback to turn metrics into understandable next steps.', 'insightistic-marketing' ),
 	),
 	array(
 		'icon'  => 'shield',
@@ -71,7 +71,7 @@ if ( ! $page_title ) {
 
 			<div class="ins-integrations__actions">
 				<a class="ins-btn ins-btn--brand ins-btn--lg" href="<?php echo esc_url( insightistic_register_url() ); ?>">
-					<?php esc_html_e( 'Start free trial', 'insightistic-marketing' ); ?>
+					<?php esc_html_e( 'Start free', 'insightistic-marketing' ); ?>
 					<?php echo insightistic_icon( 'arrow-right', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 				</a>
 				<a class="ins-btn ins-btn--ghost ins-btn--lg" href="#ins-connector-title">
@@ -156,7 +156,7 @@ if ( ! $page_title ) {
 				<details class="ins-integration-faq">
 					<summary><?php esc_html_e( 'How long does it take to connect a site?', 'insightistic-marketing' ); ?></summary>
 					<div class="ins-integration-faq__answer">
-						<p><?php esc_html_e( 'Most teams can create an account, connect their site and start reading recommendations in about three minutes, depending on the site’s connector setup.', 'insightistic-marketing' ); ?></p>
+					<p><?php esc_html_e( 'Create an account, connect the site through the supported plugin workflow and review the first available signals in the app. Connection time depends on the site and connector setup.', 'insightistic-marketing' ); ?></p>
 					</div>
 				</details>
 			</div>

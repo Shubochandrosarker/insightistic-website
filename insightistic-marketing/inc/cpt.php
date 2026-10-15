@@ -1,8 +1,8 @@
 <?php
 /**
  * Optional "Testimonial" custom post type used by the testimonials section.
- * The section falls back to sensible defaults when none exist, so the theme
- * works immediately without any content entry.
+ * Only editor-entered, consented proof is rendered; the theme never invents
+ * customer quotes or identities as fallback content.
  *
  * @package Insightistic_Marketing
  */
@@ -37,7 +37,7 @@ add_action(
 );
 
 /**
- * Return testimonials (CPT entries, else defaults).
+ * Return editor-entered testimonials only.
  *
  * @return array<int,array{quote:string,name:string,role:string}>
  */
@@ -64,14 +64,6 @@ function insightistic_testimonials() {
 			);
 		}
 		wp_reset_postdata();
-	}
-
-	if ( empty( $items ) ) {
-		$items = array(
-			array( 'quote' => 'We finally see what changed and why — without exporting spreadsheets every Monday. The AI summaries pay for the plan on their own.', 'name' => 'Amelia Cross', 'role' => 'Ops Lead, Northwind Outfitters' ),
-			array( 'quote' => 'White-label reports turned our analytics into a product. Clients log in, see their store, and renew.', 'name' => 'Devin Roy', 'role' => 'Founder, Bloom & Co Agency' ),
-			array( 'quote' => 'Setup took three minutes. The connector is clean and the data just shows up.', 'name' => 'Marcus Lindqvist', 'role' => 'Owner, Pulse Supplements' ),
-		);
 	}
 
 	return apply_filters( 'insightistic_testimonials', $items );

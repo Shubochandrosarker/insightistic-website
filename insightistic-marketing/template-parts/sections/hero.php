@@ -9,9 +9,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$eyebrow  = insightistic_option( 'insightistic_hero_eyebrow', __( 'AI Business Analytics', 'insightistic-marketing' ) );
-$title    = insightistic_option( 'insightistic_hero_title', __( 'AI Business Analytics for WordPress & WooCommerce', 'insightistic-marketing' ) );
-$subtitle = insightistic_option( 'insightistic_hero_subtitle', __( 'Understand revenue, products, customers, reports and store health from one clean dashboard built for WordPress-powered businesses.', 'insightistic-marketing' ) );
+$eyebrow  = insightistic_option( 'insightistic_hero_eyebrow', __( 'AI business intelligence for WordPress & WooCommerce', 'insightistic-marketing' ) );
+$title    = insightistic_option( 'insightistic_hero_title', __( 'Understand your WordPress business. Act on what matters.', 'insightistic-marketing' ) );
+$subtitle = insightistic_option( 'insightistic_hero_subtitle', __( 'Connect WordPress and WooCommerce analytics, SEO, website performance and AI-powered business insights in one intelligent workspace. Monitor performance, uncover opportunities and turn your data into clearer decisions.', 'insightistic-marketing' ) );
 ?>
 <section class="ins-section ins-hero" aria-labelledby="ins-hero-title">
 	<div class="ins-container ins-hero__inner">
@@ -21,20 +21,20 @@ $subtitle = insightistic_option( 'insightistic_hero_subtitle', __( 'Understand r
 
 		<div class="ins-hero__actions">
 			<a class="ins-btn ins-btn--brand ins-btn--lg" href="<?php echo esc_url( insightistic_register_url() ); ?>">
-				<?php esc_html_e( 'Start Free Trial', 'insightistic-marketing' ); ?>
+				<?php esc_html_e( 'Start free', 'insightistic-marketing' ); ?>
 				<?php echo insightistic_icon( 'arrow-right', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</a>
 			<a class="ins-btn ins-btn--ghost ins-btn--lg" href="<?php echo esc_url( home_url( '/pricing' ) ); ?>">
-				<?php esc_html_e( 'View Pricing', 'insightistic-marketing' ); ?>
+				<?php esc_html_e( 'Explore features', 'insightistic-marketing' ); ?>
 			</a>
 		</div>
 
-		<ul class="ins-hero__stats" aria-label="<?php esc_attr_e( 'Highlights', 'insightistic-marketing' ); ?>">
-			<li><strong data-count="3 min">3 min</strong><span><?php esc_html_e( 'to connect', 'insightistic-marketing' ); ?></span></li>
-			<li><strong data-count="14 days">14 days</strong><span><?php esc_html_e( 'free trial', 'insightistic-marketing' ); ?></span></li>
-			<li><strong>White-label</strong><span><?php esc_html_e( 'for agencies', 'insightistic-marketing' ); ?></span></li>
-		</ul>
+		<div class="ins-hero__supporting-links" aria-label="<?php esc_attr_e( 'Getting started options', 'insightistic-marketing' ); ?>">
+			<span><?php esc_html_e( 'Free WordPress plugin', 'insightistic-marketing' ); ?></span>
+			<span><?php esc_html_e( 'Free Connected account', 'insightistic-marketing' ); ?></span>
+			<a href="<?php echo esc_url( home_url( '/pricing/' ) ); ?>"><?php esc_html_e( 'Compare pricing', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 15 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
+		</div>
 
-		<p class="ins-hero__note"><?php esc_html_e( 'No credit card · Cancel anytime · WordPress & WooCommerce native', 'insightistic-marketing' ); ?></p>
+		<p class="ins-hero__note"><?php esc_html_e( 'Start with the plugin and a free account. Add cloud resources as your business grows.', 'insightistic-marketing' ); ?></p>
 	</div>
 </section>

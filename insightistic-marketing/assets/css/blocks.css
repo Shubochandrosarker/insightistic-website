@@ -4,30 +4,30 @@
    ========================================================================= */
 
 /* Palette helpers (front-end render of color classes). */
-.has-ink-color { color: #0B1110; }
-.has-ink-background-color { background-color: #0B1110; }
-.has-panel-background-color { background-color: #14211F; }
-.has-brand-color { color: #00C04B; }
-.has-brand-background-color { background-color: #00C04B; }
-.has-mint-color { color: #86DBB8; }
-.has-violet-background-color { background-color: #6C5CE7; }
-.has-paper-color { color: #F4F8F6; }
+.has-ink-color { color: #111B2C; }
+.has-ink-background-color { background-color: #111B2C; }
+.has-panel-background-color { background-color: #FFFFFF; }
+.has-brand-color { color: #0064F9; }
+.has-brand-background-color { background-color: #0064F9; }
+.has-mint-color { color: #007E75; }
+.has-blue-background-color { background-color: #0064F9; }
+.has-paper-color { color: #F7FAFC; }
 
 /* Core button defaults that match the theme. */
 .wp-block-button__link { border-radius: 0.7rem; font-weight: 600; }
-.wp-block-button.is-style-outline .wp-block-button__link { border-color: rgba(11, 17, 16, 0.18); color: #0B1110; }
+.wp-block-button.is-style-outline .wp-block-button__link { border-color: rgba(17, 27, 44, 0.18); color: #111B2C; }
 
 /* Pattern: CTA band */
-.ins-pattern-cta { border: 1px solid rgba(11, 17, 16, 0.12); border-radius: 22px; }
-.ins-pattern-cta h2 { color: #0B1110; }
+.ins-pattern-cta { border: 1px solid rgba(17, 27, 44, 0.12); border-radius: 22px; }
+.ins-pattern-cta h2 { color: #111B2C; }
 
 /* Pattern: feature grid */
-.ins-pattern-features .wp-block-column { background: #FFFFFF; border: 1px solid rgba(11, 17, 16, 0.08); border-radius: 16px; padding: 1.4rem; }
-.ins-pattern-features h3 { color: #0B1110; }
+.ins-pattern-features .wp-block-column { background: #FFFFFF; border: 1px solid rgba(17, 27, 44, 0.08); border-radius: 16px; padding: 1.4rem; }
+.ins-pattern-features h3 { color: #111B2C; }
 
 /* Editor-side: match the light front-end canvas. */
-.editor-styles-wrapper { background: #EEF4F1; color: #0B1110; }
-.editor-styles-wrapper h1, .editor-styles-wrapper h2, .editor-styles-wrapper h3 { color: #0B1110; }
+.editor-styles-wrapper { background: #F7FAFC; color: #111B2C; }
+.editor-styles-wrapper h1, .editor-styles-wrapper h2, .editor-styles-wrapper h3 { color: #111B2C; }
 
 /* Wide/full alignment safety. */
 .alignwide { max-width: 1180px; margin-inline: auto; }

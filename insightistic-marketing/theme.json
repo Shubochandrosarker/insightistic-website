@@ -13,22 +13,21 @@
 			"custom": true,
 			"customGradient": true,
 			"palette": [
-				{ "slug": "ink", "color": "#0B1110", "name": "Ink" },
-				{ "slug": "ink-2", "color": "#101A18", "name": "Ink 2" },
-				{ "slug": "panel", "color": "#14211F", "name": "Panel" },
-				{ "slug": "panel-2", "color": "#182A26", "name": "Panel 2" },
-				{ "slug": "brand", "color": "#00C04B", "name": "Brand" },
-				{ "slug": "brand-2", "color": "#00D084", "name": "Brand 2" },
-				{ "slug": "mint", "color": "#86DBB8", "name": "Mint" },
-				{ "slug": "violet", "color": "#6C5CE7", "name": "Violet" },
-				{ "slug": "paper", "color": "#EEF4F1", "name": "Paper" },
-				{ "slug": "good", "color": "#00D084", "name": "Good" },
+				{ "slug": "ink", "color": "#111B2C", "name": "Ink" },
+				{ "slug": "ink-2", "color": "#122338", "name": "Ink 2" },
+				{ "slug": "panel", "color": "#FFFFFF", "name": "Panel" },
+				{ "slug": "panel-2", "color": "#F2F7FB", "name": "Panel 2" },
+				{ "slug": "brand", "color": "#04D2C0", "name": "Brand teal" },
+				{ "slug": "brand-2", "color": "#0064F9", "name": "Brand blue" },
+				{ "slug": "mint", "color": "#A8F2E9", "name": "Teal tint" },
+				{ "slug": "paper", "color": "#F7FAFC", "name": "Background" },
+				{ "slug": "good", "color": "#14865D", "name": "Success" },
 				{ "slug": "warn", "color": "#F6C453", "name": "Warn" },
 				{ "slug": "bad", "color": "#FF6B6B", "name": "Bad" }
 			],
 			"gradients": [
-				{ "slug": "brand", "name": "Brand", "gradient": "linear-gradient(135deg,#00C04B 0%,#00D084 100%)" },
-				{ "slug": "panel-glow", "name": "Panel glow", "gradient": "radial-gradient(120% 90% at 0% 0%,#0c3b27 0%,#0a1f18 45%,#0a1411 100%)" }
+				{ "slug": "brand", "name": "Teal to blue", "gradient": "linear-gradient(110deg,#04D2C0 0%,#0064F9 100%)" },
+				{ "slug": "panel-glow", "name": "Navy panel glow", "gradient": "radial-gradient(120% 90% at 0% 0%,#12365B 0%,#0B1524 52%,#07101D 100%)" }
 			]
 		},
 		"typography": {
@@ -67,12 +66,12 @@
 		}
 	},
 	"styles": {
-		"color": { "background": "#EEF4F1", "text": "#0B1110" },
+		"color": { "background": "#F7FAFC", "text": "#111B2C" },
 		"typography": { "fontFamily": "var(--wp--preset--font-family--system)", "lineHeight": "1.6" },
 		"elements": {
-			"link": { "color": { "text": "#00D084" } },
+			"link": { "color": { "text": "#0052C9" } },
 			"button": {
-				"color": { "background": "#00C04B", "text": "#04130A" },
+				"color": { "background": "#0064F9", "text": "#FFFFFF" },
 				"border": { "radius": "0.7rem" },
 				"spacing": { "padding": { "top": "0.7rem", "bottom": "0.7rem", "left": "1.2rem", "right": "1.2rem" } }
 			},
