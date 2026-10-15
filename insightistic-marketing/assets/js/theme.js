@@ -5,6 +5,13 @@
 (function () {
 	'use strict';
 
+	// Keep the body state in sync with the early html-class switch. This lets
+	// the CSS no-JS fallback stay visible until this deferred bundle is ready.
+	if ( document.body ) {
+		document.body.classList.remove( 'no-js' );
+		document.body.classList.add( 'js' );
+	}
+
 	var burger = document.getElementById( 'ins-burger' );
 	var panel = document.getElementById( 'ins-mobile' );
 	var backdrop = document.querySelector( '.ins-mobile__backdrop' );
@@ -86,6 +93,14 @@
 				entries.forEach( function ( entry ) { if ( entry.isIntersecting ) { entry.target.classList.add( 'is-visible' ); observer.unobserve( entry.target ); } } );
 			}, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 } );
 			Array.prototype.forEach.call( revealTargets, function ( item ) { revealObserver.observe( item ); } );
+			// Browsers can restore a scrolled page before the observer receives an
+			// intersection callback. A bounded fallback prevents a permanently
+			// blank marketing page while retaining normal scroll reveals.
+			window.setTimeout( function () {
+				Array.prototype.forEach.call( revealTargets, function ( item ) {
+					if ( ! item.classList.contains( 'is-visible' ) ) { item.classList.add( 'is-visible' ); }
+				} );
+			}, 2600 );
 		}
 	}
 
