@@ -2,6 +2,8 @@
 
 **Date:** 2026-10-15
 **Branch:** `feature/insightistic-brand-seo-redesign`
+**Implementation commit:** `d943e75`
+**Pull request:** [#7](https://github.com/Shubochandrosarker/insightistic-website/pull/7)
 **Write scope:** `insightistic-website` only
 
 ## Delivered
