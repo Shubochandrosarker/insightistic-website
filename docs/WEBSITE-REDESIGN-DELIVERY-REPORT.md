@@ -7,7 +7,10 @@
 **Write scope:** `insightistic-website` only
 
 **Production deployment:** Installed and activated on `www.insightistic.com`
-as the versioned theme `insightistic-marketing-live-20261015` on 2026-10-15.
+as the versioned theme `insightistic-marketing-live-20261015-fix4` on
+2026-10-15. WordPress confirmed the new theme activation, cache purge and
+optimized-data reset. A cache-busting anonymous request loads the new `1.6.0`
+assets and progressive-enhancement fix.
 The logged-in WordPress render and a cache-busting anonymous render loaded the
 new `1.6.0` assets. A Cloudflare zone-wide purge was then completed
 successfully, but the default anonymous response still served the previous
@@ -79,7 +82,8 @@ fallback until the deployed API publishes the complete contract.
   Unauthenticated `401` is expected and its OAuth discovery documents return
   `200`. `dashboard.bridgistic.app` has no DNS response, `app.bridgistic.app`
   returns `404`, and `bridgistic.app/mcp` is not the hosted MCP endpoint.
-- A progressive-enhancement fallback was added in commit `d6682c2` so
+- A progressive-enhancement fallback was added in commit `d6682c2` and is live
+  in `insightistic-marketing-live-20261015-fix4` so
   marketing content stays visible if the deferred reveal script is blocked or
   fails; normal reveal animation remains enabled when JavaScript is available.
 
