@@ -44,7 +44,7 @@ get_header();
 					<div class="widget ins-sidebar-cta">
 						<h3 class="widget-title"><?php esc_html_e( 'Try Insightistic', 'insightistic-marketing' ); ?></h3>
 						<p><?php esc_html_e( 'Connect your store and get AI business insights in minutes.', 'insightistic-marketing' ); ?></p>
-						<a class="ins-btn ins-btn--brand ins-btn--block" href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Start free trial', 'insightistic-marketing' ); ?></a>
+						<a class="ins-btn ins-btn--brand ins-btn--block" href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Start free', 'insightistic-marketing' ); ?></a>
 						<div class="ins-sidebar-newsletter"><?php insightistic_formistic_form( 'newsletter' ); ?></div>
 					</div>
 				<?php endif; ?>

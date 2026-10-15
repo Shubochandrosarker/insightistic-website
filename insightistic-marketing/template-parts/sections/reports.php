@@ -26,7 +26,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<div class="ins-reportcard">
 				<div class="ins-reportcard__head">
 					<span class="ins-reportcard__logo"></span>
-					<span><?php esc_html_e( 'Weekly Performance — Northwind', 'insightistic-marketing' ); ?></span>
+					<span><?php esc_html_e( 'Weekly Performance — Sample store', 'insightistic-marketing' ); ?></span>
 					<span class="ins-pill ins-pill--good"><?php esc_html_e( 'Weekly', 'insightistic-marketing' ); ?></span>
 				</div>
 				<div class="ins-reportcard__metric">
@@ -42,6 +42,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 					<span class="ins-btn ins-btn--brand ins-btn--sm"><?php esc_html_e( 'PDF', 'insightistic-marketing' ); ?></span>
 				</div>
 			</div>
+			<p class="ins-visual-caption"><?php esc_html_e( 'Illustrative report preview — sample values show the format, not customer results.', 'insightistic-marketing' ); ?></p>
 		</div>
 	</div>
 </section>

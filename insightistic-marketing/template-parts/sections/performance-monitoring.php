@@ -31,12 +31,13 @@ if ( ! defined( 'ABSPATH' ) ) {
 						array( 'label' => 'Performance score', 'value' => '86', 'delta' => '+4 pts' ),
 						array( 'label' => 'Largest contentful paint', 'value' => '2.1s', 'delta' => '-0.3s' ),
 						array( 'label' => 'Broken links', 'value' => '2', 'delta' => '-3' ),
-						array( 'label' => 'Uptime', 'value' => '99.97%', 'delta' => '+0.02%' ),
+						array( 'label' => 'Uptime checks', 'value' => 'Active', 'delta' => 'Monitored' ),
 					) as $metric ) {
 						get_template_part( 'template-parts/cards/metric-card', null, $metric );
 					}
 					?>
 				</div>
+				<p class="ins-visual-caption"><?php esc_html_e( 'Illustrative dashboard preview — sample values are shown for context.', 'insightistic-marketing' ); ?></p>
 			</div>
 		</div>
 	</div>

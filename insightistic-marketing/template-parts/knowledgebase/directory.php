@@ -27,7 +27,7 @@ $guides = insightistic_knowledgebase_guides();
 <section class="ins-section ins-directory ins-directory--guides" aria-labelledby="ins-guide-title">
 	<div class="ins-container">
 		<div class="ins-section__head">
-			<p class="ins-eyebrow ins-eyebrow--violet"> <?php esc_html_e( 'Start here', 'insightistic-marketing' ); ?></p>
+			<p class="ins-eyebrow ins-eyebrow--accent"> <?php esc_html_e( 'Start here', 'insightistic-marketing' ); ?></p>
 			<h2 id="ins-guide-title"><?php esc_html_e( 'Evergreen guides built around real decisions', 'insightistic-marketing' ); ?></h2>
 			<p class="ins-lead"><?php esc_html_e( 'These guides are designed to become durable reference points for US store owners, operators and agencies. New articles appear in the Blog as the editorial library grows.', 'insightistic-marketing' ); ?></p>
 		</div>

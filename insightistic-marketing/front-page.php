@@ -1,6 +1,6 @@
 <?php
 /**
- * Homepage — the 14-section marketing landing, composed from template parts.
+ * Homepage — the multi-section marketing landing, composed from template parts.
  *
  * @package Insightistic_Marketing
  */
@@ -13,21 +13,24 @@ get_header();
 ?>
 <main id="main" class="ins-main ins-home">
 	<?php
-	get_template_part( 'template-parts/sections/hero' );             // 2
-	get_template_part( 'template-parts/sections/analytics-preview' ); // 3 — dashboard preview
-	get_template_part( 'template-parts/sections/logo-cloud' );        // trust bar
-	get_template_part( 'template-parts/sections/problem' );           // 4
-	get_template_part( 'template-parts/sections/features' );          // 5
-	get_template_part( 'template-parts/sections/woo-insights' );      // 6
-	get_template_part( 'template-parts/sections/ai-insights' );       // 7
-	get_template_part( 'template-parts/sections/reports' );           // 8
-	get_template_part( 'template-parts/sections/connector' );         // 9
-	get_template_part( 'template-parts/sections/pricing' );           // 10
-	get_template_part( 'template-parts/global/cta-band' );            // 11 — agency / white-label
-	get_template_part( 'template-parts/sections/testimonials' );      // social proof
-	get_template_part( 'template-parts/sections/faq' );               // 12
-	get_template_part( 'template-parts/global/ecosystem-band' );     // authority silo
-	get_template_part( 'template-parts/sections/final-cta' );         // 13
+	get_template_part( 'template-parts/sections/hero' );
+	get_template_part( 'template-parts/sections/analytics-preview' );
+	get_template_part( 'template-parts/sections/logo-cloud' );
+	get_template_part( 'template-parts/sections/problem' );
+	get_template_part( 'template-parts/sections/features' );
+	get_template_part( 'template-parts/sections/woo-insights' );
+	get_template_part( 'template-parts/sections/traffic-analytics' );
+	get_template_part( 'template-parts/sections/seo-analytics' );
+	get_template_part( 'template-parts/sections/ai-insights' );
+	get_template_part( 'template-parts/sections/performance-monitoring' );
+	get_template_part( 'template-parts/sections/reports' );
+	get_template_part( 'template-parts/sections/connector' );
+	get_template_part( 'template-parts/sections/security' );
+	get_template_part( 'template-parts/sections/pricing' );
+	get_template_part( 'template-parts/global/cta-band' );
+	get_template_part( 'template-parts/sections/faq' );
+	get_template_part( 'template-parts/global/ecosystem-band' );
+	get_template_part( 'template-parts/sections/final-cta' );
 	?>
 </main>
 <?php

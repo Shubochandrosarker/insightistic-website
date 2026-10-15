@@ -11,14 +11,15 @@
 	}
 
 	function apply( period ) {
-		document.querySelectorAll( '.ins-plan__amount' ).forEach( function ( el ) {
+		document.querySelectorAll( '.ins-plan__amount[data-monthly][data-yearly]' ).forEach( function ( el ) {
 			var val = el.getAttribute( 'data-' + period );
 			if ( val ) {
 				el.textContent = val;
 			}
-		} );
-		document.querySelectorAll( '.ins-plan__per' ).forEach( function ( el ) {
-			el.textContent = 'yearly' === period ? '/yr billed annually' : '/mo';
+			var per = el.parentElement ? el.parentElement.querySelector( '.ins-plan__per' ) : null;
+			if ( per ) {
+				per.textContent = 'yearly' === period ? '/yr billed annually' : '/mo';
+			}
 		} );
 	}
 

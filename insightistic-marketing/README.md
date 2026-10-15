@@ -1,11 +1,11 @@
 # Insightistic Marketing — WordPress Theme
 
 A premium, mobile-first **light SaaS** marketing theme for **Insightistic** —
-AI Business Analytics for WordPress & WooCommerce. The page chrome is light
-by default (green/mint brand accent), matching `insightistic-app`'s default
-theme; embedded product-shot cards (dashboard preview, report card) keep a
-deliberate dark glass-card treatment as an accent, not a theme flip — see the
-`:root` token comments in `assets/css/theme.css`. It powers the public
+AI Business Intelligence for WordPress & WooCommerce. The page chrome is light
+by default with the approved teal-to-blue brand gradient; embedded product-shot
+cards (dashboard preview, report card) keep a deliberate dark product-surface
+treatment as an accent, not a theme flip — see the `:root` tokens in
+`assets/css/theme.css`. It powers the public
 marketing website at `insightistic.com` only. Accounts, billing and the
 dashboard live in the separate SaaS app (`app.insightistic.com`) and API
 (`api.insightistic.com`); **no dashboard logic lives in this theme.**
@@ -35,7 +35,7 @@ dashboard live in the separate SaaS app (`app.insightistic.com`) and API
 4. **Appearance → Menus**: create menus and assign to **Primary**, **Footer**
    and **Legal** locations.
 5. **Settings → Reading**: set a static front page (any page) — the homepage
-   uses `front-page.php` automatically, so the 14-section landing renders
+   uses `front-page.php` automatically, so the full multi-section landing renders
    regardless of which page you choose.
 
 ## Required pages & templates
@@ -45,7 +45,7 @@ Attributes → Template):
 
 | Page | Template |
 |---|---|
-| Home (front page) | *(automatic — `front-page.php`, 14-section landing)* |
+| Home (front page) | *(automatic — `front-page.php`, multi-section landing)* |
 | Pricing (`/pricing`) | Pricing |
 | Features (`/features`) | Features |
 | Contact (`/contact`) | Contact |
@@ -76,13 +76,13 @@ Every CTA links to the app via the `insightistic_get_app_url()` helper:
 
 ```php
 echo esc_url( insightistic_get_app_url( '/login' ) );
-echo esc_url( insightistic_register_url( 'pro' ) ); // /register?plan=pro
+echo esc_url( insightistic_register_url( 'growth' ) ); // /register?plan=growth
 echo esc_url( insightistic_dashboard_url() );
 ```
 
 Defaults: `https://app.insightistic.com` — change in **Customize → Insightistic
 → App & API URLs**. Plan CTAs already point at
-`/register?plan=starter|pro|agency`.
+`/register?plan=starter|growth|agency|agency_pro`.
 
 ## Formistic forms
 
@@ -112,18 +112,16 @@ Consent line to use under forms:
 
 ## Demo content (optional)
 
-- **Testimonials**: add entries under the **Testimonials** menu (or rely on the
-  built-in defaults). Use the page-attributes *Order* to sort; add a role in
+- **Testimonials**: add only consented, evidence-backed entries under the
+  **Testimonials** menu. The theme has no invented fallback quotes. Use the
+  page-attributes *Order* to sort; add a role in
   the body via custom field `_ins_role` if desired.
-- **Pricing**: `insightistic_pricing_plans()` fetches the live plan manifest
-  from `GET {API URL}/api/public/plans` (cached 5 minutes) and falls back to
-  a static snapshot (`insightistic_pricing_plans_fallback()` in
-  `inc/helpers.php`) if the API is unreachable. To change actual prices/
-  limits/features, edit plans in the app's Super Admin → Plans screen — this
-  theme's fallback array is a snapshot, not a second source of truth, and
-  should be updated to match whenever plans change. Taglines and feature
-  bullet copy stay theme-owned (`insightistic_plan_tagline()` /
-  `insightistic_plan_feature_label()`, both filterable).
+- **Pricing**: `insightistic_public_catalog()` fetches the complete manifest
+  from `GET {API URL}/api/public/plans` (cached 5 minutes). A response is
+  accepted only when it includes the catalog version, Free Connected tier,
+  paid resource limits, LTD tiers, credit packs and AI action costs. An
+  incomplete response fails closed to the audited application catalog snapshot
+  in `inc/helpers.php`; the application remains authoritative for checkout.
 - **FAQ / Features**: edit `insightistic_faqs()` / `insightistic_features()` in
   `inc/helpers.php`, or hook the `insightistic_faqs` / `insightistic_features`
   filters from a small mu-plugin.
