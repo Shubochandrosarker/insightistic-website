@@ -552,6 +552,17 @@ function insightistic_faqs() {
 	return apply_filters( 'insightistic_faqs', $faqs );
 }
 
+/** Lifetime Deal (/ltd/) questions. Rendered on the page and mirrored in its FAQPage schema. */
+function insightistic_ltd_faqs() {
+	return array(
+		array( 'q' => 'Is this a subscription?', 'a' => 'No. It is one payment. Your Founding Angel plan never renews and never bills again.' ),
+		array( 'q' => 'What renews monthly?', 'a' => 'Your tier\'s allowances. Sites, crawl pages, browser minutes, keywords, AI requests, AI credits and reports reset every month.' ),
+		array( 'q' => 'How many sites does each tier cover?', 'a' => 'Angel Solo covers 3 sites, Angel Studio covers 7 and Angel Agency covers 15.' ),
+		array( 'q' => 'How many spots are left?', 'a' => '97 of 100. The cap is shared across Solo, Studio and Agency. When all 100 are taken, the offer closes.' ),
+		array( 'q' => 'What\'s the refund policy?', 'a' => 'You get our 30-day, no-questions-asked money-back guarantee.' ),
+	);
+}
+
 /** Overview-style metric cards for the dashboard preview visual. */
 function insightistic_preview_metrics() {
 	return apply_filters( 'insightistic_preview_metrics', array(

@@ -21,16 +21,18 @@ get_header();
 	<section class="ins-section ins-ltd-hero" aria-labelledby="ins-ltd-title">
 		<div class="ins-container ins-narrow ins-center">
 			<p class="ins-eyebrow"><?php esc_html_e( 'Founding Angel Membership', 'insightistic-marketing' ); ?></p>
-			<h1 id="ins-ltd-title" class="ins-page-hero__title"><?php esc_html_e( 'One payment. Lifetime access. Only 100 Founding Angels.', 'insightistic-marketing' ); ?></h1>
-			<p class="ins-lead"><?php esc_html_e( 'Become one of Insightistic’s first 100 Founding Angels. Unlock your purchased core plan for the lifetime of the service, with monthly AI credits and usage allowances that renew automatically.', 'insightistic-marketing' ); ?></p>
+			<h1 id="ins-ltd-title" class="ins-page-hero__title"><?php esc_html_e( 'One payment. Lifetime access. Only 100 Founding Angel spots, ever.', 'insightistic-marketing' ); ?></h1>
+			<p class="ins-lead"><?php esc_html_e( 'Founding Angels are Insightistic\'s first 100 lifetime members. You pay once ($149, $299 or $699) and keep that tier\'s core plan for the lifetime of the service. Your sites, crawl pages, browser minutes, keywords, AI requests, AI credits and reports renew every month, and the plan itself never renews or bills again. When all 100 spots are taken, the offer closes.', 'insightistic-marketing' ); ?></p>
+			<p class="ins-ltd-spots"><strong><?php esc_html_e( '97 of 100 Founding Angel spots left. The cap is shared across Solo, Studio and Agency.', 'insightistic-marketing' ); ?></strong></p>
 			<div class="ins-ltd-hero__actions">
 				<a class="ins-btn ins-btn--brand ins-btn--lg" href="#angel-plans"><?php esc_html_e( 'Compare Angel plans', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 18 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 				<a class="ins-btn ins-btn--ghost ins-btn--lg" href="<?php echo esc_url( insightistic_login_url() ); ?>"><?php esc_html_e( 'Already have an account?', 'insightistic-marketing' ); ?></a>
 			</div>
+			<p class="ins-ltd-guarantee"><?php esc_html_e( 'Covered by our 30-day, no-questions-asked money-back guarantee.', 'insightistic-marketing' ); ?></p>
 			<div class="ins-ltd-status ins-ltd-status--<?php echo esc_attr( $active ? 'active' : ( $sold_out ? 'closed' : 'unknown' ) ); ?>" role="status">
 				<?php if ( $active ) : ?>
 					<strong><?php esc_html_e( 'Campaign active', 'insightistic-marketing' ); ?></strong>
-					<span><?php esc_html_e( 'Checkout confirms the remaining eligibility. The 100-license cap is shared across all Angel tiers.', 'insightistic-marketing' ); ?></span>
+					<span><?php esc_html_e( 'Spots are confirmed at checkout, first come, first served.', 'insightistic-marketing' ); ?></span>
 				<?php elseif ( $sold_out ) : ?>
 					<strong><?php esc_html_e( 'Founding Angel campaign closed', 'insightistic-marketing' ); ?></strong>
 					<span><?php esc_html_e( 'The first 100 lifetime licenses are no longer available. Regular subscriptions remain open.', 'insightistic-marketing' ); ?></span>
@@ -78,6 +80,8 @@ get_header();
 					</article>
 				<?php endforeach; ?>
 			</div>
+			<p class="ins-ltd-checkout-note ins-center"><?php esc_html_e( 'A one-time checkout, used only for the Lifetime Deal. There\'s no subscription.', 'insightistic-marketing' ); ?></p>
+			<p class="ins-ltd-guarantee ins-center"><?php esc_html_e( 'Covered by our 30-day, no-questions-asked money-back guarantee.', 'insightistic-marketing' ); ?></p>
 		</div>
 	</section>
 
@@ -103,11 +107,30 @@ get_header();
 				<h2 id="ins-ltd-request-title"><?php esc_html_e( 'Ask about Angel access', 'insightistic-marketing' ); ?></h2>
 				<p class="ins-lead ins-center"><?php esc_html_e( 'Use the form for plan questions or checkout support. Do not submit payment details here.', 'insightistic-marketing' ); ?></p>
 			</div>
-			<?php insightistic_formistic_form( 'ltd' ); ?>
+			<?php
+			ob_start();
+			insightistic_formistic_form( 'ltd' );
+			echo str_replace( 'Claim my lifetime deal', esc_html__( 'Ask about Angel access', 'insightistic-marketing' ), (string) ob_get_clean() ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped -- Formistic output, label swap only.
+			?>
 			<p class="ins-consent"><?php esc_html_e( 'By submitting this form, you agree to our', 'insightistic-marketing' ); ?> <a href="<?php echo esc_url( home_url( '/privacy-policy/' ) ); ?>"><?php esc_html_e( 'Privacy Policy', 'insightistic-marketing' ); ?></a>.</p>
 		</div>
 	</section>
 
-	<?php get_template_part( 'template-parts/sections/faq' ); ?>
+	<section class="ins-section ins-faq" aria-labelledby="ins-faq-title">
+		<div class="ins-container ins-narrow">
+			<div class="ins-section__head">
+				<p class="ins-eyebrow"><?php esc_html_e( 'FAQ', 'insightistic-marketing' ); ?></p>
+				<h2 id="ins-faq-title"><?php esc_html_e( 'Lifetime Deal questions', 'insightistic-marketing' ); ?></h2>
+			</div>
+			<div class="ins-accordion">
+				<?php foreach ( insightistic_ltd_faqs() as $i => $faq ) : ?>
+					<details class="ins-accordion__item"<?php echo 0 === $i ? ' open' : ''; ?>>
+						<summary class="ins-accordion__q"><?php echo esc_html( $faq['q'] ); ?></summary>
+						<div class="ins-accordion__a"><p><?php echo esc_html( $faq['a'] ); ?></p></div>
+					</details>
+				<?php endforeach; ?>
+			</div>
+		</div>
+	</section>
 </main>
 <?php get_footer(); ?>

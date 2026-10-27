@@ -48,6 +48,7 @@ function insightistic_seo_page_defaults() {
 		'refunds'                => array( 'Refund & Cancellation Policy | Insightistic', 'Current guidance for Insightistic cancellation, refund requests, billing issues and plan guarantees.' ),
 		'acceptable-use'         => array( 'Acceptable Use Policy | Insightistic', 'Allowed and prohibited uses for the Insightistic website, app, API and connected data.' ),
 		'subprocessors'          => array( 'Subprocessors | Insightistic', 'Current service categories that may process information to operate Insightistic.' ),
+		'ltd'                    => array( 'Insightistic Lifetime Deal – $149 Once, 100 Founding Angel Spots', 'Pay once from $149 for lifetime WordPress & WooCommerce AI analytics. 3, 7 or 15 sites. Only 100 Founding Angel spots, 97 left. 30-day money-back guarantee.' ),
 		'legal-notices'          => array( 'Legal Notices | Insightistic', 'Public legal operator, address, entity and contact information for Insightistic.' ),
 	);
 }
@@ -138,6 +139,25 @@ function insightistic_output_seo_meta() {
 }
 add_action( 'wp_head', 'insightistic_output_seo_meta', 1 );
 
+/** /ltd/ only: theme-owned <title>, and drop core's duplicate canonical (the theme prints one). */
+add_filter(
+	'pre_get_document_title',
+	function ( $title ) {
+		if ( ! insightistic_seo_plugin_active() && is_page( 'ltd' ) ) {
+			return insightistic_seo_page_defaults()['ltd'][0];
+		}
+		return $title;
+	}
+);
+add_action(
+	'wp',
+	function () {
+		if ( ! insightistic_seo_plugin_active() && is_page( 'ltd' ) ) {
+			remove_action( 'wp_head', 'rel_canonical' );
+		}
+	}
+);
+
 /** Advertise the stable machine-readable discovery surfaces in document head. */
 function insightistic_output_discovery_links() {
 	echo '<link rel="sitemap" type="application/xml" href="' . esc_url( home_url( '/sitemap.xml' ) ) . '">' . "\n";
@@ -183,11 +203,27 @@ function insightistic_schema_graph() {
 			$offers[] = array( '@type' => 'Offer', 'name' => $plan['name'], 'price' => $price, 'priceCurrency' => 'USD', 'url' => home_url( '/pricing/' ), 'availability' => 'https://schema.org/InStock' );
 		}
 	}
+	$is_ltd = is_page( 'ltd' );
 	$nodes   = array(
 		array( '@type' => 'Organization', '@id' => $brand, 'name' => 'WordPressistic LLC', 'legalName' => 'WordPressistic LLC', 'url' => 'https://wordpressistic.com/', 'email' => $details['email'], 'address' => array( '@type' => 'PostalAddress', 'streetAddress' => $details['address'], 'addressLocality' => $details['city'], 'addressRegion' => $details['state'], 'postalCode' => $details['postal_code'], 'addressCountry' => $details['country'] ), 'identifier' => array( '@type' => 'PropertyValue', 'propertyID' => 'Entity ID', 'value' => $details['entity_id'] ), 'sameAs' => $same_as, 'brand' => array( '@type' => 'Brand', 'name' => 'Insightistic', 'url' => home_url( '/' ) ) ),
 		array( '@type' => 'WebSite', '@id' => home_url( '/#website' ), 'url' => home_url( '/' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'publisher' => array( '@id' => $brand ), 'inLanguage' => get_bloginfo( 'language' ) ),
 		array( '@type' => array( 'SoftwareApplication', 'Product' ), '@id' => home_url( '/#product' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'url' => home_url( '/' ), 'applicationCategory' => 'BusinessApplication', 'operatingSystem' => 'Web', 'publisher' => array( '@id' => $brand ), 'isPartOf' => array( '@id' => home_url( '/#website' ) ), 'offers' => $offers ),
 	);
+	if ( $is_ltd ) {
+		// /ltd/ only: no subscription offers; one-time Founding Angel product instead.
+		unset( $nodes[2]['offers'] );
+		$ltd_offers = array();
+		foreach ( array( 'angel_solo' => array( 'Angel Solo', '149' ), 'angel_studio' => array( 'Angel Studio', '299' ), 'angel_agency' => array( 'Angel Agency', '699' ) ) as $ltd_slug => $ltd_tier ) {
+			$ltd_offers[] = array( '@type' => 'Offer', 'name' => $ltd_tier[0], 'price' => $ltd_tier[1], 'priceCurrency' => 'USD', 'availability' => 'https://schema.org/InStock', 'url' => 'https://app.insightistic.com/register?plan=' . $ltd_slug, 'seller' => array( '@id' => $brand ), 'hasMerchantReturnPolicy' => array( '@id' => home_url( '/ltd/#return-policy' ) ) );
+		}
+		$nodes[] = array( '@type' => 'MerchantReturnPolicy', '@id' => home_url( '/ltd/#return-policy' ), 'name' => '30-day money-back guarantee', 'returnPolicyCategory' => 'https://schema.org/MerchantReturnFiniteReturnWindow', 'merchantReturnDays' => 30, 'refundType' => 'https://schema.org/FullRefund', 'returnFees' => 'https://schema.org/FreeReturn', 'applicableCountry' => 'US' );
+		$nodes[] = array( '@type' => 'Product', '@id' => home_url( '/ltd/#product' ), 'name' => 'Insightistic Founding Angel Lifetime Deal', 'description' => insightistic_seo_page_defaults()['ltd'][1], 'url' => home_url( '/ltd/' ), 'brand' => array( '@type' => 'Brand', 'name' => 'Insightistic' ), 'offers' => $ltd_offers );
+		$ltd_questions = array();
+		foreach ( insightistic_ltd_faqs() as $faq ) {
+			$ltd_questions[] = array( '@type' => 'Question', 'name' => $faq['q'], 'acceptedAnswer' => array( '@type' => 'Answer', 'text' => $faq['a'] ) );
+		}
+		$nodes[] = array( '@type' => 'FAQPage', '@id' => home_url( '/ltd/#faq' ), 'mainEntity' => $ltd_questions );
+	}
 
 	if ( is_singular( 'post' ) ) {
 		$nodes[] = array( '@type' => 'BlogPosting', '@id' => get_permalink() . '#article', 'headline' => get_the_title(), 'description' => insightistic_seo_description(), 'url' => get_permalink(), 'datePublished' => get_the_date( DATE_W3C ), 'dateModified' => get_the_modified_date( DATE_W3C ), 'author' => array( '@type' => 'Person', 'name' => $author['name'], 'jobTitle' => $author['title'], 'url' => $author['url'] ), 'publisher' => array( '@id' => $brand ), 'mainEntityOfPage' => array( '@id' => get_permalink() ), 'isPartOf' => array( '@id' => home_url( '/#website' ) ), 'inLanguage' => get_bloginfo( 'language' ) );
