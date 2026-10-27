@@ -54,8 +54,15 @@ add_filter(
 			// otherwise process the same tag in sequence and leave it with a
 			// non-executable script type. Exclude these small interaction bundles
 			// from both optimizers while keeping native deferred execution.
+			$optimizer_attributes = '';
 			if ( false === strpos( $tag, ' data-cfasync=' ) ) {
-				$tag = str_replace( '<script ', '<script data-cfasync="false" bv-exclude="true" ', $tag );
+				$optimizer_attributes .= ' data-cfasync="false"';
+			}
+			if ( false === strpos( $tag, ' bv-exclude=' ) ) {
+				$optimizer_attributes .= ' bv-exclude="true"';
+			}
+			if ( '' !== $optimizer_attributes ) {
+				$tag = str_replace( '<script ', '<script' . $optimizer_attributes . ' ', $tag );
 			}
 			if ( false === strpos( $tag, ' defer' ) ) {
 				$tag = str_replace( ' src', ' defer src', $tag );
