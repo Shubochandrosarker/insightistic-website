@@ -49,7 +49,24 @@ add_filter(
 	'script_loader_tag',
 	function ( $tag, $handle ) {
 		if ( in_array( $handle, array( 'insightistic-theme', 'insightistic-pricing-toggle' ), true ) ) {
-			return str_replace( ' src', ' defer src', $tag );
+			// The navigation and pricing controls must be interactive on the first
+			// tap. Airlift's delayed-JS loader and Cloudflare Rocket Loader can
+			// otherwise process the same tag in sequence and leave it with a
+			// non-executable script type. Exclude these small interaction bundles
+			// from both optimizers while keeping native deferred execution.
+			$optimizer_attributes = '';
+			if ( false === strpos( $tag, ' data-cfasync=' ) ) {
+				$optimizer_attributes .= ' data-cfasync="false"';
+			}
+			if ( false === strpos( $tag, ' bv-exclude=' ) ) {
+				$optimizer_attributes .= ' bv-exclude="true"';
+			}
+			if ( '' !== $optimizer_attributes ) {
+				$tag = str_replace( '<script ', '<script' . $optimizer_attributes . ' ', $tag );
+			}
+			if ( false === strpos( $tag, ' defer' ) ) {
+				$tag = str_replace( ' src', ' defer src', $tag );
+			}
 		}
 		return $tag;
 	},
@@ -64,7 +81,7 @@ add_filter(
 add_action(
 	'wp_head',
 	function () {
-		echo "<script>document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>\n";
+		echo "<script data-cfasync=\"false\" bv-exclude=\"true\">document.documentElement.classList.remove('no-js');document.documentElement.classList.add('js');</script>\n";
 	},
 	0
 );
