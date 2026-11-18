@@ -14,7 +14,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 function insightistic_provision_public_pages() {
 	$pages = array(
 		'features'              => array( 'Features', 'page-templates/template-features.php' ),
+		'product-tour'          => array( 'Product Tour', 'page-templates/template-product-tour.php' ),
 		'integrations'          => array( 'Integrations', 'page-templates/template-integrations.php' ),
+		'lifetime-deal'         => array( 'Lifetime Deal', 'page-templates/template-lifetime-deal.php' ),
 		'traffic-analytics'    => array( 'Traffic Analytics', 'page-templates/template-traffic-analytics.php' ),
 		'seo-analytics'        => array( 'SEO Analytics', 'page-templates/template-seo-analytics.php' ),
 		'performance-monitoring' => array( 'Performance Monitoring', 'page-templates/template-performance-monitoring.php' ),
@@ -75,7 +77,7 @@ add_action(
  * template assignments without overwriting page content.
  */
 function insightistic_maybe_provision_public_pages() {
-	$version = '2026-09-14-integrations-footer';
+	$version = '2026-11-12-seo-audit-1';
 
 	if ( $version === get_option( 'insightistic_public_pages_version' ) ) {
 		return;

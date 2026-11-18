@@ -22,10 +22,18 @@ get_header();
 		</header>
 		<div class="ins-container ins-narrow ins-prose">
 			<?php
-			if ( trim( get_the_content() ) ) {
+			$about_content = trim( (string) get_the_content() );
+			// A previous editor/widget deployment saved the About page's
+			// stylesheet as ordinary post content. Do not publish that payload
+			// back into the document; the page template owns this layout and can
+			// safely fall back to its curated copy until the stored post is
+			// cleaned up in WordPress.
+			$about_has_legacy_css = (bool) preg_match( '/body\.insx-theme|insx-a-|var\(--insx|<style\b|<\/style>/i', $about_content );
+			if ( $about_content && ! $about_has_legacy_css ) {
 				the_content();
 			} else {
 				echo '<p>' . esc_html__( 'Insightistic helps WordPress and WooCommerce businesses understand revenue, products, customers, reports and store health from one clean dashboard — with AI that explains what changed and what to do next.', 'insightistic-marketing' ) . '</p>';
+				echo '<p>' . esc_html__( 'The product is built for owners and agencies who want reliable business signals, practical recommendations and a calmer way to decide what deserves attention.', 'insightistic-marketing' ) . '</p>';
 			}
 			?>
 		</div>

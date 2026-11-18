@@ -31,10 +31,10 @@ $subtitle = insightistic_option( 'insightistic_hero_subtitle', __( 'Connect Word
 
 		<div class="ins-hero__supporting-links" aria-label="<?php esc_attr_e( 'Getting started options', 'insightistic-marketing' ); ?>">
 			<span><?php esc_html_e( 'Free WordPress plugin', 'insightistic-marketing' ); ?></span>
-			<span><?php esc_html_e( 'Free Connected account', 'insightistic-marketing' ); ?></span>
+			<span><?php esc_html_e( '14-day trial', 'insightistic-marketing' ); ?></span>
 			<a href="<?php echo esc_url( home_url( '/pricing/' ) ); ?>"><?php esc_html_e( 'Compare pricing', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 15 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 		</div>
 
-		<p class="ins-hero__note"><?php esc_html_e( 'Start with the plugin and a free account. Add cloud resources as your business grows.', 'insightistic-marketing' ); ?></p>
+		<p class="ins-hero__note"><?php esc_html_e( 'Start with the plugin and a 14-day trial. Add cloud resources as your business grows.', 'insightistic-marketing' ); ?></p>
 	</div>
 </section>

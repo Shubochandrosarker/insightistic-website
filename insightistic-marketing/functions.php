@@ -16,7 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 // Keep the marketing theme's cache-busting version separate from the
 // Insightistic Connector plugin's global version constant.
-define( 'INSIGHTISTIC_MARKETING_VERSION', '1.6.0' );
+define( 'INSIGHTISTIC_MARKETING_VERSION', '1.6.4' );
 define( 'INSIGHTISTIC_DIR', get_template_directory() );
 define( 'INSIGHTISTIC_URI', get_template_directory_uri() );
 
@@ -24,9 +24,11 @@ $insightistic_modules = array(
 	'/inc/setup.php',          // theme supports, menus, image sizes
 	'/inc/security.php',       // hardening + safe output helpers
 	'/inc/helpers.php',        // app URL, Formistic, pricing data, brand links
+	'/inc/animations.php',     // allowlisted public-safe product motion visuals
 	'/inc/site-data.php',      // legal entity, knowledgebase and ecosystem data
 	'/inc/legal.php',          // reusable legal document renderer
 	'/inc/discovery.php',      // XML/text discovery endpoints and robots policy
+	'/inc/agent-readiness.php', // Markdown negotiation, WebMCP and MCP server card
 	'/inc/page-provisioning.php', // idempotent public page/template setup
 	'/inc/formistic-provisioning.php', // auto-creates the 4 builder forms (spec §16.3)
 	'/inc/seo.php',            // canonical + Open Graph/Twitter meta, resource hints

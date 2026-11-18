@@ -223,18 +223,25 @@ function insightistic_formistic_available_forms() {
  * application snapshot when the API is unavailable or incomplete.
  */
 function insightistic_public_catalog() {
-	$cache_key = 'insightistic_public_catalog_v4';
+	$cache_key = 'insightistic_public_catalog_v5';
 	$cached    = get_transient( $cache_key );
 	if ( is_array( $cached ) && ! empty( $cached['plans'] ) ) {
 		return apply_filters( 'insightistic_public_catalog', $cached );
 	}
 
+	$lock_key = $cache_key . '_lock';
+	if ( get_transient( $lock_key ) ) {
+		return apply_filters( 'insightistic_public_catalog', insightistic_public_catalog_fallback() );
+	}
+	set_transient( $lock_key, 1, 15 );
+
 	$catalog = insightistic_fetch_public_catalog_from_api();
 	if ( empty( $catalog ) ) {
 		$catalog = insightistic_public_catalog_fallback();
 	}
+	delete_transient( $lock_key );
 
-	set_transient( $cache_key, $catalog, 5 * MINUTE_IN_SECONDS );
+	set_transient( $cache_key, $catalog, 15 * MINUTE_IN_SECONDS );
 	return apply_filters( 'insightistic_public_catalog', $catalog );
 }
 
@@ -254,7 +261,7 @@ function insightistic_fetch_public_catalog_from_api() {
 	$response = wp_remote_get(
 		insightistic_api_url() . '/api/public/plans',
 		array(
-			'timeout' => 3,
+			'timeout' => 8,
 			'headers' => array( 'Accept' => 'application/json' ),
 		)
 	);
@@ -263,52 +270,48 @@ function insightistic_fetch_public_catalog_from_api() {
 	}
 
 	$body = json_decode( wp_remote_retrieve_body( $response ), true );
-	foreach ( array( 'catalog_version', 'trial_days', 'plans', 'ltd', 'credit_packs', 'ai_action_costs' ) as $key ) {
+	foreach ( array( 'catalog_version', 'trial_days', 'plans', 'appsumo', 'credit_packs', 'ai_action_costs' ) as $key ) {
 		if ( ! is_array( $body ) || ! array_key_exists( $key, $body ) ) {
 			return null;
 		}
 	}
-	if ( ! is_array( $body['plans'] ) || ! is_array( $body['ltd'] ) ) {
-		return null;
-	}
-	if ( ! is_array( $body['ltd']['campaign'] ?? null ) || ! array_key_exists( 'state', $body['ltd']['campaign'] ) || ! array_key_exists( 'maximum_sales', $body['ltd']['campaign'] ) || ! array_key_exists( 'sold_out', $body['ltd']['campaign'] ) ) {
+	if ( ! is_array( $body['plans'] ) || ! is_array( $body['appsumo'] ) || ! is_array( $body['appsumo']['plans'] ?? null ) ) {
 		return null;
 	}
 
 	$paid    = array();
-	$free    = null;
 	$expected = array( 'starter', 'growth', 'agency', 'agency_pro' );
 	foreach ( (array) $body['plans'] as $api_plan ) {
 		if ( ! insightistic_public_plan_payload_is_complete( $api_plan ) ) {
 			return null;
 		}
 		$mapped = insightistic_map_api_plan( $api_plan );
-		if ( 'free' === $mapped['slug'] ) {
-			$free = $mapped;
-		} elseif ( in_array( $mapped['slug'], $expected, true ) ) {
+		if ( in_array( $mapped['slug'], $expected, true ) ) {
 			if ( empty( $api_plan['is_purchasable'] ) ) {
 				return null;
 			}
 			$paid[ $mapped['slug'] ] = $mapped;
 		}
 	}
-	if ( null === $free || count( $paid ) !== count( $expected ) ) {
+	if ( count( $paid ) !== count( $expected ) ) {
 		return null;
 	}
 
-	$ltd_plans = array();
-	foreach ( (array) ( $body['ltd']['plans'] ?? array() ) as $api_ltd ) {
-		if ( empty( $api_ltd['slug'] ) || empty( $api_ltd['name'] ) || ! isset( $api_ltd['price'], $api_ltd['sites'], $api_ltd['team_seats'], $api_ltd['monthly_ai_credits'], $api_ltd['features'], $api_ltd['limits'] ) ) {
+	$appsumo_plans    = array();
+	$appsumo_campaign = array();
+	$appsumo_campaign = is_array( $body['appsumo']['campaign'] ?? null ) ? $body['appsumo']['campaign'] : array();
+	foreach ( $body['appsumo']['plans'] as $api_appsumo ) {
+		if ( empty( $api_appsumo['slug'] ) || empty( $api_appsumo['name'] ) || ! isset( $api_appsumo['price'], $api_appsumo['sites'], $api_appsumo['team_member_limit'], $api_appsumo['monthly_ai_credits'], $api_appsumo['features'], $api_appsumo['limits'] ) ) {
 			return null;
 		}
-		foreach ( array( 'crawl_pages_monthly', 'browser_rendering_minutes_monthly', 'tracked_keywords', 'standard_ai_requests_monthly', 'client_ready_reports_monthly' ) as $key ) {
-			if ( ! array_key_exists( $key, (array) $api_ltd['limits'] ) ) {
+		foreach ( array( 'crawl_pages_monthly', 'browser_rendering_minutes_monthly', 'tracked_keywords', 'standard_ai_requests_monthly', 'monthly_ai_credits', 'client_ready_reports_monthly', 'scheduled_report_limit' ) as $appsumo_limit_key ) {
+			if ( ! array_key_exists( $appsumo_limit_key, (array) $api_appsumo['limits'] ) ) {
 				return null;
 			}
 		}
-		$ltd_plans[] = insightistic_map_api_ltd_plan( $api_ltd );
+		$appsumo_plans[] = insightistic_map_api_appsumo_plan( $api_appsumo );
 	}
-	if ( 3 !== count( $ltd_plans ) ) {
+	if ( 5 !== count( $appsumo_plans ) ) {
 		return null;
 	}
 
@@ -326,8 +329,7 @@ function insightistic_fetch_public_catalog_from_api() {
 		'version' => sanitize_text_field( (string) $body['catalog_version'] ),
 		'trial_days' => absint( $body['trial_days'] ),
 		'plans' => $ordered_paid,
-		'free' => $free,
-		'ltd' => array( 'campaign' => is_array( $body['ltd']['campaign'] ?? null ) ? $body['ltd']['campaign'] : array(), 'plans' => $ltd_plans ),
+		'appsumo' => array( 'campaign' => $appsumo_campaign, 'plans' => $appsumo_plans ),
 		'credit_packs' => (array) $body['credit_packs'],
 		'ai_action_costs' => (array) $body['ai_action_costs'],
 		'source' => 'api',
@@ -406,23 +408,27 @@ function insightistic_map_api_plan( $api_plan ) {
 	);
 }
 
-function insightistic_map_api_ltd_plan( $api_plan ) {
+/** Map the live AppSumo five-tier catalog into the theme's LTD card shape. */
+function insightistic_map_api_appsumo_plan( $api_plan ) {
 	$limits = (array) $api_plan['limits'];
+	$slug   = sanitize_key( (string) $api_plan['slug'] );
 	return array(
-		'slug' => sanitize_key( (string) $api_plan['slug'] ),
+		'slug' => $slug,
 		'name' => sanitize_text_field( (string) $api_plan['name'] ),
 		'price' => '$' . number_format_i18n( absint( $api_plan['price'] ) ),
-		'featured' => 'angel_studio' === sanitize_key( (string) $api_plan['slug'] ),
+		'featured' => 'appsumo_tier_4' === $slug,
 		'sites' => absint( $api_plan['sites'] ),
-		'team_seats' => absint( $api_plan['team_seats'] ),
-		'monthly_ai_credits' => absint( $api_plan['monthly_ai_credits'] ?? 0 ),
+		'team_seats' => absint( $api_plan['team_member_limit'] ),
+		'member_add_credits' => absint( $api_plan['team_member_add_credits'] ?? $limits['team_member_add_credits'] ?? 10 ),
+		'monthly_ai_credits' => absint( $api_plan['monthly_ai_credits'] ?? $limits['monthly_ai_credits'] ?? 0 ),
 		'features' => array_values( array_unique( array_map( 'insightistic_plan_feature_label', (array) ( $api_plan['features'] ?? array() ) ) ) ),
 		'limits' => array(
 			'crawl_pages' => absint( $limits['crawl_pages_monthly'] ?? 0 ),
 			'browser_minutes' => absint( $limits['browser_rendering_minutes_monthly'] ?? 0 ),
 			'keywords' => absint( $limits['tracked_keywords'] ?? 0 ),
-			'ai_requests' => absint( $limits['standard_ai_requests_monthly'] ?? 0 ),
+			'ai_requests' => absint( $limits['standard_ai_requests_monthly'] ?? $api_plan['standard_ai_requests'] ?? 0 ),
 			'reports' => absint( $limits['client_ready_reports_monthly'] ?? 0 ),
+			'schedules' => absint( $limits['scheduled_report_limit'] ?? 0 ),
 		),
 	);
 }
@@ -466,7 +472,7 @@ function insightistic_plan_feature_label( $slug ) {
 			'woocommerce_analytics' => 'Full WooCommerce analytics',
 			'engagement_analytics'  => 'Engagement analytics',
 			'ai_insights'           => 'AI business insights',
-			'ai_copilot'            => 'AI copilot',
+			'ai_copilot'            => 'Agent JOLLY — AI business helper',
 			'advanced_reports'      => 'Branded PDF reports',
 			'scheduled_reports'     => 'Scheduled report delivery',
 			'alerts'                => 'Automated alerts',
@@ -484,29 +490,25 @@ function insightistic_plan_feature_label( $slug ) {
 	return $labels[ $slug ] ?? ucwords( str_replace( '_', ' ', $slug ) );
 }
 
-/** Audited fallback mirrors insightistic-api/config/commercial.php 2026-10-14. */
+/** Audited fallback mirrors insightistic-api/config/commercial.php 2026-11-18. */
 function insightistic_public_catalog_fallback() {
 	return array(
-		'version' => '2026-10-14',
+		'version' => '2026-11-18',
 		'trial_days' => 14,
-		'free' => array(
-			'slug' => 'free', 'name' => 'Free Connected', 'tagline' => 'Start with the free plugin and one connected site.',
-			'monthly' => '$0', 'yearly' => '$0', 'featured' => false,
-			'features' => array( 'Basic connected-cloud access', '10 basic AI insights per month', '1,000 AI credits per month' ),
-			'limits' => array( 'sites' => 1, 'team_seats' => 1, 'crawl_pages' => 0, 'browser_minutes' => 0, 'keywords' => 0, 'ai_requests' => 10, 'ai_credits' => 1000, 'reports' => 0 ),
-		),
 		'plans' => array(
 			array( 'slug' => 'starter', 'name' => 'Starter', 'tagline' => 'For small WooCommerce stores finding their footing.', 'monthly' => '$29', 'yearly' => '$290', 'features' => array( 'Revenue & order analytics', 'SEO analytics', 'AI business insights', '1 connected site' ), 'featured' => false, 'limits' => array( 'sites' => 1, 'team_seats' => 1, 'crawl_pages' => 20000, 'browser_minutes' => 30, 'keywords' => 150, 'ai_requests' => 50, 'ai_credits' => 5000, 'reports' => 10 ) ),
 			array( 'slug' => 'growth', 'name' => 'Growth', 'tagline' => 'For growing WooCommerce businesses that want answers.', 'monthly' => '$69', 'yearly' => '$690', 'features' => array( 'Full cloud WooCommerce analytics', 'Advanced email audit automation', 'Branded PDF reports', 'Scheduled reports', '3 connected sites' ), 'featured' => true, 'limits' => array( 'sites' => 3, 'team_seats' => 3, 'crawl_pages' => 80000, 'browser_minutes' => 120, 'keywords' => 500, 'ai_requests' => 200, 'ai_credits' => 15000, 'reports' => 40 ) ),
 			array( 'slug' => 'agency', 'name' => 'Agency', 'tagline' => 'For agencies managing multiple client stores.', 'monthly' => '$149', 'yearly' => '$1,490', 'features' => array( 'Agency white-label reporting', 'White-label dashboard', 'Advanced team access', 'Priority support', '10 connected sites' ), 'featured' => false, 'limits' => array( 'sites' => 10, 'team_seats' => 10, 'crawl_pages' => 250000, 'browser_minutes' => 300, 'keywords' => 1500, 'ai_requests' => 600, 'ai_credits' => 40000, 'reports' => 150 ) ),
 			array( 'slug' => 'agency_pro', 'name' => 'Agency Pro', 'tagline' => 'For established agencies that need more room to scale.', 'monthly' => '$299', 'yearly' => '$2,990', 'features' => array( 'Custom branded dashboard domain', 'Higher usage allowances', 'Larger agency portfolio', 'Expanded team capacity', '30 connected sites' ), 'featured' => false, 'limits' => array( 'sites' => 30, 'team_seats' => 25, 'crawl_pages' => 600000, 'browser_minutes' => 600, 'keywords' => 5000, 'ai_requests' => 1500, 'ai_credits' => 100000, 'reports' => 500 ) ),
 		),
-		'ltd' => array(
-			'campaign' => array( 'state' => 'unknown', 'sold_out' => false, 'maximum_sales' => 100 ),
+		'appsumo' => array(
+			'campaign' => array( 'slug' => 'appsumo-2026', 'name' => 'AppSumo Lifetime Deal', 'maximum_sales' => 500, 'public' => true ),
 			'plans' => array(
-				array( 'slug' => 'angel_solo', 'name' => 'Angel Solo', 'price' => '$149', 'sites' => 3, 'team_seats' => 1, 'monthly_ai_credits' => 3000, 'features' => array( 'Core business analytics', 'SEO analytics', 'AI business insights', '3 connected sites' ), 'limits' => array( 'crawl_pages' => 10000, 'browser_minutes' => 15, 'keywords' => 150, 'ai_requests' => 25, 'reports' => 5 ) ),
-				array( 'slug' => 'angel_studio', 'name' => 'Angel Studio', 'price' => '$299', 'sites' => 7, 'team_seats' => 3, 'monthly_ai_credits' => 8000, 'features' => array( 'Full cloud WooCommerce analytics', 'Advanced email audit automation', 'Branded reports', 'Scheduled reports', 'White-label reports' ), 'limits' => array( 'crawl_pages' => 40000, 'browser_minutes' => 60, 'keywords' => 500, 'ai_requests' => 100, 'reports' => 25 ), 'featured' => true ),
-				array( 'slug' => 'angel_agency', 'name' => 'Angel Agency', 'price' => '$699', 'sites' => 15, 'team_seats' => 10, 'monthly_ai_credits' => 20000, 'features' => array( 'White-label dashboard', 'Custom branded domain', 'Advanced team roles', '15 connected sites' ), 'limits' => array( 'crawl_pages' => 100000, 'browser_minutes' => 180, 'keywords' => 1500, 'ai_requests' => 250, 'reports' => 100 ) ),
+				array( 'slug' => 'appsumo_tier_1', 'name' => 'AppSumo Tier 1', 'price' => '$49', 'sites' => 1, 'team_seats' => 3, 'member_add_credits' => 10, 'monthly_ai_credits' => 5000, 'features' => array( 'Revenue & order analytics', 'SEO analytics', 'AI business insights', '1 connected site' ), 'limits' => array( 'crawl_pages' => 10000, 'browser_minutes' => 15, 'keywords' => 10, 'ai_requests' => 100, 'reports' => 5, 'schedules' => 1 ) ),
+				array( 'slug' => 'appsumo_tier_2', 'name' => 'AppSumo Tier 2', 'price' => '$79', 'sites' => 3, 'team_seats' => 3, 'member_add_credits' => 10, 'monthly_ai_credits' => 10000, 'features' => array( 'WooCommerce analytics', 'SEO analytics', 'AI business insights', '3 connected sites' ), 'limits' => array( 'crawl_pages' => 40000, 'browser_minutes' => 60, 'keywords' => 20, 'ai_requests' => 200, 'reports' => 25, 'schedules' => 3 ) ),
+				array( 'slug' => 'appsumo_tier_3', 'name' => 'AppSumo Tier 3', 'price' => '$149', 'sites' => 10, 'team_seats' => 10, 'member_add_credits' => 10, 'monthly_ai_credits' => 30000, 'features' => array( 'WooCommerce analytics', 'Competitor insights', 'White-label reports', '10 connected sites' ), 'limits' => array( 'crawl_pages' => 100000, 'browser_minutes' => 180, 'keywords' => 40, 'ai_requests' => 600, 'reports' => 100, 'schedules' => 10 ) ),
+				array( 'slug' => 'appsumo_tier_4', 'name' => 'AppSumo Tier 4', 'price' => '$269', 'sites' => 25, 'team_seats' => 25, 'member_add_credits' => 10, 'monthly_ai_credits' => 75000, 'features' => array( 'WooCommerce analytics', 'Competitor insights', 'White-label dashboard', '25 connected sites' ), 'limits' => array( 'crawl_pages' => 250000, 'browser_minutes' => 300, 'keywords' => 100, 'ai_requests' => 1500, 'reports' => 250, 'schedules' => 25 ), 'featured' => true ),
+				array( 'slug' => 'appsumo_tier_5', 'name' => 'AppSumo Tier 5', 'price' => '$499', 'sites' => 50, 'team_seats' => 50, 'member_add_credits' => 10, 'monthly_ai_credits' => 250000, 'features' => array( 'WooCommerce analytics', 'Competitor insights', 'White-label dashboard', '50 connected sites' ), 'limits' => array( 'crawl_pages' => 600000, 'browser_minutes' => 600, 'keywords' => 250, 'ai_requests' => 5000, 'reports' => 500, 'schedules' => 50 ) ),
 			),
 		),
 		'credit_packs' => array( array( 'slug' => 'credits_5000', 'credits' => 5000, 'price_minor' => 1500 ), array( 'slug' => 'credits_20000', 'credits' => 20000, 'price_minor' => 4900 ), array( 'slug' => 'credits_50000', 'credits' => 50000, 'price_minor' => 9900 ) ),
@@ -545,8 +547,7 @@ function insightistic_faqs() {
 		array( 'q' => 'How does a store connect?', 'a' => 'Already running the free Insightistic WordPress plugin? Create an account, paste the license key into Insightistic → License on your site, and it syncs automatically — no separate install. Not running that plugin? Add a site in the dashboard, copy the connector token, install the standalone Insightistic connector plugin, paste the API URL and token, connect, and run the first sync.' ),
 		array( 'q' => 'Is my data secure?', 'a' => 'Yes. Every sync uses signed, secure communication and only sends the business analytics data needed. It does not collect or store customer payment card details.' ),
 		array( 'q' => 'Can agencies use Insightistic?', 'a' => 'Yes. Agencies can manage multiple client stores, generate branded reports, monitor performance and provide client-facing dashboards with white-label options.' ),
-		array( 'q' => 'Is there a free way to start?', 'a' => 'Yes. Install the free Insightistic WordPress plugin, connect a free Insightistic account and use the Free Connected tier for one cloud-connected site and 10 basic AI insights per month. It is a free tier, not a 14-day trial.' ),
-		array( 'q' => 'How do paid trials and AI credits work?', 'a' => 'The current catalog lists a 14-day paid-plan trial. Paid plans include monthly AI credits and standard AI allowances; additional 5,000, 20,000 and 50,000 credit packs are available when the account needs more usage.' ),
+		array( 'q' => 'How do paid trials and AI credits work?', 'a' => 'The current catalog lists a 14-day paid-plan trial. Starter, Growth, Agency and Agency Pro include monthly AI credits and standard AI allowances; additional 5,000, 20,000 and 50,000 credit packs are available when the account needs more usage.' ),
 	);
 
 	return apply_filters( 'insightistic_faqs', $faqs );

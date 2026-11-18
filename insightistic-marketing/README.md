@@ -118,8 +118,8 @@ Consent line to use under forms:
   the body via custom field `_ins_role` if desired.
 - **Pricing**: `insightistic_public_catalog()` fetches the complete manifest
   from `GET {API URL}/api/public/plans` (cached 5 minutes). A response is
-  accepted only when it includes the catalog version, Free Connected tier,
-  paid resource limits, LTD tiers, credit packs and AI action costs. An
+  accepted only when it includes the catalog version, four recurring plans,
+  AppSumo Tier 1–5, paid resource limits, credit packs and AI action costs. An
   incomplete response fails closed to the audited application catalog snapshot
   in `inc/helpers.php`; the application remains authoritative for checkout.
 - **FAQ / Features**: edit `insightistic_faqs()` / `insightistic_features()` in

@@ -1,10 +1,9 @@
 <?php
-/** Pricing section: Free Connected, subscriptions, resource comparison and credits. */
+/** Pricing section: four Stripe subscriptions, resource comparison and credits. */
 if ( ! defined( 'ABSPATH' ) ) { exit; }
 
 $catalog      = insightistic_public_catalog();
 $plans        = (array) $catalog['plans'];
-$free         = (array) $catalog['free'];
 $credit_packs = (array) $catalog['credit_packs'];
 $format       = static function ( $value ) { return number_format_i18n( (int) $value ); };
 $comparison_rows = array(
@@ -22,34 +21,11 @@ $comparison_rows = array(
 	<div class="ins-container">
 		<div class="ins-section__head">
 			<p class="ins-eyebrow"><?php esc_html_e( 'Plans built around usage you can see', 'insightistic-marketing' ); ?></p>
-			<h2 id="ins-pricing-title"><?php esc_html_e( 'Start free. Add the intelligence your business needs.', 'insightistic-marketing' ); ?></h2>
-			<p class="ins-lead ins-center"><?php esc_html_e( 'Free Connected is a real free tier. Paid plans add cloud resources, connected sites, reports, team access and monthly AI allowances.', 'insightistic-marketing' ); ?></p>
+			<h2 id="ins-pricing-title"><?php esc_html_e( 'Choose the intelligence your business needs.', 'insightistic-marketing' ); ?></h2>
+			<p class="ins-lead ins-center"><?php esc_html_e( 'Choose from Starter, Growth, Agency or Agency Pro. Each Stripe subscription publishes its connected-site, AI, report and crawl allowances clearly.', 'insightistic-marketing' ); ?></p>
 			<div class="ins-pricing-toggle" data-period="monthly" role="group" aria-label="<?php esc_attr_e( 'Billing period', 'insightistic-marketing' ); ?>">
 				<button type="button" class="is-active" data-period="monthly" aria-pressed="true"><?php esc_html_e( 'Monthly', 'insightistic-marketing' ); ?></button>
 				<button type="button" data-period="yearly" aria-pressed="false"><?php esc_html_e( 'Annual', 'insightistic-marketing' ); ?> <span class="ins-save"><?php esc_html_e( 'save on annual billing', 'insightistic-marketing' ); ?></span></button>
-			</div>
-		</div>
-
-		<div class="ins-pricing__free-wrap">
-			<article class="ins-plan ins-plan--free">
-				<div>
-					<span class="ins-plan__eyebrow"><?php esc_html_e( 'Free entry', 'insightistic-marketing' ); ?></span>
-					<h3 class="ins-plan__name"><?php echo esc_html( $free['name'] ?? 'Free Connected' ); ?></h3>
-					<p class="ins-plan__tagline"><?php echo esc_html( $free['tagline'] ?? 'Start with the free plugin and one connected site.' ); ?></p>
-					<p class="ins-plan__price"><span class="ins-plan__amount"><?php echo esc_html( $free['monthly'] ?? '$0' ); ?></span><span class="ins-plan__per"><?php esc_html_e( 'forever', 'insightistic-marketing' ); ?></span></p>
-					<ul class="ins-plan__features">
-						<?php foreach ( (array) ( $free['features'] ?? array() ) as $feature ) : ?>
-							<li><?php echo insightistic_icon( 'check', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?><span><?php echo esc_html( $feature ); ?></span></li>
-						<?php endforeach; ?>
-					</ul>
-				</div>
-				<a class="ins-btn ins-btn--ghost" href="<?php echo esc_url( insightistic_register_url() ); ?>"><?php esc_html_e( 'Create a free account', 'insightistic-marketing' ); ?></a>
-			</article>
-			<div class="ins-pricing__free-copy">
-				<p class="ins-eyebrow"><?php esc_html_e( 'Free WordPress plugin', 'insightistic-marketing' ); ?></p>
-				<h3><?php esc_html_e( 'Useful before you upgrade.', 'insightistic-marketing' ); ?></h3>
-				<p><?php esc_html_e( 'Install the free plugin to use local WordPress and WooCommerce analytics. Connect a Free Connected account when you want cloud access and basic AI insights. Paid tiers add resources; they do not erase the value of the plugin.', 'insightistic-marketing' ); ?></p>
-				<a class="ins-link" href="https://github.com/Wordpressistic/insightistic/releases/latest"><?php esc_html_e( 'Get the free plugin', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 			</div>
 		</div>
 

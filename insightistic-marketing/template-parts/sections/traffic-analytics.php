@@ -24,20 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a class="ins-link" href="<?php echo esc_url( home_url( '/traffic-analytics' ) ); ?>"><?php esc_html_e( 'Explore traffic analytics', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 		</div>
 		<div class="ins-split__visual">
-			<div class="ins-panel-card">
-				<div class="ins-preview__metrics ins-preview__metrics--2">
-					<?php
-					foreach ( array(
-						array( 'label' => 'Sessions', 'value' => '12,480', 'delta' => '+9.2%' ),
-						array( 'label' => 'Pageviews', 'value' => '38,920', 'delta' => '+6.1%' ),
-						array( 'label' => 'New visitors', 'value' => '4,110', 'delta' => '+14.0%' ),
-						array( 'label' => 'Avg. session', 'value' => '2m 41s', 'delta' => '+0.3%' ),
-					) as $metric ) {
-						get_template_part( 'template-parts/cards/metric-card', null, $metric );
-					}
-					?>
-				</div>
-				<p class="ins-visual-caption"><?php esc_html_e( 'Illustrative dashboard preview — sample values are shown for context.', 'insightistic-marketing' ); ?></p>
+			<div class="ins-animation-stack">
+				<?php echo insightistic_animation_visual( '13' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo insightistic_animation_visual( '14' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
 		</div>
 	</div>

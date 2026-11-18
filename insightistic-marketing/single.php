@@ -41,9 +41,11 @@ get_header();
 				</div>
 
 				<?php
-				$tags = get_the_tag_list( '<ul class="ins-tags"><li>', '</li><li>', '</li></ul>' );
+				$tags = get_the_tags();
 				if ( $tags ) {
-					echo wp_kses_post( $tags );
+					echo '<p class="ins-tags"><span class="ins-tags__label">' . esc_html__( 'Topics:', 'insightistic-marketing' ) . '</span> ';
+					echo esc_html( implode( ', ', wp_list_pluck( $tags, 'name' ) ) );
+					echo '</p>';
 				}
 				?>
 			</article>

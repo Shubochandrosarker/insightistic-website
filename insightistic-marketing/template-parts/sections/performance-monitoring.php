@@ -24,20 +24,9 @@ if ( ! defined( 'ABSPATH' ) ) {
 			<a class="ins-link" href="<?php echo esc_url( home_url( '/performance-monitoring' ) ); ?>"><?php esc_html_e( 'Explore performance monitoring', 'insightistic-marketing' ); ?> <?php echo insightistic_icon( 'arrow-right', 16 ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?></a>
 		</div>
 		<div class="ins-split__visual">
-			<div class="ins-panel-card">
-				<div class="ins-preview__metrics ins-preview__metrics--2">
-					<?php
-					foreach ( array(
-						array( 'label' => 'Performance score', 'value' => '86', 'delta' => '+4 pts' ),
-						array( 'label' => 'Largest contentful paint', 'value' => '2.1s', 'delta' => '-0.3s' ),
-						array( 'label' => 'Broken links', 'value' => '2', 'delta' => '-3' ),
-						array( 'label' => 'Uptime checks', 'value' => 'Active', 'delta' => 'Monitored' ),
-					) as $metric ) {
-						get_template_part( 'template-parts/cards/metric-card', null, $metric );
-					}
-					?>
-				</div>
-				<p class="ins-visual-caption"><?php esc_html_e( 'Illustrative dashboard preview — sample values are shown for context.', 'insightistic-marketing' ); ?></p>
+			<div class="ins-animation-stack">
+				<?php echo insightistic_animation_visual( '11' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
+				<?php echo insightistic_animation_visual( '12' ); // phpcs:ignore WordPress.Security.EscapeOutput.OutputNotEscaped ?>
 			</div>
 		</div>
 	</div>

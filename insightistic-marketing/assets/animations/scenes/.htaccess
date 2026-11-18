@@ -1,0 +1,20 @@
+RewriteEngine On
+
+# Keep old theme-file links recoverable while consolidating them onto the
+# clean public product-tour URLs. The actual scene files remain packaged for
+# deployment, but are never the canonical public address.
+RewriteRule ^01-unified-overview\.html$ /product-tour/unified-overview/ [R=301,L,NE]
+RewriteRule ^02-organic-clicks\.html$ /product-tour/organic-clicks/ [R=301,L,NE]
+RewriteRule ^03-search-performance\.html$ /product-tour/search-performance/ [R=301,L,NE]
+RewriteRule ^04-seo-trend\.html$ /product-tour/seo-trend/ [R=301,L,NE]
+RewriteRule ^05-crawl-status\.html$ /product-tour/crawl-status/ [R=301,L,NE]
+RewriteRule ^06-site-health\.html$ /product-tour/site-health/ [R=301,L,NE]
+RewriteRule ^07-broken-link-priorities\.html$ /product-tour/broken-link-priorities/ [R=301,L,NE]
+RewriteRule ^08-crawl-history\.html$ /product-tour/crawl-history/ [R=301,L,NE]
+RewriteRule ^09-ai-agent-library\.html$ /product-tour/ai-agent-library/ [R=301,L,NE]
+RewriteRule ^10-ai-copilot\.html$ /product-tour/ai-copilot/ [R=301,L,NE]
+RewriteRule ^11-core-web-vitals\.html$ /product-tour/core-web-vitals/ [R=301,L,NE]
+RewriteRule ^12-performance-history\.html$ /product-tour/performance-history/ [R=301,L,NE]
+RewriteRule ^13-traffic-snapshot\.html$ /product-tour/traffic-snapshot/ [R=301,L,NE]
+RewriteRule ^14-sessions-trend\.html$ /product-tour/sessions-trend/ [R=301,L,NE]
+RewriteRule ^15-connected-intelligence\.html$ /product-tour/connected-intelligence/ [R=301,L,NE]

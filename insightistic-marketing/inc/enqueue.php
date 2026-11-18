@@ -18,7 +18,7 @@ add_action(
 	function () {
 		// Keep asset URLs fresh even if a host retains an older functions.php in
 		// opcode cache for a short period after a file-manager deployment.
-		$ver = defined( 'INSIGHTISTIC_MARKETING_VERSION' ) ? INSIGHTISTIC_MARKETING_VERSION : '1.6.0';
+		$ver = defined( 'INSIGHTISTIC_MARKETING_VERSION' ) ? INSIGHTISTIC_MARKETING_VERSION : '1.6.3';
 		$css = INSIGHTISTIC_URI . '/assets/css';
 		$js  = INSIGHTISTIC_URI . '/assets/js';
 
@@ -29,6 +29,28 @@ add_action(
 
 		// Core theme JS (mobile menu, FAQ accordion, header on scroll).
 		wp_enqueue_script( 'insightistic-theme', $js . '/theme.js', array(), $ver, true );
+
+		// Product motion is used on the homepage and capability pages. The
+		// small wrapper assets are conditional; individual scenes stay lazy.
+		$animation_pages = array(
+			'product-tour',
+			'features',
+			'ai-insights',
+			'seo-analytics',
+			'traffic-analytics',
+			'performance-monitoring',
+		);
+		if ( is_front_page() || is_page( $animation_pages ) || is_page_template( array(
+			'page-templates/template-features.php',
+			'page-templates/template-ai-insights.php',
+			'page-templates/template-seo-analytics.php',
+			'page-templates/template-traffic-analytics.php',
+			'page-templates/template-performance-monitoring.php',
+			'page-templates/template-product-tour.php',
+		) ) ) {
+			wp_enqueue_style( 'insightistic-animations', $css . '/animations.css', array( 'insightistic-responsive' ), $ver );
+			wp_enqueue_script( 'insightistic-animations', $js . '/animations.js', array(), $ver, true );
+		}
 
 		// Pricing toggle only where it's needed.
 		if ( is_front_page() || is_page_template( 'page-templates/template-pricing.php' ) || is_page( 'pricing' ) ) {
@@ -48,7 +70,7 @@ add_action(
 add_filter(
 	'script_loader_tag',
 	function ( $tag, $handle ) {
-		if ( in_array( $handle, array( 'insightistic-theme', 'insightistic-pricing-toggle' ), true ) ) {
+		if ( in_array( $handle, array( 'insightistic-theme', 'insightistic-pricing-toggle', 'insightistic-animations' ), true ) ) {
 			return str_replace( ' src', ' defer src', $tag );
 		}
 		return $tag;

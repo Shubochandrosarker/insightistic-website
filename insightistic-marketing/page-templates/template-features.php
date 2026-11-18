@@ -25,6 +25,7 @@ get_header();
 
 	<?php
 	get_template_part( 'template-parts/sections/features' );
+	get_template_part( 'template-parts/sections/audit-animations' );
 	get_template_part( 'template-parts/sections/woo-insights' );
 	get_template_part( 'template-parts/sections/ai-insights' );
 	get_template_part( 'template-parts/sections/reports' );

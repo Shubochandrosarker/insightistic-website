@@ -1,0 +1,266 @@
+{
+  "brand": {
+    "gradient": [
+      "#04D2C0",
+      "#0064F9"
+    ]
+  },
+  "size": "1280x720",
+  "scenes": [
+    {
+      "id": "01",
+      "slug": "unified-overview",
+      "title": "One clear overview",
+      "eyebrow": "INSIGHTISTIC / OVERVIEW",
+      "subtitle": "Search, site health, performance and uptime \u2014 all in one dashboard.",
+      "screen": "overview",
+      "focus": [
+        0.176,
+        0.175,
+        0.71,
+        0.125
+      ],
+      "highlight": "Your metrics, connected",
+      "kind": "overview",
+      "file": "01-unified-overview.html"
+    },
+    {
+      "id": "02",
+      "slug": "organic-clicks",
+      "title": "Spot search changes",
+      "eyebrow": "ORGANIC SEARCH",
+      "subtitle": "See organic clicks and other search signals without switching tools.",
+      "screen": "overview",
+      "focus": [
+        0.273,
+        0.19,
+        0.086,
+        0.16
+      ],
+      "highlight": "Organic clicks: 1,248",
+      "kind": "metric",
+      "file": "02-organic-clicks.html"
+    },
+    {
+      "id": "03",
+      "slug": "search-performance",
+      "title": "Search intelligence",
+      "eyebrow": "SEARCH CONSOLE",
+      "subtitle": "Explore clicks, impressions, CTR and average position in context.",
+      "screen": "seo",
+      "focus": [
+        0.027,
+        0.192,
+        0.91,
+        0.125
+      ],
+      "highlight": "4 core search signals",
+      "kind": "metric",
+      "file": "03-search-performance.html"
+    },
+    {
+      "id": "04",
+      "slug": "seo-trend",
+      "title": "See the search trend",
+      "eyebrow": "SEO ANALYTICS",
+      "subtitle": "Follow search-performance movement across your selected reporting period.",
+      "screen": "seo",
+      "focus": [
+        0.026,
+        0.337,
+        0.921,
+        0.421
+      ],
+      "highlight": "Clicks trend, visualized",
+      "kind": "chart",
+      "file": "04-seo-trend.html"
+    },
+    {
+      "id": "05",
+      "slug": "crawl-status",
+      "title": "Crawl with clarity",
+      "eyebrow": "SITE AUDITING",
+      "subtitle": "Track crawl completion, page discovery and technical issues.",
+      "screen": "audit",
+      "focus": [
+        0.072,
+        0.165,
+        0.859,
+        0.19
+      ],
+      "highlight": "1,024 pages crawled",
+      "kind": "scan",
+      "file": "05-crawl-status.html"
+    },
+    {
+      "id": "06",
+      "slug": "site-health",
+      "title": "Make health visible",
+      "eyebrow": "AUDIT INTELLIGENCE",
+      "subtitle": "Break down crawlability, on-page health, links and content signals.",
+      "screen": "audit",
+      "focus": [
+        0.069,
+        0.377,
+        0.36,
+        0.594
+      ],
+      "highlight": "Site health: 82/100",
+      "kind": "rings",
+      "file": "06-site-health.html"
+    },
+    {
+      "id": "07",
+      "slug": "broken-link-priorities",
+      "title": "Prioritize what to fix",
+      "eyebrow": "TECHNICAL SEO",
+      "subtitle": "Turn detected site issues into a clear, prioritized review.",
+      "screen": "audit",
+      "focus": [
+        0.437,
+        0.377,
+        0.529,
+        0.59
+      ],
+      "highlight": "High-priority issues",
+      "kind": "pulse",
+      "file": "07-broken-link-priorities.html"
+    },
+    {
+      "id": "08",
+      "slug": "crawl-history",
+      "title": "Follow every crawl",
+      "eyebrow": "CRAWL OPERATIONS",
+      "subtitle": "Review scheduled and manual runs, status and discovered pages.",
+      "screen": "runs",
+      "focus": [
+        0.059,
+        0.165,
+        0.907,
+        0.785
+      ],
+      "highlight": "A complete run history",
+      "kind": "rows",
+      "file": "08-crawl-history.html"
+    },
+    {
+      "id": "09",
+      "slug": "ai-agent-library",
+      "title": "Meet your AI specialists",
+      "eyebrow": "AI WORKSPACE",
+      "subtitle": "Dedicated workspaces for search, keywords, content, audits and growth.",
+      "screen": "agents",
+      "focus": [
+        0.06,
+        0.373,
+        0.855,
+        0.591
+      ],
+      "highlight": "Seven focused specialists",
+      "kind": "agent",
+      "file": "09-ai-agent-library.html"
+    },
+    {
+      "id": "10",
+      "slug": "ai-copilot",
+      "title": "Ask a focused question",
+      "eyebrow": "AI COPILOT",
+      "subtitle": "Explore an evidence-backed next step with site and date context.",
+      "screen": "agents",
+      "focus": [
+        0.061,
+        0.12,
+        0.849,
+        0.185
+      ],
+      "highlight": "From question to action",
+      "kind": "typing",
+      "file": "10-ai-copilot.html"
+    },
+    {
+      "id": "11",
+      "slug": "core-web-vitals",
+      "title": "Measure performance",
+      "eyebrow": "CORE WEB VITALS",
+      "subtitle": "Read PageSpeed and Core Web Vitals signals in one place.",
+      "screen": "performance",
+      "focus": [
+        0.066,
+        0.157,
+        0.823,
+        0.285
+      ],
+      "highlight": "LCP: 1.8 seconds",
+      "kind": "bars",
+      "file": "11-core-web-vitals.html"
+    },
+    {
+      "id": "12",
+      "slug": "performance-history",
+      "title": "Track performance over time",
+      "eyebrow": "PERFORMANCE TRACKING",
+      "subtitle": "Follow measured performance changes and investigate opportunities.",
+      "screen": "performance",
+      "focus": [
+        0.068,
+        0.472,
+        0.82,
+        0.292
+      ],
+      "highlight": "History tells the story",
+      "kind": "chart",
+      "file": "12-performance-history.html"
+    },
+    {
+      "id": "13",
+      "slug": "traffic-snapshot",
+      "title": "Understand your traffic",
+      "eyebrow": "GOOGLE ANALYTICS 4",
+      "subtitle": "Review users, sessions, page views, engagement and conversions.",
+      "screen": "traffic",
+      "focus": [
+        0.092,
+        0.157,
+        0.722,
+        0.203
+      ],
+      "highlight": "1,248 users in view",
+      "kind": "metric",
+      "file": "13-traffic-snapshot.html"
+    },
+    {
+      "id": "14",
+      "slug": "sessions-trend",
+      "title": "Follow audience movement",
+      "eyebrow": "TRAFFIC INTELLIGENCE",
+      "subtitle": "Visualize session patterns across your reporting period.",
+      "screen": "traffic",
+      "focus": [
+        0.092,
+        0.367,
+        0.722,
+        0.357
+      ],
+      "highlight": "Sessions trend, explained",
+      "kind": "chart",
+      "file": "14-sessions-trend.html"
+    },
+    {
+      "id": "15",
+      "slug": "connected-intelligence",
+      "title": "From signals to insights",
+      "eyebrow": "INSIGHTISTIC EXPERIENCE",
+      "subtitle": "Connect search, traffic, audits, performance and AI in one workspace.",
+      "screen": "overview",
+      "focus": [
+        0.177,
+        0.396,
+        0.665,
+        0.56
+      ],
+      "highlight": "Built for clearer decisions",
+      "kind": "journey",
+      "file": "15-connected-intelligence.html"
+    }
+  ]
+}

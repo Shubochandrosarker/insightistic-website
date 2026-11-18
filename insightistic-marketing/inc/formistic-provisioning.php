@@ -52,7 +52,7 @@ function insightistic_formistic_form_definitions() {
 			),
 		),
 		'ltd'          => array(
-			'title'  => __( 'Lifetime Deal Signup', 'insightistic-marketing' ),
+			'title'  => __( 'AppSumo Access Request', 'insightistic-marketing' ),
 			'fields' => array(
 				array( 'label' => __( 'Full name', 'insightistic-marketing' ), 'type' => 'text', 'required' => true ),
 				array( 'label' => __( 'Email', 'insightistic-marketing' ), 'type' => 'email', 'required' => true ),
@@ -64,8 +64,8 @@ function insightistic_formistic_form_definitions() {
 				),
 			),
 			'settings' => array(
-				'submit_label' => __( 'Claim my lifetime deal', 'insightistic-marketing' ),
-				'success'      => __( "You're on the list — we'll email your lifetime deal redemption instructions shortly.", 'insightistic-marketing' ),
+				'submit_label' => __( 'Ask about AppSumo access', 'insightistic-marketing' ),
+				'success'      => __( "Thanks — we'll email you about AppSumo tier, redemption or account questions shortly.", 'insightistic-marketing' ),
 			),
 		),
 		'early_access' => array(

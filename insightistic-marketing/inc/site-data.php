@@ -22,11 +22,12 @@ function insightistic_business_details() {
 			'address'    => '1209 MOUNTAIN ROAD PL NE, STE N',
 			'city'       => 'Albuquerque',
 			'state'      => 'NM',
-			'postal_code'=> '87110',
-			'country'    => 'US',
-			'entity_id'  => '0008120099',
-			'reference'  => '3277100',
-			'email'      => 'hello@wordpressistic.com',
+			'postal_code' => '87110',
+			'country'     => 'US',
+			'entity_id'   => '0008120099',
+			'reference'   => '3277100',
+			'email'       => 'hello@wordpressistic.com',
+			'telephone'   => '+15055201914',
 		)
 	);
 }
