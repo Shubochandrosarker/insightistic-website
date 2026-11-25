@@ -569,8 +569,10 @@ function insightistic_preview_metrics() {
  * Override with the `insightistic_promo_url` filter rather than editing templates.
  */
 function insightistic_promo_url() {
+	// Confirmed 2026-11-25 against the official AppSumo embed snippet Shuvo supplied:
+	// the deal lives under /pl/ and the website tracking slug carries the -w suffix.
 	$slug = defined( 'INSIGHTISTIC_ASSUMO_SLUG' ) ? INSIGHTISTIC_ASSUMO_SLUG : 'insightistic-ai-business-intelligence-w';
-	$url  = 'https://appsumo.com/products/' . $slug . '/';
+	$url  = 'https://appsumo.com/pl/' . $slug . '/';
 
 	return (string) apply_filters( 'insightistic_promo_url', $url );
 }

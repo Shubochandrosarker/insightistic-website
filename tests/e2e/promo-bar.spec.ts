@@ -133,6 +133,9 @@ test("the partial carries the website tracking slug and the offer copy", async (
     "utf8",
   );
   expect(helpers).toContain("insightistic-ai-business-intelligence-w");
+  // Confirmed against the official AppSumo embed snippet (2026-11-25): the deal
+  // lives under /pl/, not /products/.
+  expect(helpers).toContain("https://appsumo.com/pl/");
 });
 
 test("the bar respects prefers-reduced-motion", async () => {
