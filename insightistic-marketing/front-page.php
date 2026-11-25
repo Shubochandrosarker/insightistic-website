@@ -14,6 +14,7 @@ get_header();
 <main id="main" class="ins-main ins-home">
 	<?php
 	get_template_part( 'template-parts/sections/hero' );
+	get_template_part( 'template-parts/sections/v3-story' );
 	get_template_part( 'template-parts/sections/analytics-preview' );
 	get_template_part( 'template-parts/sections/logo-cloud' );
 	get_template_part( 'template-parts/sections/problem' );
@@ -26,6 +27,7 @@ get_header();
 	get_template_part( 'template-parts/sections/reports' );
 	get_template_part( 'template-parts/sections/connector' );
 	get_template_part( 'template-parts/sections/security' );
+	get_template_part( 'template-parts/sections/wave1-explainers' );
 	get_template_part( 'template-parts/sections/pricing' );
 	get_template_part( 'template-parts/global/cta-band' );
 	get_template_part( 'template-parts/sections/faq' );

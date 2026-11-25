@@ -1186,3 +1186,37 @@ body { background: #F7FAFC; color: #111B2C; }
 	.ins-credit-pack strong { font-size: 0.95rem; }
 	.ins-credit-pack span { font-size: 0.86rem; }
 }
+
+/* V3 story sections: proof, permission model, capabilities, comparison. */
+.ins-proof__card { max-width: 820px; margin: 0 auto; padding: 32px; border-radius: 20px; background: #0f1230; color: #fff; text-align: center; }
+.ins-proof__eyebrow { margin: 0 0 10px; font-size: 11px; font-weight: 800; letter-spacing: .12em; text-transform: uppercase; color: #f5c451; }
+.ins-proof__title { margin: 0; font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.25; font-weight: 800; }
+.ins-proof__note { margin: 12px auto 0; max-width: 620px; font-size: .85rem; color: rgba(255,255,255,.65); }
+.ins-proof__list { display: flex; flex-wrap: wrap; justify-content: center; gap: 28px; margin: 22px 0 0; padding: 0; list-style: none; font-size: .85rem; color: rgba(255,255,255,.8); }
+.ins-proof__list strong { display: block; font-size: 1.6rem; font-weight: 800; color: #fff; }
+.ins-trust__grid, .ins-v3-features__grid { display: grid; gap: 18px; margin-top: 26px; }
+@media (min-width: 782px) { .ins-trust__grid { grid-template-columns: repeat(3, 1fr); } .ins-v3-features__grid { grid-template-columns: repeat(2, 1fr); } }
+@media (min-width: 1100px) { .ins-v3-features__grid { grid-template-columns: repeat(3, 1fr); } }
+.ins-trust__item, .ins-v3-features__item { padding: 20px; border: 1px solid rgba(15,18,48,.1); border-radius: 16px; background: #fff; }
+.ins-trust__item h3, .ins-v3-features__item h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 700; color: #0f1230; }
+.ins-trust__item p, .ins-v3-features__item p { margin: 0; font-size: .9rem; line-height: 1.6; color: #4b5563; }
+.ins-v3-features__tag { margin: 0 0 6px; font-size: 10px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: #7c3aed; }
+.ins-compare__scroll { margin-top: 22px; overflow-x: auto; }
+.ins-compare__table { width: 100%; border-collapse: collapse; font-size: .88rem; }
+.ins-compare__table th, .ins-compare__table td { padding: 10px 12px; border-bottom: 1px solid rgba(15,18,48,.08); text-align: center; white-space: nowrap; }
+.ins-compare__table thead th { font-size: .78rem; text-transform: uppercase; letter-spacing: .06em; color: #6b7280; }
+.ins-compare__table tbody th { text-align: left; font-weight: 600; color: #0f1230; white-space: normal; }
+.ins-compare__table .is-yes { color: #059669; font-weight: 700; }
+.ins-compare__note { margin-top: 12px; font-size: .78rem; color: #6b7280; }
+/* Wave-1 explainers: JOLLY and credit economics. */
+.ins-jolly__grid, .ins-credits__grid { display: grid; gap: 18px; margin-top: 24px; }
+@media (min-width: 900px) { .ins-jolly__grid, .ins-credits__grid { grid-template-columns: repeat(3, 1fr); } }
+.ins-jolly__item, .ins-credits__item { padding: 20px; border: 1px solid rgba(15,18,48,.1); border-radius: 16px; background: #fff; }
+.ins-jolly__item h3, .ins-credits__item h3, .ins-credits__packs h3, .ins-credits__policy h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 700; color: #0f1230; }
+.ins-jolly__item p, .ins-credits__item p { margin: 0; font-size: .9rem; line-height: 1.6; color: #4b5563; }
+.ins-jolly__list { margin: 0; padding-left: 18px; font-size: .88rem; line-height: 1.7; color: #4b5563; }
+.ins-credits__packs, .ins-credits__policy { margin-top: 26px; }
+.ins-credits__pack-grid { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; }
+.ins-credit-pack { min-width: 130px; padding: 14px 18px; border-radius: 14px; background: #0f1230; color: #fff; text-align: center; }
+.ins-credit-pack strong { display: block; font-size: 1.25rem; font-weight: 800; }
+.ins-credit-pack span { font-size: .85rem; color: #f5c451; font-weight: 700; }
