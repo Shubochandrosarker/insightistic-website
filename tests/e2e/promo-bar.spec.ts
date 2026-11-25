@@ -135,13 +135,45 @@ test("the partial carries the website tracking slug and the offer copy", async (
     path.resolve("insightistic-marketing/inc/helpers.php"),
     "utf8",
   );
-  expect(helpers).toContain("insightistic-ai-business-intelligence-w");
+  // The product slug base; each platform appends its own token from the map.
+  expect(helpers).toContain("insightistic-ai-business-intelligence");
   // Confirmed against the official AppSumo embed snippet (2026-11-25): the deal
   // lives under /pl/, not /products/.
   expect(helpers).toContain("https://appsumo.com/pl/");
   // Hard close date (Shuvo, 4 Dec 2026 16:00 US Central) is the theme default,
   // overridable by the JOLLY_PROMO_END constant or the theme mod.
   expect(helpers).toContain("2026-12-04T16:00:00-06:00");
+});
+
+test("the per-platform link map carries all thirteen tokens", async () => {
+  const helpers = fs.readFileSync(
+    path.resolve("insightistic-marketing/inc/helpers.php"),
+    "utf8",
+  );
+
+  const tokens: [string, string][] = [
+    ["custom", "at3l106SYo"],
+    ["w", "-w"],
+    ["ld", "-ld"],
+    ["x", "-x"],
+    ["ne", "-ne"],
+    ["yo", "-yo"],
+    ["ti", "-ti"],
+    ["in", "-in"],
+    ["po", "-po"],
+    ["bl", "-bl"],
+    ["rd", "-rd"],
+    ["qr", "-qr"],
+    ["me", "-me"],
+  ];
+
+  for (const [platform, token] of tokens) {
+    expect(helpers, `missing platform ${platform}`).toContain(`'${platform}'`);
+    expect(helpers, `missing token ${token}`).toContain(`'${token}'`);
+  }
+
+  // The helper takes a platform and defaults to the website slug.
+  expect(helpers).toContain("function insightistic_promo_url( string $platform = 'w' ): string");
 });
 
 test("the bar respects prefers-reduced-motion", async () => {

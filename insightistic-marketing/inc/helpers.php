@@ -565,16 +565,45 @@ function insightistic_preview_metrics() {
 /**
  * AppSumo lifetime-deal link.
  *
- * ONE place for the URL so every CTA uses the website tracking slug (-w).
+ * ONE place for the URL, with the standing per-platform link map: every CTA
+ * carries its own platform token so AppSumo can attribute the sale. The website
+ * slug (-w) is the default because that is where most CTAs live.
+ *
+ * Platforms: custom (short link code), w (website), ld (LinkedIn), x (X),
+ * ne (newsletter), yo (YouTube), ti (TikTok), in (Instagram), po (podcast),
+ * bl (blogs), rd (Reddit), qr (Quora), me (Medium).
+ *
  * Override with the `insightistic_promo_url` filter rather than editing templates.
+ *
+ * @param string $platform One of the keys in the map; unknown keys fall back to -w.
  */
-function insightistic_promo_url() {
-	// Confirmed 2026-11-25 against the official AppSumo embed snippet Shuvo supplied:
-	// the deal lives under /pl/ and the website tracking slug carries the -w suffix.
-	$slug = defined( 'INSIGHTISTIC_ASSUMO_SLUG' ) ? INSIGHTISTIC_ASSUMO_SLUG : 'insightistic-ai-business-intelligence-w';
-	$url  = 'https://appsumo.com/pl/' . $slug . '/';
+function insightistic_promo_url( string $platform = 'w' ): string {
+	$map = array(
+		'custom' => 'at3l106SYo',
+		'w'      => '-w',
+		'ld'     => '-ld',
+		'x'      => '-x',
+		'ne'     => '-ne',
+		'yo'     => '-yo',
+		'ti'     => '-ti',
+		'in'     => '-in',
+		'po'     => '-po',
+		'bl'     => '-bl',
+		'rd'     => '-rd',
+		'qr'     => '-qr',
+		'me'     => '-me',
+	);
 
-	return (string) apply_filters( 'insightistic_promo_url', $url );
+	$token = isset( $map[ $platform ] ) ? $map[ $platform ] : $map['w'];
+
+	// Confirmed 2026-11-25 against the official AppSumo embed snippet Shuvo supplied:
+	// the deal lives under /pl/. The custom short link is its own code, every
+	// other platform appends its token to the product slug.
+	$url = 'custom' === $platform
+		? 'https://appsumo.com/pl/' . $token . '/'
+		: 'https://appsumo.com/pl/insightistic-ai-business-intelligence' . $token . '/';
+
+	return (string) apply_filters( 'insightistic_promo_url', $url, $platform );
 }
 
 /**

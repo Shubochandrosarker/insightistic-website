@@ -89,7 +89,7 @@ $ins_v3_features = array(
 	),
 	array(
 		'title' => __( 'Bring your own tools with MCP', 'insightistic-marketing' ),
-		'body'  => __( 'One revocable, site-bound connection lets your own MCP client read your Insightsitic data. Ten tools, scoped tokens, an audit trail and instant revocation.', 'insightistic-marketing' ),
+		'body'  => __( 'One revocable, site-bound connection lets your own MCP client read your Insightistic data. Ten tools, scoped tokens, an audit trail and instant revocation.', 'insightistic-marketing' ),
 		'tag'   => __( 'MCP', 'insightistic-marketing' ),
 	),
 );
