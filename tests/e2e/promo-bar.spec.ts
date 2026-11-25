@@ -28,10 +28,10 @@ const CSS = fs.readFileSync(
 function barMarkup(): string {
   return `<!doctype html>
   <html><head><style>${CSS}</style></head><body>
-    <div id="ins-promo-bar" class="ins-promo-bar" data-promo-end="" hidden role="region">
+    <div id="ins-promo-bar" class="ins-promo-bar" data-promo-end="" data-promo-expired-copy="The lifetime deal continues — new pricing applies." hidden role="region">
       <div class="ins-promo-bar__inner">
         <span class="ins-promo-bar__badge">LIFETIME DEAL</span>
-        <p class="ins-promo-bar__text">Insightistic Lifetime Deal on AppSumo — from $49.</p>
+        <p class="ins-promo-bar__text"><span class="ins-promo-bar__headline">Insightistic Lifetime Deal on AppSumo — from $49.</span></p>
         <span class="ins-promo-bar__countdown" data-promo-countdown hidden>
           <span class="ins-promo-bar__countdown-label">Ends in</span>
           <span class="ins-promo-bar__clock" data-promo-clock>—</span>
@@ -99,6 +99,9 @@ test("an expired window keeps badge and CTA and hides only the countdown", async
   await expect(page.locator("#ins-promo-bar")).toBeVisible();
   await expect(page.locator("[data-promo-countdown]")).toBeHidden();
   await expect(page.locator(".ins-promo-bar__cta")).toBeVisible();
+  // The offer line stops claiming a live deal once the hard date passes.
+  await expect(page.locator(".ins-promo-bar__headline"))
+    .toHaveText("The lifetime deal continues — new pricing applies.");
 });
 
 test("dismissing hides the bar and is remembered", async ({ page }) => {
@@ -136,6 +139,9 @@ test("the partial carries the website tracking slug and the offer copy", async (
   // Confirmed against the official AppSumo embed snippet (2026-11-25): the deal
   // lives under /pl/, not /products/.
   expect(helpers).toContain("https://appsumo.com/pl/");
+  // Hard close date (Shuvo, 4 Dec 2026 16:00 US Central) is the theme default,
+  // overridable by the JOLLY_PROMO_END constant or the theme mod.
+  expect(helpers).toContain("2026-12-04T16:00:00-06:00");
 });
 
 test("the bar respects prefers-reduced-motion", async () => {

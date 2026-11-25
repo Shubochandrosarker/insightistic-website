@@ -63,6 +63,20 @@
 		return now;
 	}
 
+	/**
+	 * On expiry the offer line stops claiming a live deal. The copy comes from
+	 * the partial (data-promo-expired-copy) so wording changes are a template
+	 * edit, not a JS edit.
+	 */
+	function swapExpiredCopy(bar) {
+		var copy = bar.getAttribute('data-promo-expired-copy');
+		var headline = bar.querySelector('.ins-promo-bar__headline');
+
+		if (copy && headline) {
+			headline.textContent = copy;
+		}
+	}
+
 	function startCountdown(bar, explicitEnd) {
 		var countdown = bar.querySelector('[data-promo-countdown]');
 		var clock = bar.querySelector('[data-promo-clock]');
@@ -85,6 +99,7 @@
 
 			if (remaining <= 0) {
 				countdown.hidden = true; // badge + CTA remain
+				swapExpiredCopy(bar);
 				window.clearInterval(timer);
 				return;
 			}

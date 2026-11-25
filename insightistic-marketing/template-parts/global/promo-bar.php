@@ -16,12 +16,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$promo_end = '';
-if ( defined( 'JOLLY_PROMO_END' ) ) {
-	$promo_end = (string) JOLLY_PROMO_END;
-} else {
-	$promo_end = (string) get_theme_mod( 'jolly_promo_end', '' );
-}
+$promo_end = function_exists( 'insightistic_promo_end' ) ? insightistic_promo_end() : '';
 
 $promo_url = function_exists( 'insightistic_promo_url' )
 	? insightistic_promo_url()
@@ -31,6 +26,7 @@ $promo_url = function_exists( 'insightistic_promo_url' )
 	id="ins-promo-bar"
 	class="ins-promo-bar"
 	data-promo-end="<?php echo esc_attr( $promo_end ); ?>"
+	data-promo-expired-copy="<?php esc_attr_e( 'The lifetime deal continues — new pricing applies.', 'insightistic-marketing' ); ?>"
 	role="region"
 	aria-label="<?php esc_attr_e( 'AppSumo lifetime deal', 'insightistic-marketing' ); ?>"
 	hidden
