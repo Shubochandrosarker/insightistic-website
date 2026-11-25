@@ -1208,3 +1208,15 @@ body { background: #F7FAFC; color: #111B2C; }
 .ins-compare__table tbody th { text-align: left; font-weight: 600; color: #0f1230; white-space: normal; }
 .ins-compare__table .is-yes { color: #059669; font-weight: 700; }
 .ins-compare__note { margin-top: 12px; font-size: .78rem; color: #6b7280; }
+/* Wave-1 explainers: JOLLY and credit economics. */
+.ins-jolly__grid, .ins-credits__grid { display: grid; gap: 18px; margin-top: 24px; }
+@media (min-width: 900px) { .ins-jolly__grid, .ins-credits__grid { grid-template-columns: repeat(3, 1fr); } }
+.ins-jolly__item, .ins-credits__item { padding: 20px; border: 1px solid rgba(15,18,48,.1); border-radius: 16px; background: #fff; }
+.ins-jolly__item h3, .ins-credits__item h3, .ins-credits__packs h3, .ins-credits__policy h3 { margin: 0 0 8px; font-size: 1rem; font-weight: 700; color: #0f1230; }
+.ins-jolly__item p, .ins-credits__item p { margin: 0; font-size: .9rem; line-height: 1.6; color: #4b5563; }
+.ins-jolly__list { margin: 0; padding-left: 18px; font-size: .88rem; line-height: 1.7; color: #4b5563; }
+.ins-credits__packs, .ins-credits__policy { margin-top: 26px; }
+.ins-credits__pack-grid { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 12px; }
+.ins-credit-pack { min-width: 130px; padding: 14px 18px; border-radius: 14px; background: #0f1230; color: #fff; text-align: center; }
+.ins-credit-pack strong { display: block; font-size: 1.25rem; font-weight: 800; }
+.ins-credit-pack span { font-size: .85rem; color: #f5c451; font-weight: 700; }

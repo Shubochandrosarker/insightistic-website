@@ -27,6 +27,7 @@ get_header();
 	get_template_part( 'template-parts/sections/reports' );
 	get_template_part( 'template-parts/sections/connector' );
 	get_template_part( 'template-parts/sections/security' );
+	get_template_part( 'template-parts/sections/wave1-explainers' );
 	get_template_part( 'template-parts/sections/pricing' );
 	get_template_part( 'template-parts/global/cta-band' );
 	get_template_part( 'template-parts/sections/faq' );
