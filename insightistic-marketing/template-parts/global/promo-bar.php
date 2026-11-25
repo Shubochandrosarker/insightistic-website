@@ -6,7 +6,7 @@
  * countdown, the per-visitor evergreen window and the dismissal live in
  * assets/js/promo-bar.js so the page still renders with JS disabled.
  *
- * The end date is OPTIONAL. When JOLLY_PROMO_END (or the theme mod) is empty,
+ * The end date is OPTIONAL. When JOLLEY_PROMO_END (or the theme mod) is empty,
  * the countdown simply does not render - badge + CTA remain.
  *
  * @package Insightistic_Marketing
@@ -36,7 +36,7 @@ $promo_url = function_exists( 'insightistic_promo_url' )
 
 		<p class="ins-promo-bar__text">
 			<span class="ins-promo-bar__headline"><?php esc_html_e( 'Insightistic Lifetime Deal on AppSumo — from $49.', 'insightistic-marketing' ); ?></span>
-			<span class="ins-promo-bar__sub"><?php esc_html_e( 'Agent JOLLY included in every tier.', 'insightistic-marketing' ); ?></span>
+			<span class="ins-promo-bar__sub"><?php esc_html_e( 'Agent JOLLEY included in every tier.', 'insightistic-marketing' ); ?></span>
 		</p>
 
 		<span class="ins-promo-bar__countdown" data-promo-countdown hidden aria-live="polite">

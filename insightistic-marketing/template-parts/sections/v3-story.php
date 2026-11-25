@@ -28,7 +28,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 		<div class="ins-proof__card">
 			<p class="ins-proof__eyebrow"><?php esc_html_e( 'The morning brief', 'insightistic-marketing' ); ?></p>
 			<h2 id="ins-proof-title" class="ins-proof__title"><?php esc_html_e( 'While you slept: 3 things changed, 1 needs your decision, 0 fires.', 'insightistic-marketing' ); ?></h2>
-			<p class="ins-proof__note"><?php esc_html_e( 'An example of what Agent JOLLY writes before you wake up. Your workspace gets its own counts, from your own data.', 'insightistic-marketing' ); ?></p>
+			<p class="ins-proof__note"><?php esc_html_e( 'An example of what Agent JOLLEY writes before you wake up. Your workspace gets its own counts, from your own data.', 'insightistic-marketing' ); ?></p>
 			<ul class="ins-proof__list">
 				<li><strong>3</strong> <?php esc_html_e( 'changes worth knowing about', 'insightistic-marketing' ); ?></li>
 				<li><strong>1</strong> <?php esc_html_e( 'decision waiting for you', 'insightistic-marketing' ); ?></li>
@@ -45,7 +45,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	<div class="ins-container">
 		<p class="ins-eyebrow"><?php esc_html_e( 'Built to be trusted', 'insightistic-marketing' ); ?></p>
 		<h2 id="ins-trust-title" class="ins-section__title"><?php esc_html_e( 'An AI that asks permission', 'insightistic-marketing' ); ?></h2>
-		<p class="ins-section__lede"><?php esc_html_e( 'JOLLY can propose, draft and prepare. It cannot change your site, your billing or your settings without you.', 'insightistic-marketing' ); ?></p>
+		<p class="ins-section__lede"><?php esc_html_e( 'JOLLEY can propose, draft and prepare. It cannot change your site, your billing or your settings without you.', 'insightistic-marketing' ); ?></p>
 
 		<div class="ins-trust__grid">
 			<div class="ins-trust__item">
@@ -54,7 +54,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 			</div>
 			<div class="ins-trust__item">
 				<h3><?php esc_html_e( 'Automations are drafted, not installed', 'insightistic-marketing' ); ?></h3>
-				<p><?php esc_html_e( 'When JOLLY spots something worth repeating weekly, it drafts the automation and asks. You get the trigger, the action and its settings on one card, and a single Approve creates it.', 'insightistic-marketing' ); ?></p>
+				<p><?php esc_html_e( 'When JOLLEY spots something worth repeating weekly, it drafts the automation and asks. You get the trigger, the action and its settings on one card, and a single Approve creates it.', 'insightistic-marketing' ); ?></p>
 			</div>
 			<div class="ins-trust__item">
 				<h3><?php esc_html_e( 'Every action has a human', 'insightistic-marketing' ); ?></h3>
@@ -78,7 +78,7 @@ $ins_v3_features = array(
 		'tag'   => __( 'Local SEO', 'insightistic-marketing' ),
 	),
 	array(
-		'title' => __( 'JOLLY remembers your business', 'insightistic-marketing' ),
+		'title' => __( 'JOLLEY remembers your business', 'insightistic-marketing' ),
 		'body'  => __( 'Decisions, outcomes and preferences are stored per workspace and recalled into later answers with citations. You can see what it remembers and make it forget any card.', 'insightistic-marketing' ),
 		'tag'   => __( 'Memory', 'insightistic-marketing' ),
 	),
