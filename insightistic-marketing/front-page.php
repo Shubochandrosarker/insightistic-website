@@ -14,6 +14,7 @@ get_header();
 <main id="main" class="ins-main ins-home">
 	<?php
 	get_template_part( 'template-parts/sections/hero' );
+	get_template_part( 'template-parts/sections/v3-story' );
 	get_template_part( 'template-parts/sections/analytics-preview' );
 	get_template_part( 'template-parts/sections/logo-cloud' );
 	get_template_part( 'template-parts/sections/problem' );

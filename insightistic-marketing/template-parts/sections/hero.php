@@ -10,8 +10,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 $eyebrow  = insightistic_option( 'insightistic_hero_eyebrow', __( 'AI business intelligence for WordPress & WooCommerce', 'insightistic-marketing' ) );
-$title    = insightistic_option( 'insightistic_hero_title', __( 'Understand your WordPress business. Act on what matters.', 'insightistic-marketing' ) );
-$subtitle = insightistic_option( 'insightistic_hero_subtitle', __( 'Connect WordPress and WooCommerce analytics, SEO, website performance and AI-powered business insights in one intelligent workspace. Monitor performance, uncover opportunities and turn your data into clearer decisions.', 'insightistic-marketing' ) );
+$title    = insightistic_option( 'insightistic_hero_title', __( 'Your business, handled. Even at 3 AM.', 'insightistic-marketing' ) );
+$subtitle = insightistic_option( 'insightistic_hero_subtitle', __( 'Agent JOLLY works your analytics while you sleep: it connects Search Console, GA4, WooCommerce, your site audit and your knowledge base, then hands you a brief with the one decision that matters today.', 'insightistic-marketing' ) );
 ?>
 <section class="ins-section ins-hero" aria-labelledby="ins-hero-title">
 	<div class="ins-container ins-hero__inner">
