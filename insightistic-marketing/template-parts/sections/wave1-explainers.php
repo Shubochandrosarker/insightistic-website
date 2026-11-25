@@ -1,6 +1,6 @@
 <?php
 /**
- * Wave-1 explainers: what JOLLY is, and how the money works.
+ * Wave-1 explainers: what JOLLEY is, and how the money works.
  *
  * These exist because the two questions every buyer asks are "what does the AI
  * actually do" and "what will it cost me later". Both answers are stated in the
@@ -22,8 +22,8 @@ $ins_packs   = (array) ( $ins_catalog['credit_packs'] ?? array() );
 <section class="ins-section ins-jolly" id="what-is-jolly" aria-labelledby="ins-jolly-title">
 	<div class="ins-container">
 		<p class="ins-eyebrow"><?php esc_html_e( 'Meet the agent', 'insightistic-marketing' ); ?></p>
-		<h2 id="ins-jolly-title" class="ins-section__title"><?php esc_html_e( 'What Agent JOLLY actually is', 'insightistic-marketing' ); ?></h2>
-		<p class="ins-section__lede"><?php esc_html_e( 'Not a chatbot bolted onto a dashboard. JOLLY is the analyst that reads your data every day, remembers what it learned, and brings you the decision.', 'insightistic-marketing' ); ?></p>
+		<h2 id="ins-jolly-title" class="ins-section__title"><?php esc_html_e( 'What Agent JOLLEY actually is', 'insightistic-marketing' ); ?></h2>
+		<p class="ins-section__lede"><?php esc_html_e( 'Not a chatbot bolted onto a dashboard. JOLLEY is the analyst that reads your data every day, remembers what it learned, and brings you the decision.', 'insightistic-marketing' ); ?></p>
 
 		<div class="ins-jolly__grid">
 			<div class="ins-jolly__item">
@@ -56,7 +56,7 @@ $ins_packs   = (array) ( $ins_catalog['credit_packs'] ?? array() );
 		<div class="ins-credits__grid">
 			<div class="ins-credits__item">
 				<h3><?php esc_html_e( 'Standard AI requests are included', 'insightistic-marketing' ); ?></h3>
-				<p><?php esc_html_e( 'Every paid plan includes a monthly number of standard AI requests. These are the everyday jobs: generating an insight, asking JOLLY a question, drafting a brief. They reset each month and do not roll over.', 'insightistic-marketing' ); ?></p>
+				<p><?php esc_html_e( 'Every paid plan includes a monthly number of standard AI requests. These are the everyday jobs: generating an insight, asking JOLLEY a question, drafting a brief. They reset each month and do not roll over.', 'insightistic-marketing' ); ?></p>
 			</div>
 			<div class="ins-credits__item">
 				<h3><?php esc_html_e( 'Credits pay for the expensive work', 'insightistic-marketing' ); ?></h3>

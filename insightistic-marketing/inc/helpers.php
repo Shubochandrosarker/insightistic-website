@@ -609,14 +609,14 @@ function insightistic_promo_url( string $platform = 'w' ): string {
 /**
  * When the AppSumo deal closes (hard date, CST).
  *
- * Precedence: the JOLLY_PROMO_END constant (wp-config) wins, then the
+ * Precedence: the JOLLEY_PROMO_END constant (wp-config) wins, then the
  * jolly_promo_end theme mod, then this default - the date Shuvo set for the
  * current deal (4 Dec 2026, 4:00 PM US Central). Returning an empty string
  * switches the bar back to its per-visitor evergreen window.
  */
 function insightistic_promo_end() {
-	if ( defined( 'JOLLY_PROMO_END' ) ) {
-		return (string) JOLLY_PROMO_END;
+	if ( defined( 'JOLLEY_PROMO_END' ) ) {
+		return (string) JOLLEY_PROMO_END;
 	}
 
 	$mod = (string) get_theme_mod( 'jolly_promo_end', '' );
