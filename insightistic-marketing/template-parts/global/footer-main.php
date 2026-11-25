@@ -17,6 +17,8 @@ $ins_socials = array(
 );
 $ins_business = insightistic_business_details();
 ?>
+<!-- KingSumo giveaway badge (site-wide, above the footer) -->
+<script src="https://kingsumo.com/js/badge.js" data-id="ks-badge" data-url="https://kingsumo.com/g/1j2n8k3/win-10-insightistic-ai-business-intelligence-license-tier-5-plans" data-title="<?php echo esc_attr( 'Win 10 Insightistic - AI business intelligence License Tier 5 plans' ); ?>" data-enter-giveaway="<?php echo esc_attr( 'Enter Giveaway' ); ?>" data-logo="false" async></script>
 <footer class="ins-footer" role="contentinfo">
 	<div class="ins-container">
 
