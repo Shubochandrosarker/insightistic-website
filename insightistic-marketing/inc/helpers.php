@@ -561,3 +561,16 @@ function insightistic_preview_metrics() {
 		array( 'label' => 'AI health', 'value' => '86', 'delta' => '+4 pts' ),
 	) );
 }
+
+/**
+ * AppSumo lifetime-deal link.
+ *
+ * ONE place for the URL so every CTA uses the website tracking slug (-w).
+ * Override with the `insightistic_promo_url` filter rather than editing templates.
+ */
+function insightistic_promo_url() {
+	$slug = defined( 'INSIGHTISTIC_ASSUMO_SLUG' ) ? INSIGHTISTIC_ASSUMO_SLUG : 'insightistic-ai-business-intelligence-w';
+	$url  = 'https://appsumo.com/products/' . $slug . '/';
+
+	return (string) apply_filters( 'insightistic_promo_url', $url );
+}

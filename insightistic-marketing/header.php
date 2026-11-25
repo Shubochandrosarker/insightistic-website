@@ -24,4 +24,6 @@ if ( ! defined( 'ABSPATH' ) ) {
 
 <a class="skip-link screen-reader-text" href="#main"><?php esc_html_e( 'Skip to content', 'insightistic-marketing' ); ?></a>
 
+<?php get_template_part( 'template-parts/global/promo-bar' ); ?>
+
 <?php get_template_part( 'template-parts/global/navbar' ); ?>

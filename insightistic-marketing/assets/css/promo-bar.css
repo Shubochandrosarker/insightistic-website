@@ -1,0 +1,212 @@
+/**
+ * AppSumo announcement bar (top) — premium navy bar, gold badge.
+ *
+ * The bar sits above the site header and pushes the page down (it is in normal
+ * flow, not fixed), so nothing is ever covered. Motion is CSS-only and fully
+ * disabled under prefers-reduced-motion.
+ */
+
+:root {
+	--ins-promo-navy: #0f1230;
+	--ins-promo-gold: #f5c451;
+	--ins-promo-gold-soft: rgba(245, 196, 81, 0.16);
+}
+
+.ins-promo-bar {
+	position: relative;
+	z-index: 60;
+	background: var(--ins-promo-navy);
+	color: #ffffff;
+	font-size: 13px;
+	line-height: 1.35;
+	animation: ins-promo-slide-down 420ms cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.ins-promo-bar[hidden] {
+	display: none;
+}
+
+.ins-promo-bar__inner {
+	display: flex;
+	align-items: center;
+	gap: 14px;
+	max-width: 1200px;
+	margin: 0 auto;
+	padding: 9px 16px;
+}
+
+.ins-promo-bar__badge {
+	flex: 0 0 auto;
+	padding: 3px 9px;
+	border-radius: 999px;
+	background: var(--ins-promo-gold);
+	color: #221a00;
+	font-size: 10px;
+	font-weight: 800;
+	letter-spacing: 0.09em;
+	text-transform: uppercase;
+	animation: ins-promo-shimmer 3.2s ease-in-out infinite;
+}
+
+.ins-promo-bar__text {
+	display: flex;
+	flex-wrap: wrap;
+	align-items: baseline;
+	gap: 6px;
+	margin: 0;
+	min-width: 0;
+}
+
+.ins-promo-bar__headline {
+	font-weight: 600;
+	color: #ffffff;
+}
+
+.ins-promo-bar__sub {
+	color: rgba(255, 255, 255, 0.72);
+	font-size: 12px;
+}
+
+.ins-promo-bar__countdown {
+	display: none;
+	align-items: center;
+	gap: 6px;
+	flex: 0 0 auto;
+	padding: 3px 9px;
+	border-radius: 8px;
+	background: var(--ins-promo-gold-soft);
+	color: var(--ins-promo-gold);
+	font-variant-numeric: tabular-nums;
+	font-weight: 700;
+	letter-spacing: 0.02em;
+}
+
+.ins-promo-bar__countdown[hidden] {
+	display: none;
+}
+
+.ins-promo-bar__countdown:not([hidden]) {
+	display: inline-flex;
+}
+
+.ins-promo-bar__countdown-label {
+	font-weight: 500;
+	opacity: 0.85;
+}
+
+.ins-promo-bar__cta {
+	flex: 0 0 auto;
+	margin-left: auto;
+	display: inline-flex;
+	align-items: center;
+	gap: 6px;
+	min-height: 34px;
+	padding: 0 14px;
+	border-radius: 10px;
+	background: var(--ins-promo-gold);
+	color: #221a00;
+	font-weight: 800;
+	text-decoration: none;
+	white-space: nowrap;
+	transition: transform 160ms ease, box-shadow 160ms ease, background 160ms ease;
+	box-shadow: 0 6px 18px -10px rgba(245, 196, 81, 0.9);
+}
+
+.ins-promo-bar__cta:hover,
+.ins-promo-bar__cta:focus-visible {
+	background: #ffd777;
+	transform: translateY(-1px);
+	box-shadow: 0 10px 22px -12px rgba(245, 196, 81, 1);
+}
+
+.ins-promo-bar__close {
+	flex: 0 0 auto;
+	display: inline-flex;
+	align-items: center;
+	justify-content: center;
+	width: 30px;
+	height: 30px;
+	border: 0;
+	border-radius: 8px;
+	background: transparent;
+	color: rgba(255, 255, 255, 0.6);
+	font-size: 20px;
+	line-height: 1;
+	cursor: pointer;
+	transition: background 160ms ease, color 160ms ease;
+}
+
+.ins-promo-bar__close:hover,
+.ins-promo-bar__close:focus-visible {
+	background: rgba(255, 255, 255, 0.1);
+	color: #ffffff;
+}
+
+/* Mobile: condensed to badge + CTA, countdown kept but tight. */
+@media (max-width: 782px) {
+	.ins-promo-bar__inner {
+		gap: 10px;
+		padding: 8px 12px;
+	}
+
+	.ins-promo-bar__sub,
+	.ins-promo-bar__countdown-label {
+		display: none;
+	}
+
+	.ins-promo-bar__headline {
+		font-size: 12.5px;
+	}
+
+	.ins-promo-bar__cta {
+		padding: 0 11px;
+		font-size: 12.5px;
+	}
+
+	.ins-promo-bar__countdown {
+		padding: 2px 7px;
+		font-size: 12px;
+	}
+}
+
+@media (max-width: 520px) {
+	.ins-promo-bar__text {
+		display: none;
+	}
+
+	.ins-promo-bar__cta {
+		margin-left: auto;
+	}
+}
+
+@keyframes ins-promo-slide-down {
+	from {
+		transform: translateY(-100%);
+		opacity: 0;
+	}
+	to {
+		transform: translateY(0);
+		opacity: 1;
+	}
+}
+
+@keyframes ins-promo-shimmer {
+	0%,
+	100% {
+		box-shadow: 0 0 0 0 rgba(245, 196, 81, 0.35);
+	}
+	50% {
+		box-shadow: 0 0 0 4px rgba(245, 196, 81, 0);
+	}
+}
+
+@media (prefers-reduced-motion: reduce) {
+	.ins-promo-bar,
+	.ins-promo-bar__badge {
+		animation: none;
+	}
+
+	.ins-promo-bar__cta {
+		transition: none;
+	}
+}

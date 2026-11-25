@@ -30,6 +30,10 @@ add_action(
 		// Core theme JS (mobile menu, FAQ accordion, header on scroll).
 		wp_enqueue_script( 'insightistic-theme', $js . '/theme.js', array(), $ver, true );
 
+		// AppSumo announcement bar: one small CSS + JS pair on every page. The bar
+		// is the primary promo surface, so it is never conditional.
+		wp_enqueue_style( 'insightistic-promo-bar', $css . '/promo-bar.css', array( 'insightistic-theme' ), $ver );
+		wp_enqueue_script( 'insightistic-promo-bar', $js . '/promo-bar.js', array(), $ver, true );
 		// Pricing toggle only where it's needed.
 		if ( is_front_page() || is_page_template( 'page-templates/template-pricing.php' ) || is_page( 'pricing' ) ) {
 			wp_enqueue_script( 'insightistic-pricing-toggle', $js . '/pricing-toggle.js', array(), $ver, true );
@@ -48,7 +52,7 @@ add_action(
 add_filter(
 	'script_loader_tag',
 	function ( $tag, $handle ) {
-		if ( in_array( $handle, array( 'insightistic-theme', 'insightistic-pricing-toggle' ), true ) ) {
+		if ( in_array( $handle, array( 'insightistic-theme', 'insightistic-pricing-toggle', 'insightistic-promo-bar' ), true ) ) {
 			// The navigation and pricing controls must be interactive on the first
 			// tap. Airlift's delayed-JS loader and Cloudflare Rocket Loader can
 			// otherwise process the same tag in sequence and leave it with a
