@@ -592,6 +592,8 @@ function insightistic_promo_url( string $platform = 'w' ): string {
 		'rd'     => '-rd',
 		'qr'     => '-qr',
 		'me'     => '-me',
+		// Google Ads traffic (Black Friday campaign + any future paid search/display).
+		'ga'     => '-ga',
 	);
 
 	$token = isset( $map[ $platform ] ) ? $map[ $platform ] : $map['w'];
