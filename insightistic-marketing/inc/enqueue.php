@@ -26,6 +26,7 @@ add_action(
 		wp_enqueue_style( 'insightistic-theme', $css . '/theme.css', array(), $ver );
 		wp_enqueue_style( 'insightistic-blocks', $css . '/blocks.css', array( 'insightistic-theme' ), $ver );
 		wp_enqueue_style( 'insightistic-responsive', $css . '/responsive.css', array( 'insightistic-theme' ), $ver );
+		wp_enqueue_style( 'insightistic-marketing-design', $css . '/marketing-design.css', array( 'insightistic-responsive' ), $ver );
 
 		// Core theme JS (mobile menu, FAQ accordion, header on scroll).
 		wp_enqueue_script( 'insightistic-theme', $js . '/theme.js', array(), $ver, true );
@@ -35,7 +36,7 @@ add_action(
 		wp_enqueue_style( 'insightistic-promo-bar', $css . '/promo-bar.css', array( 'insightistic-theme' ), $ver );
 		wp_enqueue_script( 'insightistic-promo-bar', $js . '/promo-bar.js', array(), $ver, true );
 		if ( is_front_page() ) {
-			wp_enqueue_style( 'insightistic-public-overview', $css . '/public-overview.css', array( 'insightistic-responsive' ), $ver );
+			wp_enqueue_style( 'insightistic-public-overview', $css . '/public-overview.css', array( 'insightistic-marketing-design' ), $ver );
 			wp_enqueue_script( 'insightistic-public-overview', $js . '/public-overview.js', array(), $ver, true );
 		}
 		// Pricing comparison assets belong to the dedicated pricing page.
