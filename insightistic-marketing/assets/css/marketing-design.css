@@ -1,0 +1,159 @@
+/* Shared visual language for the public Insightistic marketing templates. */
+@font-face {
+  font-family: "Insightistic Inter";
+  src: url("../fonts/inter-latin.woff2") format("woff2");
+  font-style: normal;
+  font-weight: 400 800;
+  font-display: swap;
+}
+
+:root {
+  --ins-design-font: "Insightistic Inter", system-ui, "Segoe UI", sans-serif;
+  --ins-design-ink: #111b2c;
+  --ins-design-muted: #485b71;
+  --ins-design-border: #dbe5ef;
+  --ins-design-canvas: #f7fafc;
+  --ins-design-tint: #edf5ff;
+  --ins-design-action: #0052c9;
+  --ins-design-hover: #003f9e;
+  --ins-design-teal: #087e86;
+  --ins-design-navy: #0b1727;
+  --ins-design-radius: 16px;
+  --ins-design-button-radius: 10px;
+  --ins-design-hero: linear-gradient(120deg, #f7fbff 24%, #edf5ff 74%, #ecf8f7);
+  --ins-design-gutter: clamp(15px, 3vw, 24px);
+  --ins-design-section: clamp(44px, 6.4vw, 92px);
+  --font: var(--ins-design-font);
+  --fg-muted: var(--ins-design-muted);
+}
+
+body {
+  background: #fff;
+  color: var(--ins-design-ink);
+}
+
+.ins-main .ins-container {
+  padding-inline: var(--ins-design-gutter);
+}
+
+.ins-main .ins-section {
+  padding-block: var(--ins-design-section);
+}
+
+.ins-main :is(.ins-page-hero, .ins-ltd-hero, .ins-legal-hero, .ins-integrations-hero, .ins-giveaway__hero, .ins-hero) {
+  background: var(--ins-design-hero);
+  border-block-end: 1px solid var(--ins-design-border);
+}
+
+.ins-main :is(.ins-page-hero, .ins-ltd-hero, .ins-legal-hero) {
+  padding-block: clamp(40px, 5.5vw, 76px);
+}
+
+.ins-main :is(.ins-page-hero__title, .ins-page-title, .ins-article__title, .ins-404__title, .ins-hero__title) {
+  color: var(--ins-design-ink);
+  font-size: clamp(2.08rem, 4.25vw, 3.65rem);
+  font-weight: 770;
+  letter-spacing: -.054em;
+  line-height: 1.08;
+  overflow-wrap: anywhere;
+  text-wrap: balance;
+}
+
+.ins-main :is(.ins-page-title, .ins-article__title, .ins-404__title) {
+  font-size: clamp(2rem, 3.7vw, 3.3rem);
+}
+
+.ins-main :is(.ins-page-hero, .ins-legal-hero, .ins-ltd-hero, .ins-giveaway__hero, .ins-integrations-hero) .ins-eyebrow {
+  color: #124d76;
+  font-size: .75rem;
+  font-weight: 750;
+  letter-spacing: .07em;
+}
+
+.ins-main :is(.ins-page-hero, .ins-integrations-hero, .ins-ltd-hero, .ins-giveaway__hero) .ins-lead,
+.ins-main .ins-hero__subtitle {
+  font-size: clamp(1.03rem, 1.45vw, 1.17rem);
+  line-height: 1.65;
+}
+
+.ins-main .ins-section__head h2 {
+  font-size: clamp(1.75rem, 3.4vw, 3.05rem);
+  font-weight: 750;
+  letter-spacing: -.048em;
+  line-height: 1.12;
+  text-wrap: balance;
+}
+
+.ins-main :is(.ins-page-header, .ins-article__header) {
+  background: var(--ins-design-hero);
+  border: 1px solid var(--ins-design-border);
+  border-radius: var(--ins-design-radius);
+  padding: clamp(20px, 4vw, 52px);
+}
+
+.ins-main.ins-404 {
+  background: var(--ins-design-hero);
+}
+
+.ins-main :is(.ins-guide-card, .ins-directory__topic, .ins-ecosystem-card, .ins-integration-card,
+.ins-postcard, .ins-feature, .ins-step, .ins-testimonial, .ins-sitemap__group, .ins-contact__card, .ins-form) {
+  background: #fff;
+  border-color: var(--ins-design-border);
+  border-radius: var(--ins-design-radius);
+  box-shadow: none;
+  min-inline-size: 0;
+}
+
+.ins-main :is(.ins-directory--guides, .ins-integrations-catalog, .ins-ltd-promise) {
+  background: var(--ins-design-canvas);
+}
+
+.ins-main :is(.ins-comparison__scroll, .ins-compare__scroll) {
+  border-color: var(--ins-design-border);
+  border-radius: var(--ins-design-radius);
+}
+
+.ins-main :is(.ins-comparison__table, .ins-compare__table) thead th {
+  background: var(--ins-design-tint);
+  color: var(--ins-design-ink);
+}
+
+.ins-main .ins-btn {
+  border-radius: var(--ins-design-button-radius);
+  text-wrap: balance;
+}
+
+.ins-main .ins-btn--brand {
+  background-color: var(--ins-design-action);
+  color: #fff;
+}
+
+.ins-main .ins-btn--brand:hover {
+  background-color: var(--ins-design-hover);
+  color: #fff;
+}
+
+.ins-main :focus-visible {
+  outline-color: var(--ins-design-action);
+}
+
+.ins-main .ins-legal-content .ins-prose,
+.ins-main:is(.ins-page-single, .ins-single) .ins-prose {
+  font-size: 1.04rem;
+  line-height: 1.75;
+}
+
+.ins-main .ins-prose :is(h2, h3, h4) {
+  scroll-margin-top: 8rem;
+  text-wrap: pretty;
+}
+
+@media (max-width: 470px) {
+  .ins-main :is(.ins-page-hero__title, .ins-page-title, .ins-article__title, .ins-404__title, .ins-hero__title) {
+    font-size: clamp(1.95rem, 8.2vw, 2.7rem);
+  }
+
+  .ins-main .ins-section__head h2 {
+    font-size: clamp(1.65rem, 6.4vw, 2.15rem);
+  }
+}

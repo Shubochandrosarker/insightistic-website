@@ -24,9 +24,15 @@ $integrations = array(
 	),
 	array(
 		'icon'  => 'bar-chart',
-		'type'  => __( 'Account billing', 'insightistic-marketing' ),
-		'title' => __( 'Paddle billing', 'insightistic-marketing' ),
-		'text'  => __( 'Keep your Insightistic plan and subscription context aligned with the account and reporting workflow.', 'insightistic-marketing' ),
+		'type'  => __( 'Traffic analytics', 'insightistic-marketing' ),
+		'title' => __( 'Google Analytics 4', 'insightistic-marketing' ),
+		'text'  => __( 'Connect GA4 to see sessions, channels, and landing-page activity for the property you choose.', 'insightistic-marketing' ),
+	),
+	array(
+		'icon'  => 'search',
+		'type'  => __( 'Search performance', 'insightistic-marketing' ),
+		'title' => __( 'Google Search Console', 'insightistic-marketing' ),
+		'text'  => __( 'Review Google search impressions, clicks, and average position by query and page.', 'insightistic-marketing' ),
 	),
 	array(
 		'icon'  => 'mail',
@@ -67,7 +73,7 @@ if ( ! $page_title ) {
 		<div class="ins-container ins-narrow ins-center">
 			<p class="ins-eyebrow"><?php esc_html_e( 'WordPress and WooCommerce integrations', 'insightistic-marketing' ); ?></p>
 			<h2 id="ins-integrations-hero-title"><?php esc_html_e( 'Connect the data that runs your business', 'insightistic-marketing' ); ?></h2>
-			<p class="ins-lead"><?php esc_html_e( 'Insightistic brings your store, website, billing, reports and AI context into one clear analytics workflow for business owners and agencies.', 'insightistic-marketing' ); ?></p>
+			<p class="ins-lead"><?php esc_html_e( 'Insightistic brings your store, website, search performance, and reports into one clear analytics workflow for business owners and agencies.', 'insightistic-marketing' ); ?></p>
 
 			<div class="ins-integrations__actions">
 				<a class="ins-btn ins-btn--brand ins-btn--lg" href="<?php echo esc_url( insightistic_register_url() ); ?>">

@@ -85,12 +85,13 @@ function insightistic_knowledgebase_guides() {
  */
 function insightistic_ecosystem_links() {
 	$links = array(
-		array( 'slug' => 'wordpressistic', 'name' => 'WordPressistic', 'description' => 'The WordPress-first AI business automation ecosystem behind Insightistic.', 'url' => 'https://wordpressistic.com/', 'external' => true ),
+		array( 'slug' => 'wordpressistic', 'name' => 'WordPressistic', 'description' => 'The WordPress-first AI business automation ecosystem behind Insightistic.', 'url' => 'https://www.wordpressistic.com/', 'external' => true ),
+		array( 'slug' => 'wpistic', 'name' => 'WPistic', 'description' => 'Browse the WordPressistic product directory to find the right tool for your workflow.', 'url' => 'https://wpistic.com/', 'external' => true ),
 		array( 'slug' => 'insightistic', 'name' => 'Insightistic', 'description' => 'AI business analytics for WordPress and WooCommerce.', 'url' => home_url( '/' ), 'external' => false ),
 		array( 'slug' => 'tripistic', 'name' => 'Tripistic', 'description' => 'AI-native travel operations and booking workflows for tour businesses.', 'url' => 'https://tripistic.com/', 'external' => true ),
-		array( 'slug' => 'chatbotistic', 'name' => 'Chatbotistic', 'description' => 'Conversational automation for customer support, lead capture and messaging.', 'url' => home_url( '/ecosystem/#chatbotistic' ), 'external' => false ),
-		array( 'slug' => 'bookingistic', 'name' => 'Bookingistic', 'description' => 'Booking and scheduling workflows for service and travel businesses.', 'url' => home_url( '/ecosystem/#bookingistic' ), 'external' => false ),
-		array( 'slug' => 'memberistic', 'name' => 'Memberistic', 'description' => 'Membership and access-control infrastructure for WordPress products.', 'url' => home_url( '/ecosystem/#memberistic' ), 'external' => false ),
+		array( 'slug' => 'chatbotistic', 'name' => 'Chatbotistic', 'description' => 'Conversational automation for customer support, lead capture and messaging.', 'url' => 'https://www.chatbotistic.com/', 'external' => true ),
+		array( 'slug' => 'bookingistic', 'name' => 'Bookingistic', 'description' => 'Booking and scheduling workflows for service and travel businesses.', 'url' => 'https://www.bookingistic.com/', 'external' => true ),
+		array( 'slug' => 'memberistic', 'name' => 'Memberistic', 'description' => 'Membership and access-control infrastructure for WordPress products.', 'url' => 'https://memberistic.com/', 'external' => true ),
 		array( 'slug' => 'bridgistic', 'name' => 'Bridgistic', 'description' => 'Secure connections between WordPress sites and the WordPressistic ecosystem.', 'url' => home_url( '/ecosystem/#bridgistic' ), 'external' => false ),
 	);
 
