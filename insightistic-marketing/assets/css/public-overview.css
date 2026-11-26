@@ -125,7 +125,7 @@
 .ins-home-refresh .ins-r-brief :focus-visible { outline-color: #8cede1; }
 .ins-home-refresh .ins-r-brief-card { border: 1px solid #42637e; border-radius: 16px; background: #17293f; padding: clamp(16px,2.15vw,27px); }
 .ins-home-refresh .ins-r-brief-header { display: flex; justify-content: space-between; align-items: center; gap: 9px; margin-block-end: 13px; }
-.ins-home-refresh .ins-r-brief-header h3 { font-size: 1rem; }
+.ins-home-refresh .ins-r-brief-header h3 { color: #fff; font-size: 1rem; }
 .ins-home-refresh .ins-r-brief-header span { color: #c4d4e6; font-size: .73rem; border: 1px solid #496985; border-radius: 999px; padding: 2px 8px; }
 .ins-home-refresh .ins-r-brief-card p { color: #cfdfec; font-size: .9rem; margin-block-end: 9px; }
 .ins-home-refresh .ins-r-brief-card p.ins-r-question { color: #fff; background: #233d57; border-radius: 9px; padding: 10px 12px; margin-block-end: 12px; font-size: .93rem; font-weight: 650; }

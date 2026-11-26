@@ -225,7 +225,7 @@ if ( ! defined( 'ABSPATH' ) ) {
         <p>Find setup and troubleshooting help in the <a href="<?php echo esc_url( home_url( '/knowledgebase/' ) ); ?>">knowledge base</a>.</p>
       </div>
       <div class="ins-r-faq-list">
-        <?php foreach ( insightistic_home_faqs() as $faq ) : ?>
+        <?php foreach ( function_exists( 'insightistic_home_faqs' ) ? insightistic_home_faqs() : array() as $faq ) : ?>
           <details>
             <summary><?php echo esc_html( $faq['q'] ); ?></summary>
             <p><?php echo esc_html( $faq['a'] ); ?></p>

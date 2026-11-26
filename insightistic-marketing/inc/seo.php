@@ -209,7 +209,7 @@ function insightistic_schema_graph() {
 		$nodes[] = array( '@type' => 'BreadcrumbList', '@id' => insightistic_seo_canonical_url() . '#breadcrumb', 'itemListElement' => $items );
 	}
 
-	if ( is_front_page() ) {
+	if ( is_front_page() && function_exists( 'insightistic_home_faqs' ) ) {
 		$questions = array();
 		foreach ( insightistic_home_faqs() as $faq ) {
 			$questions[] = array( '@type' => 'Question', 'name' => wp_strip_all_tags( $faq['q'] ), 'acceptedAnswer' => array( '@type' => 'Answer', 'text' => wp_strip_all_tags( $faq['a'] ) ) );

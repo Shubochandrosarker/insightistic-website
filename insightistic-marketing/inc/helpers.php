@@ -552,16 +552,6 @@ function insightistic_faqs() {
 	return apply_filters( 'insightistic_faqs', $faqs );
 }
 
-/** Visible FAQ answers for the public overview. Shared with the homepage graph. */
-function insightistic_home_faqs() {
-	return array(
-		array( 'q' => __( 'Do I need WooCommerce?', 'insightistic-marketing' ), 'a' => __( 'No. Search and site health work without a store. Connect WooCommerce when you want orders, revenue, and refunds in the same workspace.', 'insightistic-marketing' ) ),
-		array( 'q' => __( 'What data can Agent JOLLEY use?', 'insightistic-marketing' ), 'a' => __( 'JOLLEY draws on data available in your workspace, including connected search and store data, site audits, and your knowledge base. Available sources depend on what you connect and your plan.', 'insightistic-marketing' ) ),
-		array( 'q' => __( 'Can I look around before connecting anything?', 'insightistic-marketing' ), 'a' => __( 'Yes. Browse the public product tour to see example screens and workflows before you create an account.', 'insightistic-marketing' ) ),
-		array( 'q' => __( 'Can I use Insightistic for multiple clients?', 'insightistic-marketing' ), 'a' => __( 'Yes. Compare site allowances, reporting features, and access controls on the agency page.', 'insightistic-marketing' ) ),
-	);
-}
-
 /** Overview-style metric cards for the dashboard preview visual. */
 function insightistic_preview_metrics() {
 	return apply_filters( 'insightistic_preview_metrics', array(
@@ -602,6 +592,8 @@ function insightistic_promo_url( string $platform = 'w' ): string {
 		'rd'     => '-rd',
 		'qr'     => '-qr',
 		'me'     => '-me',
+		// Google Ads traffic (Black Friday campaign + any future paid search/display).
+		'ga'     => '-ga',
 	);
 
 	$token = isset( $map[ $platform ] ) ? $map[ $platform ] : $map['w'];
