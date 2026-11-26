@@ -34,8 +34,12 @@ add_action(
 		// is the primary promo surface, so it is never conditional.
 		wp_enqueue_style( 'insightistic-promo-bar', $css . '/promo-bar.css', array( 'insightistic-theme' ), $ver );
 		wp_enqueue_script( 'insightistic-promo-bar', $js . '/promo-bar.js', array(), $ver, true );
-		// Pricing toggle only where it's needed.
-		if ( is_front_page() || is_page_template( 'page-templates/template-pricing.php' ) || is_page( 'pricing' ) ) {
+		if ( is_front_page() ) {
+			wp_enqueue_style( 'insightistic-public-overview', $css . '/public-overview.css', array( 'insightistic-responsive' ), $ver );
+			wp_enqueue_script( 'insightistic-public-overview', $js . '/public-overview.js', array(), $ver, true );
+		}
+		// Pricing comparison assets belong to the dedicated pricing page.
+		if ( is_page_template( 'page-templates/template-pricing.php' ) || is_page( 'pricing' ) ) {
 			wp_enqueue_script( 'insightistic-pricing-toggle', $js . '/pricing-toggle.js', array(), $ver, true );
 			wp_enqueue_style( 'insightistic-pricing-layout', $css . '/pricing-layout.css', array( 'insightistic-responsive' ), $ver );
 		}
@@ -52,7 +56,7 @@ add_action(
 add_filter(
 	'script_loader_tag',
 	function ( $tag, $handle ) {
-		if ( in_array( $handle, array( 'insightistic-theme', 'insightistic-pricing-toggle', 'insightistic-promo-bar' ), true ) ) {
+		if ( in_array( $handle, array( 'insightistic-theme', 'insightistic-pricing-toggle', 'insightistic-promo-bar', 'insightistic-public-overview' ), true ) ) {
 			// The navigation and pricing controls must be interactive on the first
 			// tap. Airlift's delayed-JS loader and Cloudflare Rocket Loader can
 			// otherwise process the same tag in sequence and leave it with a

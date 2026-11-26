@@ -9,7 +9,7 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-$items = array( 'WordPress', 'WooCommerce', 'Paddle Billing', 'White-label ready', 'Agency built' );
+$items = array( 'WordPress', 'WooCommerce', 'Google Search Console', 'White-label ready', 'Agency built' );
 ?>
 <section class="ins-section ins-logocloud" aria-label="<?php esc_attr_e( 'Built for', 'insightistic-marketing' ); ?>">
 	<div class="ins-container">

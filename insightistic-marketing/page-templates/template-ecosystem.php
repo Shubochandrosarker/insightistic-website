@@ -9,7 +9,7 @@ $links = insightistic_ecosystem_links();
 			<?php insightistic_breadcrumbs(); ?>
 			<p class="ins-eyebrow"><?php esc_html_e( 'WordPressistic ecosystem', 'insightistic-marketing' ); ?></p>
 			<h1 class="ins-page-hero__title"><?php esc_html_e( 'Connected products for connected business workflows', 'insightistic-marketing' ); ?></h1>
-			<p class="ins-lead"><?php esc_html_e( 'Insightistic is the analytics layer in the WordPressistic ecosystem. Each product has a focused job, while shared identity, data boundaries and useful cross-links make the broader system easier to navigate.', 'insightistic-marketing' ); ?></p>
+			<p class="ins-lead"><?php esc_html_e( 'Insightistic explains changes in search, site health, and store performance. Explore the WordPressistic products for the next step, from customer messaging to bookings and membership.', 'insightistic-marketing' ); ?></p>
 		</div>
 	</section>
 	<section class="ins-section">
@@ -28,8 +28,9 @@ $links = insightistic_ecosystem_links();
 	</section>
 	<section class="ins-section ins-ecosystem__note">
 		<div class="ins-container ins-narrow ins-center">
-			<h2><?php esc_html_e( 'Editorially useful linking, not link stuffing', 'insightistic-marketing' ); ?></h2>
-			<p class="ins-lead"><?php esc_html_e( 'The directory links products where the relationship helps a visitor choose the next step. We keep external destinations configurable and only add verified public product URLs, so authority grows from relevance and trust rather than repetitive sitewide anchors.', 'insightistic-marketing' ); ?></p>
+			<h2><?php esc_html_e( 'Find your next step', 'insightistic-marketing' ); ?></h2>
+			<p class="ins-lead"><?php esc_html_e( 'Start with the data you already have. Use the integration guide to see which sources support your Insightistic workspace.', 'insightistic-marketing' ); ?></p>
+			<a class="ins-link" href="<?php echo esc_url( home_url( '/integrations/' ) ); ?>"><?php esc_html_e( 'View Insightistic integrations', 'insightistic-marketing' ); ?></a>
 		</div>
 	</section>
 </main><?php

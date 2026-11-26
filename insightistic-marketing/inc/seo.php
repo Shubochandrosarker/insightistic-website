@@ -15,7 +15,8 @@ if ( ! defined( 'ABSPATH' ) ) {
 }
 
 function insightistic_seo_plugin_active() {
-	return defined( 'WPSEO_VERSION' )
+	return defined( 'SEOISTIC_VERSION' )
+		|| defined( 'WPSEO_VERSION' )
 		|| defined( 'RANK_MATH_VERSION' )
 		|| defined( 'AIOSEO_VERSION' )
 		|| class_exists( 'All_in_One_SEO_Pack' )
@@ -24,16 +25,21 @@ function insightistic_seo_plugin_active() {
 
 function insightistic_seo_page_defaults() {
 	return array(
-		''                       => array( 'Insightistic | AI business intelligence for WordPress & WooCommerce', 'Connect WordPress and WooCommerce analytics, SEO, performance and explainable AI insights in one workspace built for clearer business decisions.' ),
+		''                       => array( 'Insightistic | AI business intelligence for WordPress & WooCommerce', 'Track WordPress search visibility, site health and WooCommerce performance. Agent JOLLEY shows what changed, the evidence, and what to check next.' ),
+		'ltd'                    => array( 'Insightistic Lifetime Deal | Compare AppSumo Tiers', 'Compare Insightistic lifetime tiers for search visibility, site audits, reports and Agent JOLLEY. Review the site limits and monthly allowances before buying.' ),
+		'agency'                 => array( 'WordPress Agency Analytics and Client Reports | Insightistic', 'Review WordPress and WooCommerce performance across client sites, share branded reports on eligible plans, and keep evidence with each recommendation.' ),
+		'product-tour'           => array( 'Insightistic Product Tour | Explore the Sample Workspace', 'See sample search, site health, WooCommerce and Agent JOLLEY workflows in the public product tour before connecting a site.' ),
+		'why-insightistic'        => array( 'Why Insightistic | Search, Site Health and Store Analytics', 'Understand how Insightistic brings search, site health and store data into one workspace and helps you follow changes back to their sources.' ),
+		'changelog'              => array( 'Insightistic Changelog | Product Updates', 'Review dated Insightistic releases and updates to the WordPress connector, analytics workspace, reporting and Agent JOLLEY.' ),
 		'features'               => array( 'Insightistic features | WordPress & WooCommerce analytics', 'Explore revenue analytics, WooCommerce intelligence, AI business insights, reports, site health monitoring and agency workflows.' ),
 		'pricing'                => array( 'Insightistic pricing | WordPress & WooCommerce business intelligence', 'Compare Free Connected, paid subscriptions, monthly resources and Insight Credit packs for WordPress and WooCommerce teams.' ),
 		'woocommerce-analytics'  => array( 'WooCommerce analytics that explains the numbers | Insightistic', 'Track revenue, orders, AOV, refunds, products and customers in a focused WooCommerce analytics workspace.' ),
 		'traffic-analytics'      => array( 'Traffic analytics for WordPress & WooCommerce | Insightistic', 'Connect traffic and engagement signals with store outcomes so WordPress teams can see which channels deserve attention.' ),
 		'seo-analytics'          => array( 'SEO analytics for WordPress & WooCommerce | Insightistic', 'Bring search visibility, landing-page and commerce context together for clearer SEO reporting and decisions.' ),
 		'performance-monitoring' => array( 'WordPress performance monitoring | Insightistic', 'Monitor performance signals across WordPress and WooCommerce and give your team a repeatable way to investigate changes.' ),
-		'ai-insights'            => array( 'Explainable AI business insights | Insightistic', 'Turn changes in WordPress and WooCommerce data into plain-language explanations and reviewable next actions.' ),
+		'ai-insights'            => array( 'Explainable AI business insights | Insightistic', 'See how Agent JOLLEY explains WordPress and WooCommerce changes with evidence from connected sources and gives you a next step to review.' ),
 		'reports'                => array( 'Branded analytics reports for agencies | Insightistic', 'Create scheduled, client-ready analytics reports with your brand, the right metrics and practical recommendations.' ),
-		'integrations'           => array( 'WordPress & WooCommerce integrations | Insightistic', 'Connect WordPress, WooCommerce, billing, reports and AI context through a clear, authenticated analytics workflow.' ),
+		'integrations'           => array( 'WordPress & WooCommerce integrations | Insightistic', 'Connect WordPress, WooCommerce, Google Analytics 4 and Search Console. Learn which data sources power Insightistic reports and insights.' ),
 		'knowledgebase'          => array( 'Insightistic Knowledgebase | WordPress analytics guides', 'Practical guides for WooCommerce analytics, traffic, SEO, performance, AI insights, reporting and privacy-safe connections.' ),
 		'about'                  => array( 'About Insightistic | Built by WordPressistic', 'Learn how Insightistic helps WordPress and WooCommerce operators replace scattered reporting with a clearer operating view.' ),
 		'contact'                => array( 'Contact Insightistic | Product and support questions', 'Contact the Insightistic team about analytics, agency workflows, integrations, security and product access.' ),
@@ -53,6 +59,9 @@ function insightistic_seo_page_defaults() {
 }
 
 function insightistic_seo_description() {
+	if ( is_front_page() ) {
+		return insightistic_seo_page_defaults()[''][1];
+	}
 	if ( is_singular( 'post' ) && has_excerpt() ) {
 		return wp_trim_words( wp_strip_all_tags( get_the_excerpt() ), 30, '…' );
 	}
@@ -78,6 +87,9 @@ function insightistic_seo_description() {
 
 function insightistic_seo_title() {
 	$defaults = insightistic_seo_page_defaults();
+	if ( is_front_page() ) {
+		return $defaults[''][0];
+	}
 	if ( is_singular() ) {
 		$slug = get_post_field( 'post_name', get_queried_object_id() );
 		if ( isset( $defaults[ $slug ] ) ) {
@@ -88,11 +100,11 @@ function insightistic_seo_title() {
 }
 
 function insightistic_seo_canonical_url() {
-	if ( is_singular() ) {
-		return get_permalink();
-	}
 	if ( is_front_page() ) {
 		return home_url( '/' );
+	}
+	if ( is_singular() ) {
+		return get_permalink();
 	}
 	if ( is_home() ) {
 		$page = get_option( 'page_for_posts' );
@@ -106,10 +118,12 @@ function insightistic_seo_canonical_url() {
 }
 
 function insightistic_output_seo_meta() {
-	if ( insightistic_seo_plugin_active() ) {
+	if ( insightistic_seo_plugin_active() || is_404() || is_search() || is_feed() ) {
 		return;
 	}
 
+	// This fallback owns the canonical on pages where it emits metadata.
+	remove_action( 'wp_head', 'rel_canonical' );
 	$title = insightistic_seo_title();
 	$desc  = insightistic_seo_description();
 	$url   = insightistic_seo_canonical_url();
@@ -161,23 +175,13 @@ add_filter(
 function insightistic_schema_graph() {
 	$details = insightistic_business_details();
 	$author  = insightistic_editorial_author();
-	$catalog = insightistic_public_catalog();
+	$catalog = is_page( 'pricing' ) ? insightistic_public_catalog() : array();
 	$brand   = home_url( '/#organization' );
-	$same_as = array();
-	foreach ( insightistic_ecosystem_links() as $ecosystem_link ) {
-		if ( ! empty( $ecosystem_link['external'] ) && ! empty( $ecosystem_link['url'] ) ) {
-			$same_as[] = esc_url_raw( $ecosystem_link['url'] );
-		}
-	}
-	foreach ( array( 'twitter', 'linkedin', 'youtube', 'github' ) as $social_slug ) {
-		$social_url = insightistic_option( 'insightistic_social_' . $social_slug, '' );
-		if ( $social_url ) {
-			$same_as[] = esc_url_raw( $social_url );
-		}
-	}
-	$same_as = array_values( array_unique( $same_as ) );
+	// sameAs identifies the publisher. Its other products belong in the ecosystem directory.
+	$same_as = array( 'https://www.linkedin.com/company/wordpressistic/', 'https://github.com/Wordpressistic/' );
 	$offers = array();
-	foreach ( (array) ( $catalog['plans'] ?? array() ) as $plan ) {
+	$visible_plans = (array) ( $catalog['plans'] ?? array() );
+	foreach ( $visible_plans as $plan ) {
 		$price = preg_replace( '/[^0-9.]/', '', (string) ( $plan['monthly'] ?? '' ) );
 		if ( '' !== $price ) {
 			$offers[] = array( '@type' => 'Offer', 'name' => $plan['name'], 'price' => $price, 'priceCurrency' => 'USD', 'url' => home_url( '/pricing/' ), 'availability' => 'https://schema.org/InStock' );
@@ -186,7 +190,7 @@ function insightistic_schema_graph() {
 	$nodes   = array(
 		array( '@type' => 'Organization', '@id' => $brand, 'name' => 'WordPressistic LLC', 'legalName' => 'WordPressistic LLC', 'url' => 'https://wordpressistic.com/', 'email' => $details['email'], 'address' => array( '@type' => 'PostalAddress', 'streetAddress' => $details['address'], 'addressLocality' => $details['city'], 'addressRegion' => $details['state'], 'postalCode' => $details['postal_code'], 'addressCountry' => $details['country'] ), 'identifier' => array( '@type' => 'PropertyValue', 'propertyID' => 'Entity ID', 'value' => $details['entity_id'] ), 'sameAs' => $same_as, 'brand' => array( '@type' => 'Brand', 'name' => 'Insightistic', 'url' => home_url( '/' ) ) ),
 		array( '@type' => 'WebSite', '@id' => home_url( '/#website' ), 'url' => home_url( '/' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'publisher' => array( '@id' => $brand ), 'inLanguage' => get_bloginfo( 'language' ) ),
-		array( '@type' => array( 'SoftwareApplication', 'Product' ), '@id' => home_url( '/#product' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'url' => home_url( '/' ), 'applicationCategory' => 'BusinessApplication', 'operatingSystem' => 'Web', 'publisher' => array( '@id' => $brand ), 'isPartOf' => array( '@id' => home_url( '/#website' ) ), 'offers' => $offers ),
+		array( '@type' => array( 'SoftwareApplication', 'Product' ), '@id' => home_url( '/#product' ), 'name' => 'Insightistic', 'description' => insightistic_seo_page_defaults()[''][1], 'url' => home_url( '/' ), 'applicationCategory' => 'BusinessApplication', 'operatingSystem' => 'Web', 'publisher' => array( '@id' => $brand ), 'isPartOf' => array( '@id' => home_url( '/#website' ) ) ) + ( $offers ? array( 'offers' => $offers ) : array() ),
 	);
 
 	if ( is_singular( 'post' ) ) {
@@ -207,7 +211,7 @@ function insightistic_schema_graph() {
 
 	if ( is_front_page() ) {
 		$questions = array();
-		foreach ( insightistic_faqs() as $faq ) {
+		foreach ( insightistic_home_faqs() as $faq ) {
 			$questions[] = array( '@type' => 'Question', 'name' => wp_strip_all_tags( $faq['q'] ), 'acceptedAnswer' => array( '@type' => 'Answer', 'text' => wp_strip_all_tags( $faq['a'] ) ) );
 		}
 		if ( $questions ) {
