@@ -687,7 +687,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
           <a href="https://www.insightistic.com/woocommerce-analytics/">WooCommerce analytics</a>
           <a href="https://www.insightistic.com/integrations/">Integrations</a>
           <a href="https://www.insightistic.com/knowledgebase/">Knowledge base</a>
-          <a href="https://www.insightistic.com/features/">Product tour</a>
+          <a href="https://www.insightistic.com/features/">Features</a>
         </div>
       </div>
     </div>
@@ -716,6 +716,10 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         <details class="card p-5">
           <summary class="flex justify-between items-center gap-4 font-bold cursor-pointer"><span>Do I need WordPress?</span><span class="text-white/50" aria-hidden="true">⌄</span></summary>
           <p class="text-white/70 text-sm mt-3 leading-relaxed">No. Supported analytics connections, AI visibility, rankings, Site Audit, PageSpeed, uptime, and SSL work for websites without WordPress. WordPress and WooCommerce data use the optional free connector; WooCommerce analytics is included on Tiers 2–5.</p>
+        </details>
+        <details class="card p-5">
+          <summary class="flex justify-between items-center gap-4 font-bold cursor-pointer"><span>How does AI visibility tracking work?</span><span class="text-white/50" aria-hidden="true">⌄</span></summary>
+          <p class="text-white/70 text-sm mt-3 leading-relaxed">Add the prompts your buyers ask. Each run sends one prompt to Insightistic’s configured AI model and records whether the answer mentions your brand or cites your domain. Tiers 3–5 can add competitors for comparison. Monthly prompt-run allowances are 100, 200, 600, 1,500, and 5,000 across Tiers 1–5.</p>
         </details>
         <details class="card p-5">
           <summary class="flex justify-between items-center gap-4 font-bold cursor-pointer"><span>How often are Google rankings checked?</span><span class="text-white/50" aria-hidden="true">⌄</span></summary>
@@ -797,7 +801,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         <ul class="space-y-2 text-sm text-white/60">
           <li><a href="https://www.insightistic.com/blog/" class="hover:text-white">Blog</a></li>
           <li><a href="https://www.insightistic.com/knowledgebase/" class="hover:text-white">Knowledge base</a></li>
-          <li><a href="https://www.insightistic.com/features/" class="hover:text-white">Product tour</a></li>
+          <li><a href="https://www.insightistic.com/features/" class="hover:text-white">Features</a></li>
           <li><a href="https://www.insightistic.com/ai-insights/" class="hover:text-white">Reports</a></li>
           <li><a href="https://www.insightistic.com/contact/" class="hover:text-white">Contact support</a></li>
         </ul>
