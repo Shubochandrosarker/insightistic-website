@@ -457,7 +457,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         <div class="flex flex-wrap gap-4 mt-6 text-sm text-white/60">
           <span><strong class="text-white">One-time</strong> license payment</span>
           <span><strong class="text-white">5–50</strong> licensed websites</span>
-          <span><strong class="text-white">60 days</strong> AppSumo refund window shown on the listing</span>
+          <span><strong class="text-white">60 days</strong> Up to 60-day AppSumo refund terms</span>
         </div>
       </div>
       <div class="reveal">
@@ -735,7 +735,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         </details>
         <details class="card p-5">
           <summary class="flex justify-between items-center gap-4 font-bold cursor-pointer"><span>What are the AppSumo refund and activation terms?</span><span class="text-white/50" aria-hidden="true">⌄</span></summary>
-          <p class="text-white/70 text-sm mt-3 leading-relaxed">The current AppSumo listing shows a refund window of up to 60 days and requires activation within 60 days of purchase. Review the listing for current terms and eligibility.</p>
+          <p class="text-white/70 text-sm mt-3 leading-relaxed">The AppSumo listing shows a refund window of up to 60 days and requires activation within 60 days of purchase. This Radar listing is not covered by AppSumo’s We Got Your Back guarantee; review the deal page for the current refund terms and eligibility.</p>
         </details>
       </div>
       <div class="text-center mt-10">
