@@ -6,6 +6,7 @@ repo (dashboard + API) and the [`insightistic`](https://github.com/Shubochandros
 repo (the canonical, license-activated product plugin).
 
 - `insightistic-marketing/` — the `insightistic.com` marketing site theme.
+- [Black Friday landing plugin](deploy/insightistic-blackfriday-landing/README.md) — the standalone production template and measurement for `/blackfriday/`.
 - `formistic/` — lead-capture forms plugin used by the marketing site (contact,
   demo request, agency inquiry, newsletter — see the marketing site's forms).
 - `insightistic-connector/` — legacy, lightweight WordPress plugin for sites
