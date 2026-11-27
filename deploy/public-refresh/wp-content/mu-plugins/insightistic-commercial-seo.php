@@ -121,28 +121,64 @@ function insightistic_commercial_redirect() {
 }
 add_action( 'template_redirect', 'insightistic_commercial_redirect', -20 );
 
-/** Keep one policy signal even when the edge plugin appends the same line. */
+/**
+ * robots.txt policy: AI answer engines and model training are welcome.
+ *
+ * Mirrors the WordPressistic policy. The Content-Signal line (Cloudflare's
+ * Content Signals and Preferences vocabulary) states the site-wide preference;
+ * the explicit per-agent Allow blocks document intent and keep the site
+ * crawlable by name even if a blanket rule is added later. Any Content-Signal
+ * line already present in the output (including edge-injected ones) is
+ * replaced with the canonical signal so crawlers never see conflicting values.
+ */
+function insightistic_commercial_robots_policy() {
+	return array(
+		'Content-Signal: search=yes, ai-train=yes, ai-input=yes',
+		'GPTBot', 'OAI-SearchBot', 'ChatGPT-User', 'ClaudeBot', 'Claude-Web',
+		'Claude-SearchBot', 'anthropic-ai', 'PerplexityBot', 'Perplexity-User',
+		'Google-Extended', 'Applebot', 'Applebot-Extended', 'Amazonbot',
+		'meta-externalagent', 'meta-webindexer', 'Bytespider', 'Diffbot',
+		'YouBot', 'cohere-ai', 'CCBot', 'AhrefsBot', 'SemrushBot',
+	);
+}
+
 add_filter(
 	'robots_txt',
 	static function ( $output, $public ) {
 		if ( ! $public ) {
 			return $output;
 		}
-		$signal = 'Content-Signal: search=yes, ai-train=no';
-		$seen = false;
-		$lines = array_filter(
-			explode( "\n", $output ),
-			static function ( $line ) use ( $signal, &$seen ) {
-				if ( $signal !== trim( $line ) ) {
-					return true;
+		$policy = insightistic_commercial_robots_policy();
+		$signal = array_shift( $policy );
+
+		// Drop every existing Content-Signal line (any variant) so exactly one
+		// authoritative signal remains.
+		$lines = array_values(
+			array_filter(
+				explode( "\n", $output ),
+				static function ( $line ) {
+					return 0 !== stripos( trim( $line ), 'Content-Signal:' );
 				}
-				if ( $seen ) {
-					return false;
-				}
-				$seen = true;
-				return true;
-			}
+			)
 		);
+
+		// Insert the per-agent Allow blocks before the first Sitemap line so
+		// the sitemap announcements stay last.
+		$agent_lines = array();
+		foreach ( $policy as $agent ) {
+			$agent_lines[] = "User-agent: {$agent}";
+			$agent_lines[] = 'Allow: /';
+		}
+		$insert_at = count( $lines );
+		foreach ( $lines as $index => $line ) {
+			if ( 0 === stripos( trim( $line ), 'Sitemap:' ) ) {
+				$insert_at = $index;
+				break;
+			}
+		}
+		array_splice( $lines, $insert_at, 0, $agent_lines );
+		$lines[] = $signal;
+
 		return implode( "\n", $lines );
 	},
 	PHP_INT_MAX,
