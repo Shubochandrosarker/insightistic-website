@@ -391,8 +391,6 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
     <div class="hidden md:flex items-center gap-4 lg:gap-7 text-sm text-white/70">
       <a href="#agent-jolley" class="hover:text-white transition">Agent JOLLEY</a>
       <a href="#features" class="hover:text-white transition">Features</a>
-      <a href="#how" class="hover:text-white transition">How it Works</a>
-      <a href="#compare-tools" class="hover:text-white transition">Compare tools</a>
       <a href="#pricing" class="hover:text-white transition">Pricing</a>
       <a href="#faq" class="hover:text-white transition">FAQ</a>
     </div>
@@ -407,8 +405,6 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         <div class="page-menu-panel absolute inset-x-0 top-full bg-[#0b0d14] border-y border-white/15 px-4 py-2 text-sm text-white/90">
           <a href="#agent-jolley" class="flex items-center min-h-[44px] py-2">Agent JOLLEY</a>
           <a href="#features" class="flex items-center min-h-[44px] py-2">Features</a>
-          <a href="#how" class="flex items-center min-h-[44px] py-2">How it works</a>
-          <a href="#compare-tools" class="flex items-center min-h-[44px] py-2">Compare tools</a>
           <a href="#pricing" class="flex items-center min-h-[44px] py-2">Pricing</a>
           <a href="#faq" class="flex items-center min-h-[44px] py-2">FAQ</a>
         </div>
