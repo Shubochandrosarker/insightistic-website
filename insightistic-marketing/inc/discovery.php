@@ -12,11 +12,11 @@ if ( ! defined( 'ABSPATH' ) ) {
 	exit;
 }
 
-define( 'INSIGHTISTIC_DISCOVERY_REWRITE_VERSION', '2' );
+define( 'INSIGHTISTIC_DISCOVERY_REWRITE_VERSION', '3' );
 
 function insightistic_register_discovery_routes() {
 	add_rewrite_rule( '^sitemap\.xml$', 'index.php?insightistic_discovery=sitemap', 'top' );
-	add_rewrite_rule( '^sitemap-(pages|posts|taxonomies)\.xml$', 'index.php?insightistic_discovery=$matches[1]', 'top' );
+	add_rewrite_rule( '^sitemap-(pages|posts|taxonomies|deal)\.xml$', 'index.php?insightistic_discovery=$matches[1]', 'top' );
 	add_rewrite_rule( '^llms\.txt$', 'index.php?insightistic_discovery=llms', 'top' );
 	add_rewrite_rule( '^llms-full\.txt$', 'index.php?insightistic_discovery=llms-full', 'top' );
 }
@@ -74,6 +74,36 @@ function insightistic_discovery_public_pages() {
 	);
 }
 
+/**
+ * Campaign landing pages served from deal.insightistic.com (the ChatGPT-built
+ * deal site behind the custom domain). They are external hosts, so they live
+ * in their own sitemap child and are announced through robots.txt and the
+ * HTML sitemap; both hosts must stay verified in Search Console.
+ *
+ * @return array<array{url:string, label:string, lastmod:string}>
+ */
+function insightistic_discovery_deal_urls() {
+	$today = gmdate( 'Y-m-d' );
+	$urls  = array(
+		array(
+			'url'     => 'https://deal.insightistic.com/',
+			'label'   => 'Insightistic deal overview',
+			'lastmod' => $today,
+		),
+		array(
+			'url'     => 'https://deal.insightistic.com/explore-agent-jolley/',
+			'label'   => 'Explore Agent JOLLEY',
+			'lastmod' => $today,
+		),
+		array(
+			'url'     => 'https://deal.insightistic.com/ltd/',
+			'label'   => 'Insightistic lifetime deal tiers',
+			'lastmod' => $today,
+		),
+	);
+	return apply_filters( 'insightistic_deal_sitemap_urls', $urls );
+}
+
 function insightistic_discovery_emit_xml_header() {
 	status_header( 200 );
 	header( 'Cache-Control: public, max-age=300, s-maxage=300' );
@@ -99,10 +129,19 @@ function insightistic_discovery_emit_url( $url, $modified = '' ) {
 function insightistic_emit_sitemap_index() {
 	insightistic_discovery_emit_xml_header();
 	echo '<sitemapindex xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
-	foreach ( array( 'pages', 'posts', 'taxonomies' ) as $type ) {
+	foreach ( array( 'pages', 'posts', 'taxonomies', 'deal' ) as $type ) {
 		echo '<sitemap><loc>' . insightistic_xml_text( insightistic_discovery_url( 'sitemap-' . $type . '.xml' ) ) . '</loc></sitemap>';
 	}
 	echo '</sitemapindex>';
+}
+
+function insightistic_emit_deal_sitemap() {
+	insightistic_discovery_emit_xml_header();
+	echo '<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">';
+	foreach ( insightistic_discovery_deal_urls() as $entry ) {
+		insightistic_discovery_emit_url( $entry['url'], $entry['lastmod'] );
+	}
+	echo '</urlset>';
 }
 
 function insightistic_emit_pages_sitemap() {
@@ -196,10 +235,16 @@ function insightistic_emit_llms( $full = false ) {
 		'Pages sitemap' => insightistic_discovery_url( 'sitemap-pages.xml' ),
 		'Posts sitemap' => insightistic_discovery_url( 'sitemap-posts.xml' ),
 		'Taxonomy sitemap' => insightistic_discovery_url( 'sitemap-taxonomies.xml' ),
+		'Deal sitemap' => insightistic_discovery_url( 'sitemap-deal.xml' ),
 		'Full machine-readable overview' => insightistic_discovery_url( 'llms-full.txt' ),
 	);
 	foreach ( $routes as $label => $url ) {
 		echo "- {$label}: {$url}\n";
+	}
+
+	echo "\n## Deal campaign pages\n\n";
+	foreach ( insightistic_discovery_deal_urls() as $entry ) {
+		echo '- ' . $entry['label'] . ': ' . $entry['url'] . "\n";
 	}
 
 	if ( $full ) {
@@ -245,6 +290,7 @@ function insightistic_discovery_template_redirect() {
 			'sitemap-pages.xml'       => 'pages',
 			'sitemap-posts.xml'       => 'posts',
 			'sitemap-taxonomies.xml' => 'taxonomies',
+			'sitemap-deal.xml'       => 'deal',
 			'llms.txt'                => 'llms',
 			'llms-full.txt'           => 'llms-full',
 		);
@@ -268,6 +314,9 @@ function insightistic_discovery_template_redirect() {
 			break;
 		case 'taxonomies':
 			insightistic_emit_taxonomies_sitemap();
+			break;
+		case 'deal':
+			insightistic_emit_deal_sitemap();
 			break;
 		case 'llms':
 			insightistic_emit_llms( false );
@@ -304,6 +353,7 @@ add_filter(
 			'Sitemap: ' . insightistic_discovery_url( 'sitemap-pages.xml' ),
 			'Sitemap: ' . insightistic_discovery_url( 'sitemap-posts.xml' ),
 			'Sitemap: ' . insightistic_discovery_url( 'sitemap-taxonomies.xml' ),
+			'Sitemap: ' . insightistic_discovery_url( 'sitemap-deal.xml' ),
 		);
 		return implode( "\n", $lines ) . "\n";
 	},
