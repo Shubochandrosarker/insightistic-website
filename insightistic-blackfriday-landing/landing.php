@@ -14,7 +14,7 @@ $bf_tiers = array(
 		'knowledge_bases' => '1', 'maps_profiles' => '1', 'ai_requests' => '100', 'reports' => '10',
 		'active_schedules' => '5', 'scheduled_reports' => '5', 'team' => '5 teammates + owner',
 		'woocommerce' => 'Not included', 'workflows' => 'Not included', 'competitors' => 'Not included',
-		'white_label' => 'Not included', 'priority_support' => 'Not included',
+		'white_label' => 'Not included', 'priority_support' => 'Not included', 'executive_insights' => 'Not included',
 	),
 	array(
 		'tier' => 2, 'price' => 79, 'sites' => '10', 'google_keywords' => '20', 'jolley_replies' => '500',
@@ -22,7 +22,7 @@ $bf_tiers = array(
 		'knowledge_bases' => '3', 'maps_profiles' => '1', 'ai_requests' => '200', 'reports' => '50',
 		'active_schedules' => '25', 'scheduled_reports' => '25', 'team' => 'No fixed seat cap*',
 		'woocommerce' => 'Included', 'workflows' => 'Included', 'competitors' => 'Not included',
-		'white_label' => 'Not included', 'priority_support' => 'Not included',
+		'white_label' => 'Not included', 'priority_support' => 'Not included', 'executive_insights' => 'Not included',
 	),
 	array(
 		'tier' => 3, 'price' => 149, 'sites' => '15', 'google_keywords' => '30', 'jolley_replies' => '800',
@@ -30,7 +30,7 @@ $bf_tiers = array(
 		'knowledge_bases' => '5', 'maps_profiles' => '1', 'ai_requests' => '600', 'reports' => 'Unlimited',
 		'active_schedules' => '50', 'scheduled_reports' => '50', 'team' => 'No fixed seat cap*',
 		'woocommerce' => 'Included', 'workflows' => 'Included', 'competitors' => 'Included',
-		'white_label' => 'Not included', 'priority_support' => 'Not included',
+		'white_label' => 'Not included', 'priority_support' => 'Not included', 'executive_insights' => 'Not included',
 	),
 	array(
 		'tier' => 4, 'price' => 269, 'sites' => '30', 'google_keywords' => '50', 'jolley_replies' => '1,200',
@@ -38,7 +38,7 @@ $bf_tiers = array(
 		'knowledge_bases' => '10', 'maps_profiles' => '2', 'ai_requests' => '1,500', 'reports' => 'Unlimited',
 		'active_schedules' => '100', 'scheduled_reports' => '100', 'team' => 'No fixed seat cap*',
 		'woocommerce' => 'Included', 'workflows' => 'Included', 'competitors' => 'Included',
-		'white_label' => 'Included', 'priority_support' => 'Included',
+		'white_label' => 'Included', 'priority_support' => 'Included', 'executive_insights' => 'Included',
 	),
 	array(
 		'tier' => 5, 'price' => 499, 'sites' => '50', 'google_keywords' => '100', 'jolley_replies' => '2,000',
@@ -46,7 +46,7 @@ $bf_tiers = array(
 		'knowledge_bases' => '20', 'maps_profiles' => '3', 'ai_requests' => '5,000', 'reports' => 'Unlimited',
 		'active_schedules' => 'Unlimited', 'scheduled_reports' => 'Unlimited', 'team' => 'No fixed seat cap*',
 		'woocommerce' => 'Included', 'workflows' => 'Included', 'competitors' => 'Included',
-		'white_label' => 'Included', 'priority_support' => 'Included',
+		'white_label' => 'Included', 'priority_support' => 'Included', 'executive_insights' => 'Included',
 	),
 );
 
@@ -70,6 +70,7 @@ $bf_comparison_rows = array(
 	'AI competitor insights' => 'competitors',
 	'White-label reports' => 'white_label',
 	'Priority support' => 'priority_support',
+  'Executive insights' => 'executive_insights',
 );
 $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 2, '.', ',' ) : number_format( $bf_tiers[0]['price'], 0, '.', ',' );
 ?>
@@ -78,15 +79,15 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
 <head>
 <meta charset="UTF-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-<title>Agent JOLLEY AI Business Manager | Insightistic Lifetime Deal</title>
-<meta name="description" content="Meet Agent JOLLEY in Insightistic Version 3: track AI visibility and Google rankings, monitor site health, review evidence, and compare five AppSumo lifetime tiers." />
+<title>Insightistic Lifetime Deal: Meet Agent JOLLEY</title>
+<meta name="description" content="Meet Agent JOLLEY in Insightistic Version 3: track AI visibility, Google and Maps rankings, and site health, then review evidence-based fixes. Compare five AppSumo lifetime tiers." />
 <meta name="robots" content="index, follow, max-image-preview:large, max-snippet:-1, max-video-preview:-1" />
 <link rel="canonical" href="https://www.insightistic.com/blackfriday/" />
 
 <!-- Open Graph -->
 <meta property="og:type" content="website" />
-<meta property="og:title" content="Agent JOLLEY AI Business Manager | Insightistic Lifetime Deal" />
-<meta property="og:description" content="Meet Agent JOLLEY in Insightistic Version 3: track AI visibility and Google rankings, monitor site health, review evidence, and compare five AppSumo lifetime tiers." />
+<meta property="og:title" content="Insightistic Lifetime Deal: Meet Agent JOLLEY" />
+<meta property="og:description" content="Meet Agent JOLLEY in Insightistic Version 3: track AI visibility, Google and Maps rankings, and site health, then review evidence-based fixes. Compare five AppSumo lifetime tiers." />
 <meta property="og:url" content="https://www.insightistic.com/blackfriday/" />
 <meta property="og:site_name" content="Insightistic" />
 <meta property="og:locale" content="en_US" />
@@ -99,8 +100,8 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
 <meta name="twitter:card" content="summary_large_image" />
 <meta name="twitter:image" content="https://www.insightistic.com/wp-content/uploads/2026/11/Insightistic_-Turn-Data-Into-Growth-1-1024x576.png" />
 <meta name="twitter:image:alt" content="Insightistic Version 3 analytics and Agent JOLLEY dashboard illustration" />
-<meta name="twitter:title" content="Agent JOLLEY AI Business Manager | Insightistic Lifetime Deal" />
-<meta name="twitter:description" content="Meet Agent JOLLEY in Insightistic Version 3: track AI visibility and Google rankings, monitor site health, review evidence, and compare five AppSumo lifetime tiers." />
+<meta name="twitter:title" content="Insightistic Lifetime Deal: Meet Agent JOLLEY" />
+<meta name="twitter:description" content="Meet Agent JOLLEY in Insightistic Version 3: track AI visibility, Google and Maps rankings, and site health, then review evidence-based fixes. Compare five AppSumo lifetime tiers." />
 
 <!-- Fonts -->
 <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fontsource/inter@5.0.0/index.css" />
@@ -114,10 +115,10 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
 {
   "@context": "https://schema.org",
   "@type": "WebPage",
-  "name": "Agent JOLLEY AI Business Manager | Insightistic Lifetime Deal",
+  "name": "Insightistic Lifetime Deal: Meet Agent JOLLEY",
   "url": "https://www.insightistic.com/blackfriday/",
   "dateModified": "2026-11-28",
-  "description": "Meet Agent JOLLEY in Insightistic Version 3: track AI visibility and Google rankings, monitor site health, review evidence, and compare five AppSumo lifetime tiers.",
+  "description": "Meet Agent JOLLEY in Insightistic Version 3: track AI visibility, Google and Maps rankings, and site health, then review evidence-based fixes. Compare five AppSumo lifetime tiers.",
   "about": {
     "@type": "SoftwareApplication",
     "name": "Insightistic",
@@ -436,7 +437,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
           <span class="red-text">Your AI business manager.</span>
         </h1>
         <p class="text-lg text-white/70 max-w-xl mb-7 leading-relaxed">
-          Insightistic Version 3 brings AI visibility, Google rankings, site health, and eligible WooCommerce data into one workspace. Agent JOLLEY briefs you on changes, points to evidence, and waits for your approval before supported actions run.
+          Insightistic Version 3 brings AI visibility, Google and Maps rankings, Site Audit, PageSpeed, uptime, SSL, and optional WordPress or WooCommerce data together. JOLLEY briefs you each morning, answers supported questions about Site Audit and PageSpeed results with evidence, and waits for your approval before a supported fix runs.
         </p>
         <div class="flex flex-wrap gap-3 mb-6">
           <a href="#pricing" class="btn-primary text-white font-semibold px-6 py-3.5 rounded-xl inline-flex items-center gap-2">
@@ -448,7 +449,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         </div>
         <p class="text-sm text-white/65 leading-relaxed">
           <?php if ( $bf_promo_active ) : ?>
-            AppSumo’s 10% promotion ends December 1, 2026 at 12:00 p.m. CT. The displayed sale prices apply the 10% discount to standard tier prices; taxes and account-specific eligibility are set by AppSumo.
+            AppSumo applies the 10% Black Friday discount automatically through December 1, 2026 at 12:00 p.m. CT. Plus members receive 19% off under the promotion. Cards show standard 10%-off prices before tax; checkout confirms the final total.
           <?php else : ?>
             Check AppSumo for current tier prices, promotions, taxes, and deal terms.
           <?php endif; ?>
@@ -471,7 +472,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
           <div class="space-y-3">
             <div class="rounded-xl border border-white/10 bg-black/30 p-4">
               <p class="text-xs uppercase tracking-wider text-white/50 mb-2">What changed</p>
-              <p class="text-white/85 text-sm">Review a movement in connected search, analytics, site health, or store data.</p>
+              <p class="text-white/85 text-sm">Review a change in SEO, AI visibility, site health, or connected analytics.</p>
             </div>
             <div class="rounded-xl border border-cyan-400/20 bg-cyan-400/10 p-4">
               <p class="text-xs uppercase tracking-wider text-cyan-300 mb-2">Evidence</p>
@@ -479,7 +480,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
             </div>
             <div class="rounded-xl border border-yellow-400/20 bg-yellow-400/5 p-4">
               <p class="text-xs uppercase tracking-wider text-yellow-300 mb-2">Your decision</p>
-              <p class="text-white/85 text-sm">Review a supported action. JOLLEY waits for your approval and records what was changed.</p>
+              <p class="text-white/85 text-sm">Review the proposed fix and its evidence. JOLLEY waits for approval, then records an activity receipt and audit entry.</p>
             </div>
           </div>
           <p class="mono text-[10px] text-white/40 mt-4">EXAMPLE ONLY · RESULTS DEPEND ON YOUR CONNECTED SOURCES</p>
@@ -494,28 +495,28 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
       <div class="text-center max-w-3xl mx-auto mb-12 reveal">
         <p class="text-sm uppercase tracking-widest text-yellow-400 mb-3">Version 3 · Agent JOLLEY</p>
         <h2 class="text-4xl md:text-5xl font-black mb-4">From business signals to <span class="gold-text">reviewable next steps</span></h2>
-        <p class="text-white/65 text-lg">JOLLEY helps you investigate what changed across the sources you connect. Answers point back to available evidence; supported actions stay under your control.</p>
+        <p class="text-white/65 text-lg">JOLLEY watches your connected SEO, AI visibility, analytics, and site-health signals, then delivers a morning brief. Ask about a completed Site Audit and mobile or desktop PageSpeed results, follow citations to the source, and approve supported fixes before anything changes.</p>
       </div>
       <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-5">
         <article class="card p-6">
           <p class="text-2xl mb-4" aria-hidden="true">☀️</p>
           <h3 class="text-lg font-bold mb-2">Start with a brief</h3>
-          <p class="text-white/60 text-sm leading-relaxed">Get a morning summary of changes and items that may need attention in connected data.</p>
+          <p class="text-white/60 text-sm leading-relaxed">Get a morning brief highlighting changes and the decision that may need your attention.</p>
         </article>
         <article class="card p-6">
           <p class="text-2xl mb-4" aria-hidden="true">🔎</p>
           <h3 class="text-lg font-bold mb-2">Follow the evidence</h3>
-          <p class="text-white/60 text-sm leading-relaxed">Ask about supported reports, open cited results, and check the measurement behind an answer.</p>
+          <p class="text-white/60 text-sm leading-relaxed">Ask about completed Site Audits and PageSpeed results, then open the cited measurements behind an answer.</p>
         </article>
         <article class="card p-6">
           <p class="text-2xl mb-4" aria-hidden="true">✅</p>
           <h3 class="text-lg font-bold mb-2">Approve supported actions</h3>
-          <p class="text-white/60 text-sm leading-relaxed">Review a proposed change before it runs. JOLLEY records an activity receipt after an approved action.</p>
+          <p class="text-white/60 text-sm leading-relaxed">Review the reason and expected effect before approving a supported fix. Applied changes include an activity receipt, an audit entry, and a one-click rollback.</p>
         </article>
         <article class="card p-6">
           <p class="text-2xl mb-4" aria-hidden="true">📚</p>
           <h3 class="text-lg font-bold mb-2">Add your references</h3>
-          <p class="text-white/60 text-sm leading-relaxed">Use workspace knowledge bases for your own notes and reference material; tier limits apply.</p>
+          <p class="text-white/60 text-sm leading-relaxed">Give JOLLEY business context through workspace knowledge bases. Version 3 can recall workspace decisions and preferences with citations; you can review or remove saved memory.</p>
         </article>
       </div>
       <div class="text-center mt-8">
@@ -535,17 +536,17 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
       <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
         <article class="card p-6">
           <h3 class="text-xl font-bold mb-2">AI answer visibility</h3>
-          <p class="text-white/60 text-sm leading-relaxed">Track selected prompts and review whether configured AI answers mention your brand or cite your domain. Runs are limited by tier.</p>
+          <p class="text-white/60 text-sm leading-relaxed">Track selected prompts and see whether configured AI answers mention your brand, cite your domain, or mention competitors instead. Competitor comparisons start on Tier 3; monthly runs vary by tier.</p>
           <a href="https://www.insightistic.com/ai-insights/" class="inline-block mt-4 text-yellow-300 underline underline-offset-4">See AI insights</a>
         </article>
         <article class="card p-6">
           <h3 class="text-xl font-bold mb-2">Google search rankings</h3>
-          <p class="text-white/60 text-sm leading-relaxed">Track the Google keyword slots included with your tier and review ranking changes alongside Search Console and Bing data.</p>
+          <p class="text-white/60 text-sm leading-relaxed">Track Google rankings to position 100 by country, language, device, or optional city. Keyword limits and check frequency vary by tier; compare results with Search Console and Bing data.</p>
           <a href="https://www.insightistic.com/seo-analytics/" class="inline-block mt-4 text-yellow-300 underline underline-offset-4">Explore SEO analytics</a>
         </article>
         <article class="card p-6">
           <h3 class="text-xl font-bold mb-2">Site Audit</h3>
-          <p class="text-white/60 text-sm leading-relaxed">Review broken links, redirects, and on-page findings by priority. Monthly crawl allowances and per-crawl caps apply.</p>
+          <p class="text-white/60 text-sm leading-relaxed">Review broken links, redirects, and on-page findings ranked by priority. Monthly crawl allowances apply, with a maximum of 5,000 URLs per run.</p>
           <a href="https://www.insightistic.com/knowledgebase/" class="inline-block mt-4 text-yellow-300 underline underline-offset-4">Read setup guides</a>
         </article>
         <article class="card p-6">
@@ -561,7 +562,17 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         <article class="card p-6">
           <h3 class="text-xl font-bold mb-2">Reports and workflows</h3>
           <p class="text-white/60 text-sm leading-relaxed">Schedule reports and download PDF or HTML versions. Custom workflows start on Tier 2; report and schedule limits vary by tier.</p>
-          <a href="https://www.insightistic.com/reports/" class="inline-block mt-4 text-yellow-300 underline underline-offset-4">See reporting</a>
+          <a href="https://www.insightistic.com/ai-insights/" class="inline-block mt-4 text-yellow-300 underline underline-offset-4">See reporting</a>
+        </article>
+        <article class="card p-6">
+          <h3 class="text-xl font-bold mb-2">Workspace memory and knowledge</h3>
+          <p class="text-white/60 text-sm leading-relaxed">Add reference material to knowledge bases and let JOLLEY use workspace context with citations. You can review saved memory and remove it.</p>
+          <a href="https://www.insightistic.com/ai-insights/" class="inline-block mt-4 text-yellow-300 underline underline-offset-4">Explore AI insights</a>
+        </article>
+        <article class="card p-6">
+          <h3 class="text-xl font-bold mb-2">Scoped MCP connection</h3>
+          <p class="text-white/60 text-sm leading-relaxed">Connect an MCP client with a site-bound, revocable token. Scoped tools and an audit trail keep access under your control.</p>
+          <a href="https://www.insightistic.com/features/" class="inline-block mt-4 text-yellow-300 underline underline-offset-4">Explore product features</a>
         </article>
       </div>
       <div class="card card-glow p-6 md:p-8 mt-8">
@@ -586,7 +597,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         <h2 class="text-4xl md:text-5xl font-black mb-4">Five tiers. <span class="gold-text">One-time payment.</span></h2>
         <p class="text-white/65 text-lg">Choose a tier by licensed sites and monthly allowances. The purchase does not renew; usage allowances reset each month.</p>
         <?php if ( $bf_promo_active ) : ?>
-          <p class="mt-4 text-yellow-300 font-semibold">10% off through December 1, 2026 at 12:00 p.m. CT.</p>
+          <p class="mt-4 text-yellow-300 font-semibold">10% off automatically through December 1, 2026 at 12:00 p.m. CT. AppSumo Plus members receive 19% off.</p>
         <?php endif; ?>
       </div>
 
@@ -606,7 +617,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
             <?php if ( $bf_promo_active ) : ?>
               <p class="text-xs text-white/55 mb-4"><del>$<?php echo esc_html( number_format( $bf_tier['price'], 0, '.', ',' ) ); ?></del> standard price · 10% off</p>
             <?php else : ?>
-              <p class="text-xs text-white/55 mb-4">Standard AppSumo price, before taxes or any eligible account-specific discount.</p>
+              <p class="text-xs text-white/55 mb-4">Standard AppSumo price before tax. Plus members receive the published 19% promotion discount; checkout confirms the final total.</p>
             <?php endif; ?>
             <ul class="space-y-2 text-sm text-white/75 mb-6 flex-1">
               <li>✓ <?php echo esc_html( $bf_tier['jolley_replies'] ); ?> Agent JOLLEY replies/month</li>
@@ -651,14 +662,14 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
       <div class="grid md:grid-cols-2 gap-5 mt-6">
         <div class="card p-5">
           <h3 class="font-bold mb-2">Shared across all tiers</h3>
-          <p class="text-white/60 text-sm">AI citation tracking, Site Audit, PageSpeed Insights, uptime and SSL monitoring, Google/Bing/GA4 data, and Cloudflare analytics.</p>
+          <p class="text-white/60 text-sm">AI visibility prompt tracking, Site Audit, PageSpeed Insights, uptime and SSL monitoring, Google and Bing data, GA4, and Cloudflare analytics. Monthly allowances vary by tier.</p>
         </div>
         <div class="card p-5">
           <h3 class="font-bold mb-2">Team seat details</h3>
-          <p class="text-white/60 text-sm">Tier 1 supports five teammates plus the workspace owner. Tiers 2–5 have no fixed team seat cap. Each successfully added teammate uses 50 Insight Credits once.</p>
+          <p class="text-white/60 text-sm">Tier 1 supports five teammates plus the workspace owner. Tiers 2–5 have no fixed seat cap. Each added teammate uses 50 Insight Credits once.</p>
         </div>
       </div>
-      <p class="text-center text-xs text-white/50 mt-6">WooCommerce analytics starts on Tier 2. Tiers 3–5 add AI competitor insights; Tiers 4–5 add white-label reports and priority support. The full comparison and current terms are on AppSumo.</p>
+      <p class="text-center text-xs text-white/50 mt-6">WooCommerce analytics starts on Tier 2. Tiers 3–5 add AI competitor insights; Tiers 4–5 add white-label reports, priority support, and Executive insights. The full comparison and current terms are on AppSumo.</p>
     </div>
   </section>
 
@@ -676,7 +687,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
           <a href="https://www.insightistic.com/woocommerce-analytics/">WooCommerce analytics</a>
           <a href="https://www.insightistic.com/integrations/">Integrations</a>
           <a href="https://www.insightistic.com/knowledgebase/">Knowledge base</a>
-          <a href="https://www.insightistic.com/product-tour/">Product tour</a>
+          <a href="https://www.insightistic.com/features/">Product tour</a>
         </div>
       </div>
     </div>
@@ -707,8 +718,16 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
           <p class="text-white/70 text-sm mt-3 leading-relaxed">No. Supported analytics connections, AI visibility, rankings, Site Audit, PageSpeed, uptime, and SSL work for websites without WordPress. WordPress and WooCommerce data use the optional free connector; WooCommerce analytics is included on Tiers 2–5.</p>
         </details>
         <details class="card p-5">
+          <summary class="flex justify-between items-center gap-4 font-bold cursor-pointer"><span>How often are Google rankings checked?</span><span class="text-white/50" aria-hidden="true">⌄</span></summary>
+          <p class="text-white/70 text-sm mt-3 leading-relaxed">Every tier tracks Google rankings to position 100. Each keyword gets a full top-100 check about every four weeks, with page-one checks between full checks: every two weeks on Tiers 1–2 and weekly on Tiers 3–5. Rank checks are included and do not use Insight Credits.</p>
+        </details>
+        <details class="card p-5">
+          <summary class="flex justify-between items-center gap-4 font-bold cursor-pointer"><span>How are Site Audit crawl pages counted?</span><span class="text-white/50" aria-hidden="true">⌄</span></summary>
+          <p class="text-white/70 text-sm mt-3 leading-relaxed">The monthly allowance counts URLs processed by the crawler. Each run is capped at 5,000 URLs, and you can set a lower cap for a project.</p>
+        </details>
+        <details class="card p-5">
           <summary class="flex justify-between items-center gap-4 font-bold cursor-pointer"><span>How many teammates can I add?</span><span class="text-white/50" aria-hidden="true">⌄</span></summary>
-          <p class="text-white/70 text-sm mt-3 leading-relaxed">Tier 1 supports five teammates plus the workspace owner. Tiers 2–5 have no fixed team seat cap. Each successfully added teammate uses 50 Insight Credits once.</p>
+          <p class="text-white/70 text-sm mt-3 leading-relaxed">Tier 1 supports five teammates plus the workspace owner. Tiers 2–5 have no fixed seat cap. Each added teammate uses 50 Insight Credits once.</p>
         </details>
         <details class="card p-5">
           <summary class="flex justify-between items-center gap-4 font-bold cursor-pointer"><span>How are JOLLEY replies and Insight Credits counted?</span><span class="text-white/50" aria-hidden="true">⌄</span></summary>
@@ -730,7 +749,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
     <div class="max-w-4xl mx-auto px-4 text-center">
       <p class="text-sm uppercase tracking-widest text-yellow-400 mb-3">Insightistic Version 3</p>
       <h2 class="text-4xl md:text-5xl font-black mb-5">Let JOLLEY help you see <span class="gold-text">what changed.</span></h2>
-      <p class="text-white/65 text-lg mb-7">Compare the tier limits, connect the sources you need, and review each answer against its evidence.</p>
+      <p class="text-white/65 text-lg mb-7">Compare the tier limits, connect your sources, and review JOLLEY’s cited evidence before approving a supported fix.</p>
       <a href="<?php echo esc_url( $bf_appsumo_url ); ?>" rel="sponsored noopener" target="_top" class="btn-gold text-black font-bold px-8 py-4 rounded-xl inline-flex items-center gap-2">
         <?php if ( $bf_promo_active ) : ?>
           Get 10% off on AppSumo · from $<?php echo esc_html( $bf_from_price ); ?>
@@ -754,7 +773,7 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
           </svg>
           Insightistic
         </a>
-        <p class="text-white/50 text-sm max-w-sm">Insightistic is built by <a class="underline hover:text-white" href="https://www.insightistic.com/about/">WordPressistic LLC</a>. See the <a class="underline hover:text-white" href="https://www.insightistic.com/product-tour/">product tour</a> and the <a class="underline hover:text-white" href="https://wordpress.org/plugins/insightistic/">WordPress connector listing</a>.</p>
+        <p class="text-white/50 text-sm max-w-sm">Insightistic is built by <a class="underline hover:text-white" href="https://www.insightistic.com/about/">WordPressistic LLC</a>. See the <a class="underline hover:text-white" href="https://www.insightistic.com/features/">features</a> and the <a class="underline hover:text-white" href="https://wordpress.org/plugins/insightistic/">WordPress connector listing</a>.</p>
         <div class="flex gap-3 mt-4">
           <a href="https://x.com/wordpressistic" aria-label="WordPressistic on X" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition">𝕏</a>
           <a href="https://www.linkedin.com/company/wordpressistic/" aria-label="WordPressistic on LinkedIn" class="w-9 h-9 rounded-lg bg-white/5 hover:bg-white/10 flex items-center justify-center transition">in</a>
@@ -778,8 +797,8 @@ $bf_from_price = $bf_promo_active ? number_format( $bf_tiers[0]['price'] * 0.9, 
         <ul class="space-y-2 text-sm text-white/60">
           <li><a href="https://www.insightistic.com/blog/" class="hover:text-white">Blog</a></li>
           <li><a href="https://www.insightistic.com/knowledgebase/" class="hover:text-white">Knowledge base</a></li>
-          <li><a href="https://www.insightistic.com/product-tour/" class="hover:text-white">Product tour</a></li>
-          <li><a href="https://www.insightistic.com/reports/" class="hover:text-white">Reports</a></li>
+          <li><a href="https://www.insightistic.com/features/" class="hover:text-white">Product tour</a></li>
+          <li><a href="https://www.insightistic.com/ai-insights/" class="hover:text-white">Reports</a></li>
           <li><a href="https://www.insightistic.com/contact/" class="hover:text-white">Contact support</a></li>
         </ul>
       </div>
